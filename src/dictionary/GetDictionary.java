@@ -6,13 +6,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GetDictionary {
 
-/*    public static void main(String[] args){
+/*    public static void tochase(String[] args){
 
         System.out.println("请输入要查询的单词：");
         String word = new Scanner(System.in).next();
@@ -27,8 +26,9 @@ public class GetDictionary {
 
     /**
      * 发起http get请求获取网页源代码
-     * @param requestUrl     String    请求地址
-     * @return               String    该地址返回的html字符串
+     *
+     * @param requestUrl String    请求地址
+     * @return String    该地址返回的html字符串
      */
     private static String httpRequest(String requestUrl) {
         StringBuffer buffer = null;
@@ -58,30 +58,30 @@ public class GetDictionary {
 
         } catch (Exception e) {
             e.printStackTrace();
-        }  finally {
+        } finally {
             // 释放资源
-            if(bufferedReader != null) {
+            if (bufferedReader != null) {
                 try {
                     bufferedReader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if(inputStreamReader != null){
+            if (inputStreamReader != null) {
                 try {
                     inputStreamReader.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if(inputStream != null){
+            if (inputStream != null) {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if(httpUrlConn != null){
+            if (httpUrlConn != null) {
                 httpUrlConn.disconnect();
             }
         }
@@ -90,8 +90,9 @@ public class GetDictionary {
 
     /**
      * 过滤掉html字符串中无用的信息
-     * @param html    String    html字符串
-     * @return         String    有用的数据
+     *
+     * @param html String    html字符串
+     * @return String    有用的数据
      */
     private static String GetResult(String html) {
 
@@ -111,10 +112,10 @@ public class GetDictionary {
 
             /**
              * 匹配发音，注：发音被含在<div class="base-speak"><span> 和</i></span></div> 中
-              */
+             */
             p = Pattern.compile("(.*)(<div class=\"base-speak\">)(.*?)(<div class=\"base-word\" >)(.*)");
             m = p.matcher(str1);
-            if(m.matches()){
+            if (m.matches()) {
                 str2 = m.group(3);
 
                 //英式
@@ -126,7 +127,7 @@ public class GetDictionary {
                     //英式音标
                     p = Pattern.compile("(.*)(<span>英)(.*?)(</span>)(.*)");
                     m = p.matcher(str3);
-                    if (m.matches()){
+                    if (m.matches()) {
                         str4 = m.group(3);
                         buffer.append("英");
                         buffer.append(str4);
@@ -150,7 +151,7 @@ public class GetDictionary {
                     //美式音标
                     p = Pattern.compile("(.*)(<span>美)(.*?)(</span>)(.*)");
                     m = p.matcher(str3);
-                    if (m.matches()){
+                    if (m.matches()) {
                         str4 = m.group(3);
                         buffer.append("  美");
                         buffer.append(str4);
@@ -172,20 +173,20 @@ public class GetDictionary {
              */
             p = Pattern.compile("(.*)(<ul class=\"base-list switch_part\" class=\"\">)(.*?)(</ul>)(.*)");
             m = p.matcher(str1);
-            if (m.matches()){
+            if (m.matches()) {
                 str2 = m.group(3);
 
                 //vt
                 p = Pattern.compile("(.*)(<span class=\"prop\">vt.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("vt. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 
@@ -195,14 +196,14 @@ public class GetDictionary {
                 //vi
                 p = Pattern.compile("(.*)(<span class=\"prop\">vi.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("vi. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 
@@ -212,14 +213,14 @@ public class GetDictionary {
                 //n
                 p = Pattern.compile("(.*)(<span class=\"prop\">n.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("n. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 
@@ -229,14 +230,14 @@ public class GetDictionary {
                 //adj
                 p = Pattern.compile("(.*)(<span class=\"prop\">adj.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("adj. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 
@@ -246,14 +247,14 @@ public class GetDictionary {
                 //adv
                 p = Pattern.compile("(.*)(<span class=\"prop\">adv.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("adv. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 
@@ -263,14 +264,14 @@ public class GetDictionary {
                 //art
                 p = Pattern.compile("(.*)(<span class=\"prop\">art.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("art. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 
@@ -280,14 +281,14 @@ public class GetDictionary {
                 //prep
                 p = Pattern.compile("(.*)(<span class=\"prop\">prep.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("prep. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 
@@ -297,14 +298,14 @@ public class GetDictionary {
                 //释义
                 p = Pattern.compile("(.*)(<span class=\"prop\">释义</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);
-                if (m.matches()){
+                if (m.matches()) {
                     str3 = m.group(3);
                     buffer.append("释义. ");
 
                     //细节
                     p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
                     m = p.matcher(str3);
-                    while (m.find()){
+                    while (m.find()) {
                         buffer.append(m.group(3));
                     }
 

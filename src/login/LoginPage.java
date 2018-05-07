@@ -1,8 +1,6 @@
-package Login;
+package login;
 
 import Constant.Constant;
-import Reader.MainPage;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -93,7 +91,7 @@ public class LoginPage extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 jf.dispose();
-                new MainPage();
+               // new MainPageee();
             }
         });
         // 设置JFrame的一些属性
@@ -128,7 +126,7 @@ public class LoginPage extends JFrame {
             int op = JOptionPane.showConfirmDialog(jf, "注册成功!\n点击确定进入", "提示", JOptionPane.CLOSED_OPTION);
             if (op == JOptionPane.YES_OPTION) {
                 jf.dispose();
-                new MainPage();
+               // new MainPageee();
             }
         } else if (sb.toString().equals(Constant.FLAG_YES)) {
             JOptionPane.showMessageDialog(jf, "该账号已存在!", "错误提示", JOptionPane.WARNING_MESSAGE);
@@ -198,7 +196,7 @@ public class LoginPage extends JFrame {
         if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
             //销毁登录页面，进入主页面
             jf.dispose();
-            new MainPage();
+          //  new MainPageee();
         } else {
             JOptionPane.showMessageDialog(jf, "账号或密码错误!", "错误提示", JOptionPane.WARNING_MESSAGE);
         }

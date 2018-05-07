@@ -1,4 +1,4 @@
-package login;
+package Login;
 
 import Constant.Constant;
 import javax.swing.*;

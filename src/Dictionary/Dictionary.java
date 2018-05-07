@@ -1,4 +1,4 @@
-package dictionary;
+package Dictionary;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class Dictionary {
 
-/*    public static void reader(String[] args){
+/*    public static void Reader(String[] args){
 
         System.out.println("请输入要查询的单词：");
         String word = new Scanner(System.in).next();

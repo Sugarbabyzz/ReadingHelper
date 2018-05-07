@@ -1,4 +1,4 @@
-package reader;
+package Reader;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +17,7 @@ public class TranslateResult extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("layout/translate_result.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/translate_result.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();

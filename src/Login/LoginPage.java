@@ -1,6 +1,6 @@
-package login;
+package Login;
 
-import constant.Constant;
+import Constant.Constant;
 import Reader.MainPage;
 
 import javax.swing.*;

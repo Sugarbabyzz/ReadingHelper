@@ -1,8 +1,6 @@
 package Reader;
 
-
-import com.oracle.tools.packager.Log;
-import dictionary.Dictionary;
+import Dictionary.Dictionary;
 
 import javax.swing.*;
 import java.awt.*;

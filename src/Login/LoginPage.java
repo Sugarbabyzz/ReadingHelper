@@ -24,8 +24,6 @@ public class LoginPage extends JFrame {
     private JButton btnLogin, btnRegister, btnOfflineUse, btnFinishRegister;
 
     public LoginPage() {
-
-        setStyle();
         initView();
     }
 
@@ -202,24 +200,5 @@ public class LoginPage extends JFrame {
         } else {
             JOptionPane.showMessageDialog(jf, "账号或密码错误!", "错误提示", JOptionPane.WARNING_MESSAGE);
         }
-    }
-
-    private void setStyle() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (UnsupportedLookAndFeelException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
     }
 }

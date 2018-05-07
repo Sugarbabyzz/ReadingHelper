@@ -1,10 +1,15 @@
-package tochase;
+package Reader;
 
+
+import com.oracle.tools.packager.Log;
+import dictionary.Dictionary;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,9 +28,46 @@ public class MainPage extends JFrame {
     String str_filePath = null;
 
     public MainPage() {
-        //输入框  
+        //设置成经典样式
+        setStyle();
+
+        //输入框
         content = new JTextArea(10, 50);
         content.setAutoscrolls(true);
+        content.setLineWrap(true);
+        content.setWrapStyleWord(true);
+        content.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int count = e.getClickCount();
+                if (count == 2){
+                    String srcWord = content.getSelectedText();
+                    String result = search(srcWord);
+                    System.out.println(result);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         JScrollPane contentScroll = new JScrollPane(content);
         content.setBorder(BorderFactory.createBevelBorder(1));
         JPanel upper = new JPanel(new BorderLayout());
@@ -73,8 +115,16 @@ public class MainPage extends JFrame {
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public static void main(String args[]) {
+    private String search(String srcWord) {
+        //调用httpRequest方法，获取html字符串
+        String html = Dictionary.httpRequest("http://www.iciba.com/" + srcWord);
+        //利用正则表达式，抓取单词翻译信息
+        String result = Dictionary.GetResult(html);
 
+        return result;
+    }
+
+    private void setStyle() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
@@ -91,7 +141,6 @@ public class MainPage extends JFrame {
             e.printStackTrace();
         }
 
-        new MainPage();
     }
 
 }  

@@ -1,7 +1,7 @@
 package login;
 
 import constant.Constant;
-import tochase.MainPage;
+import Reader.MainPage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,8 +24,9 @@ public class LoginPage extends JFrame {
     private JButton btnLogin, btnRegister, btnOfflineUse, btnFinishRegister;
 
     public LoginPage() {
-        initView();
 
+        setStyle();
+        initView();
     }
 
     public static void main(String[] args) {
@@ -87,7 +88,14 @@ public class LoginPage extends JFrame {
 
             }
         });
-
+        //离线使用按钮的监听
+        btnOfflineUse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jf.dispose();
+                new MainPage();
+            }
+        });
         // 设置JFrame的一些属性
         jf.setDefaultCloseOperation(EXIT_ON_CLOSE);
         jf.pack();
@@ -194,5 +202,24 @@ public class LoginPage extends JFrame {
         } else {
             JOptionPane.showMessageDialog(jf, "账号或密码错误!", "错误提示", JOptionPane.WARNING_MESSAGE);
         }
+    }
+
+    private void setStyle() {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (UnsupportedLookAndFeelException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
     }
 }

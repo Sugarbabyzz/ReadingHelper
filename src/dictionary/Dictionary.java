@@ -9,9 +9,9 @@ import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GetDictionary {
+public class Dictionary {
 
-/*    public static void tochase(String[] args){
+/*    public static void Reader(String[] args){
 
         System.out.println("请输入要查询的单词：");
         String word = new Scanner(System.in).next();
@@ -30,7 +30,7 @@ public class GetDictionary {
      * @param requestUrl String    请求地址
      * @return String    该地址返回的html字符串
      */
-    private static String httpRequest(String requestUrl) {
+    public static String httpRequest(String requestUrl) {
         StringBuffer buffer = null;
         BufferedReader bufferedReader = null;
         InputStreamReader inputStreamReader = null;
@@ -94,7 +94,7 @@ public class GetDictionary {
      * @param html String    html字符串
      * @return String    有用的数据
      */
-    private static String GetResult(String html) {
+    public static String GetResult(String html) {
 
         StringBuffer buffer = new StringBuffer();
         String str1 = "";

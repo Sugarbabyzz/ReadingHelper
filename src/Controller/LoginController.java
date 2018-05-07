@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -34,16 +33,16 @@ public class LoginController {
 
     /**
      * 登录按钮
-     *
      * @param actionEvent
      */
     @FXML
-    public void signIn(ActionEvent actionEvent) throws Exception {
+    public void signIn(ActionEvent actionEvent){
 
         if (tfAccount.getText().isEmpty() || pfPassword.getText().isEmpty()) {
-            new Alert(Alert.AlertType.ERROR, "账号或密码不能为空!").show();
+            Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码不能为空！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         } else {
-            //线程处理登录操作
             /*
              *  线程处理登录操作
              *  坑！！！
@@ -56,6 +55,7 @@ public class LoginController {
             new Thread(()->{
                 Platform.runLater(() -> {
                     try {
+                        //调用登录模块
                         login();
                     }catch (Exception e){
                         e.printStackTrace();
@@ -64,7 +64,6 @@ public class LoginController {
             }).start();
         }
     }
-
 
     /**
      * 注册按钮
@@ -78,7 +77,7 @@ public class LoginController {
         Register nextWindow = new Register();
         nextWindow.showWindow();
         //销毁当前窗口
-        Stage stage = (Stage) btnSignIn.getScene().getWindow();
+        Stage stage = (Stage) btnSignUp.getScene().getWindow();
         stage.close();
 
     }
@@ -101,37 +100,53 @@ public class LoginController {
     }
 
 
-    private void login() throws Exception {
+    /**
+     * 登录模块
+     */
+    private void login() {
 
-        // 获取账号和密码
-        String account = tfAccount.getText();
-        String password = pfPassword.getText();
+        try {
+            // 获取账号和密码
+            String account = tfAccount.getText();
+            String password = pfPassword.getText();
 
-        URL url = new URL(Constant.URL_Login + "account=" + account + "&" + "password=" + password);
-        // 接收servlet返回值，是字节
-        InputStream is = url.openStream();
+            URL url = new URL(Constant.URL_Login + "account=" + account + "&" + "password=" + password);
+            // 接收servlet返回值，是字节
+            InputStream is = url.openStream();
 
-        // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuffer sb = new StringBuffer();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
+            // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuffer sb = new StringBuffer();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
 
-        if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
+            if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
-            //启动在线状态主页面
-            MainPage mainWindow = new MainPage();
-            mainWindow.showWindow();
+                //启动在线状态主页面
+                MainPage mainWindow = new MainPage();
+                mainWindow.showWindow();
 
-            //销毁当前窗口
-            Stage stage = (Stage) btnSignIn.getScene().getWindow();
-            stage.close();
+                //销毁当前窗口
+                Stage stage = (Stage) btnSignIn.getScene().getWindow();
+                stage.close();
 
-            System.out.println("登录成功！");
-        } else {
-            new Alert(Alert.AlertType.ERROR, "账号或密码错误！").show();
+                System.out.println("登录成功！");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码错误！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+
+                System.out.println("账号密码错误！");
+            }
+        }catch (Exception e){
+            //网络不通的情况
+            Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+
+            e.printStackTrace();
         }
     }
 }

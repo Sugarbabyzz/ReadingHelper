@@ -1,16 +1,10 @@
 package Login;
 
-import Controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import java.io.InputStream;
 
 public class Login extends Application {
 

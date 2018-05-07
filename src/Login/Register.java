@@ -19,8 +19,8 @@ public class Register extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../Layout/register_layout.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setTitle("注册账号");
+        primaryStage.setScene(new Scene(root, 350, 300));
         primaryStage.show();
 
 

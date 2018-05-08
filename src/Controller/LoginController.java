@@ -52,6 +52,7 @@ public class LoginController {
              *  解决：Platform.runLater
              *  JavaFX提供的一个工具方法，可以把修改界面的工作放到一个队列中，等到Application Thread空闲的时候，它就会自动执行队列中修改界面的工作了
              */
+
             new Thread(()->{
                 Platform.runLater(() -> {
                     try {

@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TranslateResultController">
    <children>
-      <HBox prefHeight="93.0" prefWidth="600.0" />
+      <Text fx:id="source_word" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="108.30029296875">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Text>
+      <Button layoutX="371.0" layoutY="-1.0" mnemonicParsing="false"  prefHeight="56.0" prefWidth="129.0" text="加入生词本">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
    </children>
-</VBox>
+</AnchorPane>

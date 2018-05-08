@@ -1,60 +1,59 @@
 package Controller;
 
 import Dictionary.Dictionary;
+import Reader.TranslateResult;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class MainPageController {
 
-    boolean flag = true;
-    String srcWord;
-    String result;
-@FXML
+    private boolean flag = true;
+    private String srcWord;
+    private String result;
+    private String EnglishAccentUrl;
+    private String AmericanAccentUrl;
+    @FXML
     TextArea textArea;
+
     public void openFile() throws IOException {
         FileChooser fileChooser = new FileChooser();
         File filePath = fileChooser.showOpenDialog(new Stage());
         if (filePath != null){
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
             textArea.setWrapText(true);
-            textArea.setOnMouseClicked(event -> {
-                // 双击获取选中的单词
-                if (event.getClickCount() == 2){
+            textArea.setOnMouseClicked(new EventHandler<javafx.scene.input.MouseEvent>() {
+                @Override
+                public void handle(javafx.scene.input.MouseEvent event) {
+                    if (event.getClickCount() == 2){
 
-                    srcWord = textArea.getSelectedText().trim();
-                    //翻译
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            result = search(srcWord);
+                        srcWord = textArea.getSelectedText().trim();
+                        System.out.println(srcWord);
+                        //翻译
+                        new Thread(()->{
+                            Platform.runLater(()->{
+                                result = search(srcWord);
+                            });
+                        }).start();
+                        System.out.println(result);
+                        EnglishAccentUrl = Dictionary.EnglishAccentUrl;
+                        AmericanAccentUrl = Dictionary.AmericanAccentUrl;
+
+                        try {
+                            new TranslateResult().showWindow(event.getScreenX(),event.getScreenY());
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    }).start();
-                    System.out.print(result);
-                    try {
-                        Parent anotherRoot = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/translate_result.fxml"));
-                        Stage anotherStage = new Stage();
-                        anotherStage.initStyle(StageStyle.TRANSPARENT);
-                        anotherStage.setX(event.getScreenX());
-                        anotherStage.setY(event.getScreenY());
-                        anotherStage.setTitle("Another");
-                        anotherStage.setScene(new Scene(anotherRoot,100,100));
-                        anotherStage.show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
                     }
-                }
-            });
+                }});
+
+
             //一行一行读取至BufferReader并输出到textArea
             String str_line;
             while ((str_line = bufferedReader.readLine()) != null) {
@@ -68,14 +67,20 @@ public class MainPageController {
         }
     }
 
-    private void newTranslateResult() throws IOException {
-
-    }
-
+    /**
+     * 访问网络获取翻译结果
+     * @param srcWord 待翻译的单词
+     * @return 返回翻译结果
+     */
     private String search(String srcWord) {
         //调用httpRequest方法，获取html字符串
         String html = Dictionary.httpRequest("http://www.iciba.com/" + srcWord);
         //利用正则表达式，抓取单词翻译信息
-        return Dictionary.GetResult(html);
+        String result = Dictionary.GetResult(html);
+
+        return result;
     }
+
+
+
 }

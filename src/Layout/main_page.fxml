@@ -7,29 +7,31 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainPageController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Controller.MainPageController">
 
-   <children>
-      <MenuBar VBox.vgrow="ALWAYS">
-         <menus>
-            <Menu mnemonicParsing="false" text="文件">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开" />
-                  <MenuItem mnemonicParsing="false" text="保存" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="个人">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="生词本" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="帮助">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="关于" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <TextArea fx:id="textArea" editable="false"  prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-   </children>
+    <children>
+        <MenuBar VBox.vgrow="ALWAYS">
+            <menus>
+                <Menu mnemonicParsing="false" text="文件">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开"/>
+                        <MenuItem mnemonicParsing="false" text="保存"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="个人">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="生词本"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="帮助">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="关于"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <TextArea fx:id="textArea" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+    </children>
 </VBox>

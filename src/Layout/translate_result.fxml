@@ -10,47 +10,60 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9.0.4">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="482.0" minWidth="10.0" prefWidth="477.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="123.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="240.0" vgrow="SOMETIMES" />
-    <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Text fx:id="tSrcWord"
-            strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="243.21875">
-         <font>
-            <Font size="73.0" />
-         </font>
-      </Text>
-      <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
-         <children>
-            <Button fx:id="btnAddWord"
-                    mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="加入生词本">
-               <FlowPane.margin>
-                  <Insets left="25.0" />
-               </FlowPane.margin>
-            </Button>
-            <Button fx:id="btnEdit"
-                    mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="编辑">
-               <FlowPane.margin>
-                  <Insets left="25.0" right="25.0" />
-               </FlowPane.margin>
-            </Button>
-            <Button fx:id="btnReplace"
-                    mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="替换" />
-         </children>
-      </FlowPane>
-      <Button fx:id="btnQuit"
-              mnemonicParsing="false" text="X" textAlignment="CENTER" GridPane.columnIndex="1">
-         <GridPane.margin>
-            <Insets bottom="80.0" left="270.0" />
-         </GridPane.margin>
-      </Button>
-      <TextArea fx:id="taTrans" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
-   </children>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+          prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="572.0" minWidth="10.0" prefWidth="558.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="296.0" minWidth="10.0" prefWidth="42.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints/>
+        <RowConstraints maxHeight="142.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="240.0" minHeight="10.0" prefHeight="220.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="74.0" minHeight="10.0" prefHeight="71.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <Text fx:id="tSrcWord" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="522.21875"
+              GridPane.rowIndex="1">
+            <font>
+                <Font size="73.0"/>
+            </font>
+        </Text>
+
+        <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+            <children>
+                <TextArea fx:id="taTransResult"
+                          prefHeight="162.0" prefWidth="451.0"/>
+            </children>
+        </FlowPane>
+
+        <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+            <children>
+                <Button fx:id="btnAddWord" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="加入生词本">
+                    <FlowPane.margin>
+                        <Insets left="25.0" top="20.0"/>
+                    </FlowPane.margin>
+                </Button>
+                <Button fx:id="btnEdit" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="编辑">
+                    <FlowPane.margin>
+                        <Insets left="25.0" right="25.0" top="20.0"/>
+                    </FlowPane.margin>
+                </Button>
+                <Button fx:id="btnReplace" mnemonicParsing="false" prefHeight="40.0" prefWidth="80.0" text="替换">
+                    <FlowPane.margin>
+                        <Insets top="20.0"/>
+                    </FlowPane.margin>
+                </Button>
+            </children>
+        </FlowPane>
+
+        <Button fx:id="btnQuit" mnemonicParsing="false" prefHeight="41.0" prefWidth="42.0" text="X"
+                textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets bottom="5.0"/>
+            </GridPane.margin>
+        </Button>
+
+
+    </children>
 </GridPane>

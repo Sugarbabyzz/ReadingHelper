@@ -92,7 +92,7 @@ public class Dictionary {
         String str2 = "";
         String str3 = "";
         String str4 = "";
-        buffer.append("翻译结果: \t\n");
+        //buffer.append("翻译结果: \t\n");
 
         // 取出有用的范围
         Pattern p = Pattern.compile("(.*)(<div class=\"in-base\">)(.*?)(进入生词本)(.*)");

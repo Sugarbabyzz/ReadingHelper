@@ -51,6 +51,7 @@ public class MainPageController {
                     }
                 }});
 
+            textArea.setEditable(false);
 
             //一行一行读取至BufferReader并输出到textArea
             String str_line;

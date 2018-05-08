@@ -2,59 +2,62 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" prefHeight="269.0" prefWidth="337.0" vgap="10"
-          xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
+          prefWidth="400.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"
           fx:controller="Controller.RegisterController">
-
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="32.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="87.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="115.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="87.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="30.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
     <padding>
         <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
     </padding>
-
-    <Text text="Welcome" wrappingWidth="62.9765625" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
-
-    <Label text="Account:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-
-    <TextField fx:id="tfAccount" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-
-    <PasswordField fx:id="pfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-    <PasswordField fx:id="pfRePassword" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
-
-    <FlowPane GridPane.columnIndex="0" GridPane.columnSpan="4" GridPane.rowIndex="4"/>
-
-    <Text fx:id="hint" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="9"/>
-    <Button fx:id="btnBack" onAction="#back" prefHeight="30.0" prefWidth="80.0" text="返回" GridPane.rowIndex="8"/>
-    <Button fx:id="btnSignUp" onAction="#signUp" prefHeight="30.0" prefWidth="80.0" text="完成注册" GridPane.columnIndex="1"
-            GridPane.rowIndex="8"/>
-    <Label text="RePassword:" GridPane.rowIndex="5"/>
-    <columnConstraints>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
-        <ColumnConstraints/>
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints maxHeight="27.0" minHeight="27.0" prefHeight="27.0"/>
-        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0"/>
-        <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0"/>
-        <RowConstraints maxHeight="27.0" minHeight="27.0" prefHeight="27.0"/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-        <RowConstraints/>
-    </rowConstraints>
-
+    <children>
+        <Button fx:id="btnSignUp"
+                mnemonicParsing="false" onAction="#signUp" prefHeight="40.0" prefWidth="80.0" text="完成注册"
+                textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <GridPane.margin>
+                <Insets left="15.0"/>
+            </GridPane.margin>
+        </Button>
+        <Button fx:id="btnBack"
+                mnemonicParsing="false" onAction="#back" prefHeight="20.0" prefWidth="60.0" text="返回"
+                textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets left="20.0"/>
+            </GridPane.margin>
+        </Button>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="用户注册" textAlignment="CENTER" wrappingWidth="104.0"
+              GridPane.columnIndex="2">
+            <font>
+                <Font size="25.0"/>
+            </font>
+        </Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Account:" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Password:" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <TextField fx:id="tfAccount" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <PasswordField fx:id="pfPassword" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="RePassword:" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <PasswordField fx:id="pfRePassword" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+    </children>
 </GridPane>

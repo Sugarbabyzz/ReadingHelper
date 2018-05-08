@@ -21,7 +21,8 @@
     <RowConstraints maxHeight="62.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="243.21875">
+      <Text fx:id="tSrcWord"
+            strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="243.21875">
          <font>
             <Font size="73.0" />
          </font>
@@ -50,6 +51,6 @@
             <Insets bottom="80.0" left="270.0" />
          </GridPane.margin>
       </Button>
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
+      <TextArea fx:id="taTrans" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1" />
    </children>
 </GridPane>

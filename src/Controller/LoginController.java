@@ -3,6 +3,7 @@ package Controller;
 import Constant.Constant;
 import Login.Register;
 import Reader.MainPage;
+import com.sun.tools.javac.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,7 +60,9 @@ public class LoginController {
                         //调用登录模块
                         login();
                     }catch (Exception e){
-                        e.printStackTrace();
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "登录失败！");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
                     }
                 });
             }).start();
@@ -75,11 +78,12 @@ public class LoginController {
     public void signUp(ActionEvent actionEvent) throws Exception {
 
         //启动注册窗口
-        Register nextWindow = new Register();
-        nextWindow.showWindow();
+        new Register().showWindow();
         //销毁当前窗口
         Stage stage = (Stage) btnSignUp.getScene().getWindow();
         stage.close();
+
+
 
     }
 
@@ -92,9 +96,7 @@ public class LoginController {
     public void offlineUse(ActionEvent actionEvent) throws Exception{
 
         //启动离线状态主页面
-        MainPage mainWindow = new MainPage();
-        mainWindow.showWindow();
-
+        new MainPage().showWindow();
         //销毁当前窗口
         Stage stage = (Stage) btnOfflineUse.getScene().getWindow();
         stage.close();
@@ -126,9 +128,7 @@ public class LoginController {
             if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
                 //启动在线状态主页面
-                MainPage mainWindow = new MainPage();
-                mainWindow.showWindow();
-
+                new MainPage().showWindow();
                 //销毁当前窗口
                 Stage stage = (Stage) btnSignIn.getScene().getWindow();
                 stage.close();

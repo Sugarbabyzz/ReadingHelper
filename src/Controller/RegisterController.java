@@ -4,8 +4,7 @@ import Constant.Constant;
 import Login.Login;
 import Reader.MainPage;
 import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -30,7 +29,6 @@ public class RegisterController {
     private Button btnBack;
     @FXML
     private Button btnSignUp;
-
 
     /**
      * 完成注册按钮
@@ -77,8 +75,7 @@ public class RegisterController {
      */
     public void back(ActionEvent event) throws Exception {
         //启动注册窗口
-        Login nextWindow = new Login();
-        nextWindow.showWindow();
+        new Login().showWindow();
         //销毁当前窗口
         Stage stage = (Stage) btnBack.getScene().getWindow();
         stage.close();
@@ -117,9 +114,7 @@ public class RegisterController {
                 if (result.get() == ButtonType.OK){
 
                     //启动在线状态主页面
-                    MainPage mainWindow = new MainPage();
-                    mainWindow.showWindow();
-
+                    new MainPage().showWindow();
                     //销毁当前窗口
                     Stage stage = (Stage) btnSignUp.getScene().getWindow();
                     stage.close();

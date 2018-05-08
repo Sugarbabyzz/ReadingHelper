@@ -1,10 +1,12 @@
 package Reader;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -14,10 +16,13 @@ import java.io.IOException;
 
 public class TranslateResult extends Application {
 
+
     @FXML
     private Text tSrcWord;
     @FXML
     private TextArea taTransResult;
+    @FXML
+    private Button btnQuit;
 
     public static void main(String[] args) {
         launch(args);
@@ -52,6 +57,41 @@ public class TranslateResult extends Application {
         
     }
 
+    /**
+     * 加入生词本按钮
+     * @param event
+     */
+    public void addWord(ActionEvent event){
 
+    }
+
+    /**
+     * 编辑按钮
+     * @param event
+     */
+    public void edit(ActionEvent event){
+
+    }
+
+    /**
+     * 替换按钮
+     * @param event
+     */
+    public void replace(ActionEvent event){
+
+    }
+
+
+    /**
+     * 退出按钮
+     * @param event
+     */
+    @FXML
+    public void quit(ActionEvent event){
+
+        //销毁当前窗口
+        Stage stage = (Stage) btnQuit.getScene().getWindow();
+        stage.close();
+    }
 
 }

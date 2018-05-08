@@ -23,7 +23,6 @@ public class Register extends Application {
         primaryStage.setScene(new Scene(root, 350, 300));
         primaryStage.show();
 
-
     }
 
     public void showWindow() throws Exception {

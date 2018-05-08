@@ -2,14 +2,16 @@ package Controller;
 
 import Dictionary.Dictionary;
 import Reader.TranslateResult;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class MainPageController {
 
@@ -35,17 +37,13 @@ public class MainPageController {
                         srcWord = textArea.getSelectedText().trim();
                         System.out.println(srcWord);
                         //翻译
-                        new Thread(()->{
-                            Platform.runLater(()->{
-                                result = search(srcWord);
-                            });
-                        }).start();
+                        result = search(srcWord);
                         System.out.println(result);
                         EnglishAccentUrl = Dictionary.EnglishAccentUrl;
                         AmericanAccentUrl = Dictionary.AmericanAccentUrl;
 
                         try {
-                            new TranslateResult().showWindow(event.getScreenX(),event.getScreenY());
+                            new TranslateResult().showWindow(srcWord,result,event.getScreenX(),event.getScreenY());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

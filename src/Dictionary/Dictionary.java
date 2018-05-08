@@ -11,25 +11,16 @@ import java.util.regex.Pattern;
 
 public class Dictionary {
 
-/*    public static void Reader(String[] args){
-
-        System.out.println("请输入要查询的单词：");
-        String word = new Scanner(System.in).next();
-        //调用httpRequest方法，获取html字符串
-        String html = httpRequest("http://www.iciba.com/" + word);
-        //利用正则表达式，抓取单词翻译信息
-        String result = GetResult(html);
-        //打印
-        System.out.println(result);
-
-    }*/
-
     /**
      * 发起http get请求获取网页源代码
      *
      * @param requestUrl String    请求地址
      * @return String    该地址返回的html字符串
      */
+
+    public static String EnglishAccentUrl;
+    public static String AmericanAccentUrl;
+
     public static String httpRequest(String requestUrl) {
         StringBuffer buffer = null;
         BufferedReader bufferedReader = null;
@@ -108,7 +99,6 @@ public class Dictionary {
         Matcher m = p.matcher(html);
         if (m.matches()) {
             str1 = m.group(3);
-            //System.out.println(str1);
 
             /**
              * 匹配发音，注：发音被含在<div class="base-speak"><span> 和</i></span></div> 中
@@ -137,8 +127,9 @@ public class Dictionary {
                     p = Pattern.compile("(.*)((http://)(.*?))(')(.*)");
                     m = p.matcher(str3);
                     if (m.matches()) {
-                        str4 = m.group(2);
-                        buffer.append(" " + str4);
+                        EnglishAccentUrl = m.group(2);
+                        // buffer.append(" " + str4);
+
                     }
                 }
 
@@ -161,8 +152,9 @@ public class Dictionary {
                     p = Pattern.compile("(.*)((http://)(.*?))(')(.*)");
                     m = p.matcher(str3);
                     if (m.matches()) {
-                        str4 = m.group(2);
-                        buffer.append(" " + str4);
+                        AmericanAccentUrl = m.group(2);
+                        //buffer.append(" " + str4);
+
                         buffer.append(" \n");
                     }
                 }

@@ -21,6 +21,7 @@ public class Register extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("../Layout/register_layout.fxml"));
         primaryStage.setTitle("注册账号");
         primaryStage.setScene(new Scene(root, 350, 300));
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }

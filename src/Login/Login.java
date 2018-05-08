@@ -22,6 +22,7 @@ public class Login extends Application {
         Scene scene = new Scene(root, 400, 275);
         primaryStage.setTitle("用户登录");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.show();
 
     }

@@ -19,7 +19,7 @@ public class MainPage extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/main_page.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Reader");
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
     }

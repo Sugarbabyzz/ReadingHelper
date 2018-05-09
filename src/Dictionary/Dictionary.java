@@ -300,7 +300,7 @@ public class Dictionary {
         }
 
         //无翻译的情况
-        if (buffer.toString().isEmpty()){
+        if (buffer.toString().isEmpty()) {
             buffer.append("未找到译文！");
         }
 

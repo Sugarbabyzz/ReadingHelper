@@ -41,7 +41,7 @@
                         <Insets />
                     </HBox.margin>
                     <image>
-                        <Image url="file:/C:/Users/m1821/Desktop/timg.jpg" />
+                        <Image url="/Res/speaker.jpeg" />
                     </image>
                 </ImageView>
                 <Text fx:id="usPhoneticSymbol" strokeType="OUTSIDE" strokeWidth="0.0" text="美式" wrappingWidth="101.30029296875">
@@ -51,7 +51,7 @@
                 </Text>
                 <ImageView fx:id="usVoice" fitHeight="28.0" fitWidth="32.0" onMouseClicked="#pronounceUs" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="file:/C:/Users/m1821/Desktop/timg.jpg" />
+                        <Image url="/Res/speaker.jpeg" />
                     </image>
                 </ImageView>
             </children>

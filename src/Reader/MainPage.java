@@ -64,11 +64,11 @@ public class MainPage extends Application {
                         //翻译
                         result = search(srcWord);
                         System.out.println(result);
+                        //获取英式美式的两个音标、两个url
                         EnglishAccentUrl = Dictionary.EnglishAccentUrl;
                         AmericanAccentUrl = Dictionary.AmericanAccentUrl;
                         EnglishPhoneticSymbol = Dictionary.EnglishPhoneticSymbol;
                         AmericanPhoneticSymbol = Dictionary.AmericanPhoneticSymbol;
-                        System.out.println(EnglishPhoneticSymbol + "\n" + AmericanPhoneticSymbol);
                         try {
                             new TranslateResult().showWindow(srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
                                     result, event.getScreenX(), event.getScreenY(), MainPage.this);

@@ -84,7 +84,6 @@ public class TranslateResult extends Application {
         usPhoneticSymbol.setText(usPhonetic);
         this.ukUrl = ukUrl;
         this.usUrl = usUrl;
-        System.out.println(ukUrl);
         taTransResult.setText(result);
         taTransResult.setEditable(false);
         taTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {

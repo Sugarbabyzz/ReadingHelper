@@ -146,7 +146,7 @@ public class Register extends Application {
                     stage.close();
 
                 }
-            } else if (sb.toString().equals(Constant.FLAG_YES)) {
+            } else if (sb.toString().equals(Constant.FLAG_ACCOUNT_EXIST)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "该账号已被注册！");
                 alert.setHeaderText(null);
                 alert.showAndWait();

@@ -14,8 +14,15 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
-import java.io.IOException;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 
 public class TranslateResult extends Application {
 
@@ -38,6 +45,8 @@ public class TranslateResult extends Application {
     MainPage controller;
 
     private String replaceWord; //替换的释义
+    private String ukUrl; //英式发音链接
+    private String usUrl; //美式发音链接
 
     public static void main(String[] args) {
         launch(args);
@@ -73,6 +82,9 @@ public class TranslateResult extends Application {
         tSrcWord.setText(srcWord);
         ukPhoneticSymbol.setText(ukPhonetic);
         usPhoneticSymbol.setText(usPhonetic);
+        this.ukUrl = ukUrl;
+        this.usUrl = usUrl;
+        System.out.println(ukUrl);
         taTransResult.setText(result);
         taTransResult.setEditable(false);
         taTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -131,4 +143,27 @@ public class TranslateResult extends Application {
         stage.close();
     }
 
+    /**
+     * 英式发音
+     * @throws IOException
+     * @throws JavaLayerException
+     */
+    public void pronounceUk() throws IOException, JavaLayerException {
+        URL url = new URL(ukUrl);
+        BufferedInputStream buffer = new BufferedInputStream(url.openStream());
+        Player player = new Player(buffer);
+        player.play();
+    }
+
+    /**
+     * 美式发音
+     * @throws IOException
+     * @throws JavaLayerException
+     */
+    public void pronounceUs() throws IOException, JavaLayerException {
+        URL url = new URL(usUrl);
+        BufferedInputStream buffer = new BufferedInputStream(url.openStream());
+        Player player = new Player(buffer);
+        player.play();
+    }
 }

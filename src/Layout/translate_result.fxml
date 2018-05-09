@@ -56,7 +56,7 @@
                 </ImageView>
             </children>
         </HBox>
-        <TextArea fx:id="taTransResult" prefHeight="162.0" prefWidth="451.0" promptText="翻译" GridPane.rowIndex="2" />
+        <TextArea fx:id="taTransResult" editable="false" prefHeight="162.0" prefWidth="451.0" promptText="翻译" GridPane.rowIndex="2" />
 
         <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
             <children>
@@ -78,9 +78,9 @@
                 <Insets left="209.0" top="-21.0" />
             </GridPane.margin>
         </Button>
-      <TextArea prefHeight="124.0" prefWidth="224.0" promptText="别人提供的译文" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" promptText="自己对该词的翻译" GridPane.rowIndex="3" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" promptText="上次选择替换的翻译" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextArea editable="false" prefHeight="124.0" prefWidth="224.0" promptText="别人提供的译文" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextArea fx:id="taSelfTrans" editable="false" prefHeight="200.0" prefWidth="200.0" promptText="自己对该词的翻译" GridPane.rowIndex="3" />
+      <TextArea editable="false" prefHeight="200.0" prefWidth="200.0" promptText="上次选择替换的翻译" GridPane.columnIndex="1" GridPane.rowIndex="3" />
           <Button fx:id="btnAddWord" mnemonicParsing="false" onAction="#addWord" prefHeight="40.0" prefWidth="100.0" text="加入生词本" GridPane.columnIndex="1">
          <GridPane.margin>
             <Insets top="20.0" />

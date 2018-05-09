@@ -34,6 +34,7 @@ public class Register extends Application {
     @FXML
     private Button btnSignUp;
 
+
     public static void main(String[] args) {
         launch(args);
     }

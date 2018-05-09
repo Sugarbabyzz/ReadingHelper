@@ -21,6 +21,9 @@ public class MainPage extends Application {
 
     Stage stage = new Stage();
 
+    private static boolean isOnline;
+    private static String account; //传过来的账号
+
     private boolean flag = true;
     private String srcWord;
     private String result;
@@ -44,7 +47,23 @@ public class MainPage extends Application {
         primaryStage.show();
     }
 
+    /**
+     * 账号登录的使用
+     * @param account
+     * @throws Exception
+     */
+    public void showWindow(String account) throws Exception {
+        this.isOnline = true;
+        this.account = account;
+        start(stage);
+    }
+
+    /**
+     * 离线使用
+     * @throws Exception
+     */
     public void showWindow() throws Exception {
+        this.isOnline = false;
         start(stage);
     }
 
@@ -70,7 +89,7 @@ public class MainPage extends Application {
                         EnglishPhoneticSymbol = Dictionary.EnglishPhoneticSymbol;
                         AmericanPhoneticSymbol = Dictionary.AmericanPhoneticSymbol;
                         try {
-                            new TranslateResult().showWindow(srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
+                            new TranslateResult().showWindow(account,isOnline,srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
                                     result, event.getScreenX(), event.getScreenY(), MainPage.this);
                         } catch (Exception e) {
                             e.printStackTrace();

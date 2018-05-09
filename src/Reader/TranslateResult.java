@@ -41,9 +41,15 @@ public class TranslateResult extends Application {
     private ImageView ukVoice; //英式发音图标
     @FXML
     private ImageView usVoice; //美式发音图标
-
+    @FXML
+    private TextArea taSelfTrans; //自己对该词的翻译
+    @FXML
+    private Button btnEdit;
+    @FXML
+    private Button btnAddWord;
     MainPage controller;
 
+    private static String account; //账号
     private String replaceWord; //替换的释义
     private String ukUrl; //英式发音链接
     private String usUrl; //美式发音链接
@@ -69,8 +75,9 @@ public class TranslateResult extends Application {
 
     }
 
-    public void showWindow(String srcWord, String ukPhonetic, String ukUrl, String usPhonetic, String usUrl,
+    public void showWindow(String account,boolean isOnline,String srcWord, String ukPhonetic, String ukUrl, String usPhonetic, String usUrl,
                            String result, double X, double Y, MainPage controller) throws Exception {
+        this.account = account;
 
         Stage stage = new Stage();
         stage.setX(X);
@@ -98,7 +105,8 @@ public class TranslateResult extends Application {
                 }
             }
         });
-
+        btnEdit.setDisable(!isOnline);
+        btnAddWord.setDisable(!isOnline);
     }
 
     /**
@@ -115,8 +123,8 @@ public class TranslateResult extends Application {
      *
      * @param event
      */
-    public void edit(ActionEvent event) {
-
+    public void edit(ActionEvent event) throws Exception {
+        new OfferTranslation().showWindow(account,TranslateResult.this);
     }
 
     /**
@@ -164,5 +172,10 @@ public class TranslateResult extends Application {
         BufferedInputStream buffer = new BufferedInputStream(url.openStream());
         Player player = new Player(buffer);
         player.play();
+    }
+
+
+    public void setSelfTrans(String selfTrans){
+        taSelfTrans.setText(selfTrans);
     }
 }

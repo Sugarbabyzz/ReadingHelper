@@ -152,7 +152,7 @@ public class Login extends Application {
             if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
                 //启动在线状态主页面
-                new MainPage().showWindow();
+                new MainPage().showWindow(account);
                 //销毁当前窗口
                 Stage stage = (Stage) btnSignIn.getScene().getWindow();
                 stage.close();

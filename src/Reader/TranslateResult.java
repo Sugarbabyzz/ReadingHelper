@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -23,7 +24,14 @@ public class TranslateResult extends Application {
     private TextArea taTransResult;
     @FXML
     private Button btnQuit;
-
+    @FXML
+    private Text ukPhoneticSymbol; //英式音标
+    @FXML
+    private Text usPhoneticSymbol; //美式音标
+    @FXML
+    private ImageView ukVoice; //英式发音图标
+    @FXML
+    private ImageView usVoice; //美式发音图标
     public static void main(String[] args) {
         launch(args);
     }
@@ -42,16 +50,18 @@ public class TranslateResult extends Application {
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 
-
     }
 
-    public void showWindow(String srcWord, String result, double X, double Y) throws Exception{
+    public void showWindow(String srcWord, String ukPhonetic , String ukUrl, String usPhonetic, String usUrl,
+                           String result, double X, double Y) throws Exception{
 
         Stage stage = new Stage();
         stage.setX(X);
         stage.setY(Y);
         start(stage);
         tSrcWord.setText(srcWord);
+        ukPhoneticSymbol.setText(ukPhonetic);
+        usPhoneticSymbol.setText(usPhonetic);
         taTransResult.setText(result);
         taTransResult.setEditable(false);
         

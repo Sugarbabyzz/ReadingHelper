@@ -17,9 +17,11 @@ public class Dictionary {
      * @param requestUrl String    请求地址
      * @return String    该地址返回的html字符串
      */
-
+    public static String EnglishPhoneticSymbol;
     public static String EnglishAccentUrl;
+    public static String AmericanPhoneticSymbol;
     public static String AmericanAccentUrl;
+
 
     public static String httpRequest(String requestUrl) {
         StringBuffer buffer = null;
@@ -118,9 +120,7 @@ public class Dictionary {
                     p = Pattern.compile("(.*)(<span>英)(.*?)(</span>)(.*)");
                     m = p.matcher(str3);
                     if (m.matches()) {
-                        str4 = m.group(3);
-                        buffer.append("英");
-                        buffer.append(str4);
+                        EnglishPhoneticSymbol = "英" + m.group(3);
                     }
 
                     //英式发音
@@ -128,8 +128,6 @@ public class Dictionary {
                     m = p.matcher(str3);
                     if (m.matches()) {
                         EnglishAccentUrl = m.group(2);
-                        // buffer.append(" " + str4);
-
                     }
                 }
 
@@ -143,9 +141,7 @@ public class Dictionary {
                     p = Pattern.compile("(.*)(<span>美)(.*?)(</span>)(.*)");
                     m = p.matcher(str3);
                     if (m.matches()) {
-                        str4 = m.group(3);
-                        buffer.append("  美");
-                        buffer.append(str4);
+                        AmericanPhoneticSymbol = "美" + m.group(3);
                     }
 
                     //美式发音
@@ -153,9 +149,6 @@ public class Dictionary {
                     m = p.matcher(str3);
                     if (m.matches()) {
                         AmericanAccentUrl = m.group(2);
-                        //buffer.append(" " + str4);
-
-                        buffer.append(" \n");
                     }
                 }
             }

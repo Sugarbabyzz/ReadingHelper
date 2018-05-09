@@ -20,6 +20,8 @@ public class MainPageController {
     private String result;
     private String EnglishAccentUrl;
     private String AmericanAccentUrl;
+    private String EnglishPhoneticSymbol;
+    private String AmericanPhoneticSymbol;
     @FXML
     TextArea textArea;
 
@@ -41,9 +43,12 @@ public class MainPageController {
                         System.out.println(result);
                         EnglishAccentUrl = Dictionary.EnglishAccentUrl;
                         AmericanAccentUrl = Dictionary.AmericanAccentUrl;
-
+                        EnglishPhoneticSymbol = Dictionary.EnglishPhoneticSymbol;
+                        AmericanPhoneticSymbol = Dictionary.AmericanPhoneticSymbol;
+                        System.out.println(EnglishPhoneticSymbol + "\n" + AmericanPhoneticSymbol);
                         try {
-                            new TranslateResult().showWindow(srcWord,result,event.getScreenX(),event.getScreenY());
+                            new TranslateResult().showWindow(srcWord,EnglishPhoneticSymbol,EnglishAccentUrl,AmericanPhoneticSymbol,AmericanAccentUrl,
+                                    result,event.getScreenX(),event.getScreenY());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

@@ -22,6 +22,7 @@ public class MainPageController {
     private String AmericanAccentUrl;
     private String EnglishPhoneticSymbol;
     private String AmericanPhoneticSymbol;
+    private String replaceWord;
     @FXML
     TextArea textArea;
 
@@ -48,7 +49,7 @@ public class MainPageController {
                         System.out.println(EnglishPhoneticSymbol + "\n" + AmericanPhoneticSymbol);
                         try {
                             new TranslateResult().showWindow(srcWord,EnglishPhoneticSymbol,EnglishAccentUrl,AmericanPhoneticSymbol,AmericanAccentUrl,
-                                    result,event.getScreenX(),event.getScreenY());
+                                    result,event.getScreenX(),event.getScreenY(), MainPageController.this);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -83,6 +84,19 @@ public class MainPageController {
         String result = Dictionary.GetResult(html);
 
         return result;
+    }
+
+    /**
+     * 将选中的单词替换为用户选中的释义
+     * @param replaceWord
+     */
+    public void replaceWord(String replaceWord){
+
+        String replaceResult;
+        this.replaceWord = replaceWord;
+        replaceResult = textArea.getText().replace(srcWord, replaceWord);
+        srcWord = replaceWord;
+        textArea.setText(replaceResult);
     }
 
 

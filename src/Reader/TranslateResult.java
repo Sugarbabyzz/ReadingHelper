@@ -116,14 +116,11 @@ public class TranslateResult extends Application {
                         Platform.runLater(() -> {
                             try {
                                 //调用提交最后一次选择的译文模块
-                                /**
-                                 * 中文url存在编码问题！！待解决！！
-                                 */
-                                //submitLastChoice(taTransResult.getSelectedText().trim());
+                                submitLastChoice(taTransResult.getSelectedText().trim());
                             } catch (Exception e) {
-//                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-//                                alert.setHeaderText(null);
-//                                alert.showAndWait();
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                alert.setHeaderText(null);
+                                alert.showAndWait();
                                 e.printStackTrace();
                                 System.out.println("提交最后一次选择的译文失败！");
                             }
@@ -228,8 +225,13 @@ public class TranslateResult extends Application {
             // 获取账号、单词和提交的译文
             String account = this.account;
             String word = this.word;
+            /**
+             * 坑来了！！
+             * 传入含有中文字符的URL，需要将其进行编码
+             */
+            String lastchoice = java.net.URLEncoder.encode(lastChoice, "utf-8");
 
-            URL url = new URL(Constant.URL_SetLastChoice + "account=" + account + "&" + "word=" + word + "&" + "lastchoice=" + lastChoice);
+            URL url = new URL(Constant.URL_SetLastChoice + "account=" + account + "&" + "word=" + word + "&" + "lastchoice=" + lastchoice);
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 

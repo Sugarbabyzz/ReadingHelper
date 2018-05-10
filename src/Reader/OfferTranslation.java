@@ -74,10 +74,7 @@ public class OfferTranslation extends Application {
             Platform.runLater(() -> {
                 try {
                     //调用提交译文模块
-                    /**
-                     * 中文url存在编码问题！！待解决！！
-                     */
-                    //submitSelfTranslation(taSelfTrans.getText());
+                    submitSelfTranslation(taSelfTrans.getText());
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
                     alert.setHeaderText(null);
@@ -108,8 +105,12 @@ public class OfferTranslation extends Application {
             // 获取账号、单词和提交的译文
             String account = this.account;
             String word = this.word;
-
-            URL url = new URL(Constant.URL_SetSelfTranslation + "account=" + account + "&" + "word=" + word + "&" + "translation=" + selfTranslation);
+            /**
+             * 坑来了！！
+             * 传入含有中文字符的URL，需要将其进行编码
+             */
+            String translation = java.net.URLEncoder.encode(selfTranslation, "utf-8");
+            URL url = new URL(Constant.URL_SetSelfTranslation + "account=" + account + "&" + "word=" + word + "&" + "translation=" + translation );
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 

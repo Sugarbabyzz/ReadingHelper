@@ -22,6 +22,7 @@ import javazoom.jl.player.Player;
 
 import java.io.*;
 import java.net.URL;
+import java.util.HashMap;
 
 public class TranslateResult extends Application {
 
@@ -59,6 +60,8 @@ public class TranslateResult extends Application {
 
     private String ukUrl; //英式发音链接
     private String usUrl; //美式发音链接
+
+    private static HashMap<String,String> transToWord = new HashMap<String,String>();
 
     public static void main(String[] args) {
         launch(args);
@@ -130,6 +133,11 @@ public class TranslateResult extends Application {
                     controller.replaceWord(replaceWord);
 
                     /**
+                     * 存入哈希图
+                     */
+                    transToWord.put(replaceWord, word);
+                    System.out.println(transToWord);
+                    /**
                      * 提交最后一次选择的译文
                      */
                     new Thread(() -> {
@@ -150,10 +158,11 @@ public class TranslateResult extends Application {
                 }
             }
         });
+
         btnEdit.setDisable(!isOnline);
         btnAddWord.setDisable(!isOnline);
 
-        if (isOnline){
+        if (isOnline) {
             /**
              * 初始化数据
              */
@@ -172,8 +181,15 @@ public class TranslateResult extends Application {
                 });
             }).start();
         }
+
     }
 
+    /**
+     * 初始化数据
+     * 包括：自己提交过的译文、其他用户的译文、最后一次选择使用的译文
+     *
+     * @throws IOException
+     */
     private void initData() throws IOException {
         URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word));
         // 接收servlet返回值，是字节
@@ -197,18 +213,18 @@ public class TranslateResult extends Application {
         String[] otherTranslationArray = otherTranslation.split(",,,");
 
         StringBuffer stringBuffer = new StringBuffer();
-        for (int i=0; i<otherTranslationArray.length ; i++){
+        for (int i = 0; i < otherTranslationArray.length; i++) {
             stringBuffer.append(otherTranslationArray[i]);
             stringBuffer.append("\n");
         }
 
-        if (!otherTranslation.equals(" ")){
+        if (!otherTranslation.equals(" ")) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
-        if (!selfTranslation.equals(" ")){
+        if (!selfTranslation.equals(" ")) {
             taSelfTrans.setText(selfTranslation);
         }
-        if (!lastChoice.equals(" ")){
+        if (!lastChoice.equals(" ")) {
             taLastChoice.setText(lastChoice);
         }
 
@@ -225,6 +241,11 @@ public class TranslateResult extends Application {
 
                     controller.replaceWord(replaceWord);
 
+                    /**
+                     * 存入哈希图
+                     */
+                    transToWord.put(replaceWord, word);
+                    System.out.println(transToWord);
                     /**
                      * 提交最后一次选择的译文
                      */
@@ -261,6 +282,11 @@ public class TranslateResult extends Application {
                     controller.replaceWord(replaceWord);
 
                     /**
+                     * 存入哈希图
+                     */
+                    transToWord.put(replaceWord, word);
+                    System.out.println(transToWord);
+                    /**
                      * 提交最后一次选择的译文
                      */
                     new Thread(() -> {
@@ -295,6 +321,11 @@ public class TranslateResult extends Application {
 
                     controller.replaceWord(replaceWord);
 
+                    /**
+                     * 存入哈希图
+                     */
+                    transToWord.put(replaceWord, word);
+                    System.out.println(transToWord);
                     /**
                      * 提交最后一次选择的译文
                      */
@@ -338,11 +369,18 @@ public class TranslateResult extends Application {
 
     /**
      * 恢复原文按钮
-     *
      */
     public void recover() {
 
-        controller.recoverWord(word);
+        if (transToWord.get(word) != null){
+            controller.recoverWord(transToWord.get(word));
+        } else {
+            controller.recoverWord(word);
+        }
+//        System.out.println(word);
+//        System.out.println(transToWord);
+//        System.out.println(transToWord.get(word));
+
     }
 
 

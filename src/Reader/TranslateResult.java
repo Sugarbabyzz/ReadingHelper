@@ -231,7 +231,7 @@ public class TranslateResult extends Application {
                         Platform.runLater(() -> {
                             try {
                                 //调用提交最后一次选择的译文模块
-                                submitLastChoice(taTransResult.getSelectedText().trim());
+                                submitLastChoice(taOtherTransResult.getSelectedText().trim());
                             } catch (Exception e) {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
                                 alert.setHeaderText(null);
@@ -266,7 +266,7 @@ public class TranslateResult extends Application {
                         Platform.runLater(() -> {
                             try {
                                 //调用提交最后一次选择的译文模块
-                                submitLastChoice(taTransResult.getSelectedText().trim());
+                                submitLastChoice(taSelfTrans.getSelectedText().trim());
                             } catch (Exception e) {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
                                 alert.setHeaderText(null);

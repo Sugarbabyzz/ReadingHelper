@@ -1,12 +1,15 @@
 package Reader;
 
+import Constant.Constant;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -50,7 +53,9 @@ public class TranslateResult extends Application {
     MainPage controller;
 
     private static String account; //账号
+    private static String word; //当前选中的单词
     private String replaceWord; //替换的释义
+
     private String ukUrl; //英式发音链接
     private String usUrl; //美式发音链接
 
@@ -79,6 +84,7 @@ public class TranslateResult extends Application {
                            String result, double X, double Y, MainPage controller) throws Exception {
         this.account = account;
 
+
         Stage stage = new Stage();
         stage.setX(X);
         stage.setY(Y);
@@ -87,6 +93,8 @@ public class TranslateResult extends Application {
         this.controller = controller;
 
         tSrcWord.setText(srcWord);
+        this.word = tSrcWord.getText(); //顺序！！
+
         ukPhoneticSymbol.setText(ukPhonetic);
         usPhoneticSymbol.setText(usPhonetic);
         this.ukUrl = ukUrl;
@@ -102,11 +110,30 @@ public class TranslateResult extends Application {
                     //System.out.println(replaceWord);
 
                     controller.replaceWord(replaceWord);
+
+                    //提交lastChoice
+                    new Thread(() -> {
+                        Platform.runLater(() -> {
+                            try {
+                                //调用提交最后一次选择的译文模块
+                                //submitLastChoice(taTransResult.getSelectedText().trim());
+                            } catch (Exception e) {
+//                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+//                                alert.setHeaderText(null);
+//                                alert.showAndWait();
+                                e.printStackTrace();
+                                System.out.println("提交最后一次选择的译文失败！");
+                            }
+                        });
+                    }).start();
+
                 }
             }
         });
         btnEdit.setDisable(!isOnline);
         btnAddWord.setDisable(!isOnline);
+
+
     }
 
     /**
@@ -124,7 +151,7 @@ public class TranslateResult extends Application {
      * @param event
      */
     public void edit(ActionEvent event) throws Exception {
-        new OfferTranslation().showWindow(account, TranslateResult.this);
+        new OfferTranslation().showWindow(account, word, TranslateResult.this);
     }
 
     /**
@@ -184,5 +211,51 @@ public class TranslateResult extends Application {
      */
     public void setSelfTrans(String selfTrans) {
         taSelfTrans.setText(selfTrans);
+    }
+
+    /**
+     * 提交最后一次选择的译文
+     *
+     * @param lastChoice
+     */
+    public void submitLastChoice(String lastChoice) {
+
+
+        try {
+            // 获取账号、单词和提交的译文
+            String account = this.account;
+            String word = this.word;
+
+            URL url = new URL(Constant.URL_SetLastChoice + "account=" + account + "&" + "word=" + word + "&" + "lastchoice=" + lastChoice);
+            // 接收servlet返回值，是字节
+            InputStream is = url.openStream();
+
+            // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuffer sb = new StringBuffer();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+
+            if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
+
+
+                System.out.println("提交最后一次选择的译文成功！");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "提交最后一次选择的译文失败！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+
+                System.out.println("提交最后一次选择的译文失败！");
+            }
+        } catch (Exception e) {
+            //网络不通的情况
+            Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常，提交最后一次选择的译文失败！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+
+            e.printStackTrace();
+        }
     }
 }

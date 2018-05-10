@@ -175,7 +175,7 @@ public class TranslateResult extends Application {
     }
 
     private void initData() throws IOException {
-        URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + word);
+        URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word));
         // 接收servlet返回值，是字节
         InputStream is = url.openStream();
         // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码

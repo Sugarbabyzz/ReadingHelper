@@ -108,7 +108,7 @@ public class Register extends Application {
      * @throws Exception
      */
     public void back(ActionEvent event) throws Exception {
-        //启动注册窗口
+        //启动登录窗口
         new Login().showWindow();
         //销毁当前窗口
         Stage stage = (Stage) btnBack.getScene().getWindow();

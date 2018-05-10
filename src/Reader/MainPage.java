@@ -1,8 +1,10 @@
 package Reader;
 
 import Dictionary.Dictionary;
+import Login.Login;
 import javafx.application.Application;
 import javafx.concurrent.Worker;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class MainPage extends Application {
 
@@ -126,6 +129,21 @@ public class MainPage extends Application {
     }
 
     /**
+     * 退出登录
+     * @param event
+     */
+    public void signOut(ActionEvent event) throws Exception {
+
+        //启动登录窗口
+        new Login().showWindow();
+        //销毁当前窗口
+        Stage stage = (Stage) textArea.getScene().getWindow();
+        stage.close();
+
+    }
+
+
+    /**
      * 访问网络获取翻译结果
      *
      * @param srcWord 待翻译的单词
@@ -179,4 +197,6 @@ public class MainPage extends Application {
         textArea.setText(replaceResult);
 
     }
+
+
 }

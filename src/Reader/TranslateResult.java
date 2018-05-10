@@ -61,7 +61,10 @@ public class TranslateResult extends Application {
     private String ukUrl; //英式发音链接
     private String usUrl; //美式发音链接
 
-    private static HashMap<String,String> transToWord = new HashMap<String,String>();
+    private double X;
+    private double Y;
+
+    private static HashMap<String, String> transToWord = new HashMap<String, String>();
 
     public static void main(String[] args) {
         launch(args);
@@ -77,10 +80,37 @@ public class TranslateResult extends Application {
         loader.setController(this);
         Parent root = loader.load();
 
+        Scene scene = new Scene(root, 600, 400);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("翻译结果");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(scene);
         primaryStage.show();
+
+        /**
+         * 设置为可移动窗口
+         */
+        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent m) {
+
+                //获取当前窗口的坐标
+                double x_stage = primaryStage.getX();
+                double y_stage = primaryStage.getY();
+                //计算
+                primaryStage.setX(x_stage + m.getX() - X);
+                primaryStage.setY(y_stage + m.getY() - Y);
+            }
+        });
+
+
+        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent m) {
+                //按下鼠标后，记录当前鼠标的坐标
+                X = m.getX();
+                Y = m.getY();
+            }
+        });
 
     }
 
@@ -106,6 +136,8 @@ public class TranslateResult extends Application {
         this.account = account;
         this.controller = controller;
         this.word = srcWord;
+        this.X = X;
+        this.Y = Y;
 
         Stage stage = new Stage();
         stage.setX(X);
@@ -218,7 +250,7 @@ public class TranslateResult extends Application {
             stringBuffer.append("\n");
         }
 
-        if (!otherTranslation.equals(" ") && !selfTranslation.equals("null")) {
+        if (!otherTranslation.equals(" ") && !selfTranslation.equals(" null") && !selfTranslation.equals("null")) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
 
@@ -374,7 +406,7 @@ public class TranslateResult extends Application {
      */
     public void recover() {
 
-        if (transToWord.get(word) != null){
+        if (transToWord.get(word) != null) {
             controller.recoverWord(transToWord.get(word));
         } else {
             controller.recoverWord(word);

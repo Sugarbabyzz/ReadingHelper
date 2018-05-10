@@ -74,6 +74,10 @@ public class Register extends Application {
             Alert alert = new Alert(Alert.AlertType.ERROR, "两次输入的密码不一致！");
             alert.setHeaderText(null);
             alert.showAndWait();
+        } else if (!tfAccount.getText().matches("[0-9A-Za-z]*")){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "用户名仅能包含数字和字母！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         } else {
             /*
              *  线程处理注册操作
@@ -137,9 +141,9 @@ public class Register extends Application {
             if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("注册成功！");
+                alert.setTitle("用户注册");
                 alert.setHeaderText(null);
-                alert.setContentText("请点击\"确认\"进入主页");
+                alert.setContentText("注册成功！\n请点击\"确认\"进入主页。");
 
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {

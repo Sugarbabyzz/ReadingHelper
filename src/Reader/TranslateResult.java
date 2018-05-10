@@ -153,14 +153,31 @@ public class TranslateResult extends Application {
         btnEdit.setDisable(!isOnline);
         btnAddWord.setDisable(!isOnline);
 
-        initData();
+        if (isOnline){
+            /**
+             * 初始化数据
+             */
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    try {
+                        //调用初始化数据模块
+                        initData();
+                    } catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "初始化数据失败！");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
+                        e.printStackTrace();
+                        System.out.println("初始化数据失败！");
+                    }
+                });
+            }).start();
+        }
     }
 
     private void initData() throws IOException {
         URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + word);
         // 接收servlet返回值，是字节
         InputStream is = url.openStream();
-        System.out.println("nnnnnnnnnnnnnn" + url.toString());
         // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuffer sb = new StringBuffer();
@@ -170,12 +187,13 @@ public class TranslateResult extends Application {
         }
 
         String response = sb.toString();
-        System.out.println("nnnnn" + response);
-
+        System.out.println(response);
         String[] responseArray = response.split("///");
+
         String lastChoice = responseArray[0];
         String selfTranslation = responseArray[1];
         String otherTranslation = responseArray[2];
+
         String[] otherTranslationArray = otherTranslation.split(",,,");
 
         StringBuffer stringBuffer = new StringBuffer();
@@ -183,10 +201,85 @@ public class TranslateResult extends Application {
             stringBuffer.append(otherTranslationArray[i]);
             stringBuffer.append("\n");
         }
+        if (!otherTranslation.equals(" ")){
+            taOtherTransResult.setText(stringBuffer.toString());
+        }
+        if (!selfTranslation.equals(" ")){
+            taSelfTrans.setText(selfTranslation);
+        }
+        if (!lastChoice.equals(" ")){
+            taLastChoice.setText(lastChoice);
+        }
 
-        taOtherTransResult.setText(stringBuffer.toString());
-        taSelfTrans.setText(selfTranslation);
-        taLastChoice.setText(lastChoice);
+        taOtherTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                if (event.getClickCount() == 2) {
+
+                    /**
+                     * 替换
+                     */
+                    replaceWord = taTransResult.getSelectedText().trim();
+                    //System.out.println(replaceWord);
+
+                    controller.replaceWord(replaceWord);
+
+                    /**
+                     * 提交最后一次选择的译文
+                     */
+                    new Thread(() -> {
+                        Platform.runLater(() -> {
+                            try {
+                                //调用提交最后一次选择的译文模块
+                                submitLastChoice(taTransResult.getSelectedText().trim());
+                            } catch (Exception e) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                alert.setHeaderText(null);
+                                alert.showAndWait();
+                                e.printStackTrace();
+                                System.out.println("提交最后一次选择的译文失败！");
+                            }
+                        });
+                    }).start();
+
+                }
+            }
+        });
+
+        taSelfTrans.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                if (event.getClickCount() == 2) {
+
+                    /**
+                     * 替换
+                     */
+                    replaceWord = taTransResult.getSelectedText().trim();
+                    //System.out.println(replaceWord);
+
+                    controller.replaceWord(replaceWord);
+
+                    /**
+                     * 提交最后一次选择的译文
+                     */
+                    new Thread(() -> {
+                        Platform.runLater(() -> {
+                            try {
+                                //调用提交最后一次选择的译文模块
+                                submitLastChoice(taTransResult.getSelectedText().trim());
+                            } catch (Exception e) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                alert.setHeaderText(null);
+                                alert.showAndWait();
+                                e.printStackTrace();
+                                System.out.println("提交最后一次选择的译文失败！");
+                            }
+                        });
+                    }).start();
+
+                }
+            }
+        });
     }
 
     /**

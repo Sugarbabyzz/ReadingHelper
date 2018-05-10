@@ -44,8 +44,7 @@ public class OfferTranslation extends Application {
         loader.setController(this);
         Parent root = loader.load();
 
-       // Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/user_offer_translate.fxml"));
-        primaryStage.setTitle("Reader");
+        primaryStage.setTitle("提供译文");
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.show();
     }
@@ -55,7 +54,6 @@ public class OfferTranslation extends Application {
         this.account = account;
         this.controller = controller;
         System.out.println("offer:" + account);
-        btnSubmit.setDisable(true);
     }
 
     public void submit(){

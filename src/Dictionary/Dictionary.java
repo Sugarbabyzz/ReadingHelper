@@ -212,6 +212,23 @@ public class Dictionary {
                     buffer.append(" \n");
                 }
 
+
+                //v
+                p = Pattern.compile("(.*)(<span class=\"prop\">v.</span>)(.*?)(</p>)(.*)");
+                m = p.matcher(str2);
+                if (m.matches()) {
+                    str3 = m.group(3);
+                    buffer.append("v. ");
+
+                    //细节
+                    p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
+                    m = p.matcher(str3);
+                    while (m.find()) {
+                        buffer.append(m.group(3));
+                    }
+
+                    buffer.append(" \n");
+                }
                 //adj
                 p = Pattern.compile("(.*)(<span class=\"prop\">adj.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);

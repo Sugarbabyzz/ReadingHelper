@@ -49,6 +49,7 @@ public class MainPage extends Application {
 
     /**
      * 账号登录的使用
+     *
      * @param account
      * @throws Exception
      */
@@ -60,6 +61,7 @@ public class MainPage extends Application {
 
     /**
      * 离线使用
+     *
      * @throws Exception
      */
     public void showWindow() throws Exception {
@@ -89,7 +91,7 @@ public class MainPage extends Application {
                         EnglishPhoneticSymbol = Dictionary.EnglishPhoneticSymbol;
                         AmericanPhoneticSymbol = Dictionary.AmericanPhoneticSymbol;
                         try {
-                            new TranslateResult().showWindow(account,isOnline,srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
+                            new TranslateResult().showWindow(account, isOnline, srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
                                     result, event.getScreenX(), event.getScreenY(), MainPage.this);
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -141,5 +143,18 @@ public class MainPage extends Application {
         replaceResult = textArea.getText().replace(srcWord, replaceWord);
         srcWord = replaceWord;
         textArea.setText(replaceResult);
+    }
+
+    /**
+     * 恢复原词
+     *
+     * @param sourceWord
+     */
+    public void recoverWord(String sourceWord) {
+
+//        String replaceResult;
+//        replaceResult = textArea.getText().replace(replaceWord, sourceWord);
+//        textArea.setText(replaceResult);
+
     }
 }

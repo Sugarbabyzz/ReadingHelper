@@ -75,7 +75,7 @@ public class TranslateResult extends Application {
 
     }
 
-    public void showWindow(String account,boolean isOnline,String srcWord, String ukPhonetic, String ukUrl, String usPhonetic, String usUrl,
+    public void showWindow(String account, boolean isOnline, String srcWord, String ukPhonetic, String ukUrl, String usPhonetic, String usUrl,
                            String result, double X, double Y, MainPage controller) throws Exception {
         this.account = account;
 
@@ -124,7 +124,7 @@ public class TranslateResult extends Application {
      * @param event
      */
     public void edit(ActionEvent event) throws Exception {
-        new OfferTranslation().showWindow(account,TranslateResult.this);
+        new OfferTranslation().showWindow(account, TranslateResult.this);
     }
 
     /**
@@ -134,6 +134,7 @@ public class TranslateResult extends Application {
      */
     public void recover(ActionEvent event) {
 
+        controller.recoverWord(tSrcWord.getText());
     }
 
 
@@ -152,6 +153,7 @@ public class TranslateResult extends Application {
 
     /**
      * 英式发音
+     *
      * @throws IOException
      * @throws JavaLayerException
      */
@@ -164,6 +166,7 @@ public class TranslateResult extends Application {
 
     /**
      * 美式发音
+     *
      * @throws IOException
      * @throws JavaLayerException
      */
@@ -174,8 +177,12 @@ public class TranslateResult extends Application {
         player.play();
     }
 
-
-    public void setSelfTrans(String selfTrans){
+    /**
+     * 设置用户自己的译文
+     *
+     * @param selfTrans
+     */
+    public void setSelfTrans(String selfTrans) {
         taSelfTrans.setText(selfTrans);
     }
 }

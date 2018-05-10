@@ -73,6 +73,10 @@ public class Login extends Application {
             Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码不能为空！");
             alert.setHeaderText(null);
             alert.showAndWait();
+        }  else if (!tfAccount.getText().matches("[0-9A-Za-z]*")){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码错误！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
         } else {
             /*
              *  线程处理登录操作

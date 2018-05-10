@@ -99,10 +99,10 @@ public class Dictionary {
          * 赋初值
          * 防止在一个单词的发音和音标未找到时，显示上一个查询单词的发音和音标
          */
-        EnglishPhoneticSymbol = "";
-        EnglishAccentUrl = "";
-        AmericanPhoneticSymbol = "";
-        AmericanAccentUrl = "";
+        EnglishPhoneticSymbol = " ";
+        EnglishAccentUrl = " ";
+        AmericanPhoneticSymbol = " ";
+        AmericanAccentUrl = " ";
 
         // 取出有用的范围
         Pattern p = Pattern.compile("(.*)(<div class=\"in-base\">)(.*?)(进入生词本)(.*)");

@@ -124,6 +124,15 @@ public class TranslateResult extends Application {
         usPhoneticSymbol.setText(usPhonetic);
         this.ukUrl = ukUrl;
         this.usUrl = usUrl;
+        if (ukUrl.equals(" ")){
+            ukVoice.setVisible(false);
+        }
+        if (usUrl.equals(" ")){
+            usVoice.setVisible(false);
+        }
+
+
+
         taTransResult.setText(result);
         taTransResult.setEditable(false);
         taTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -166,6 +175,9 @@ public class TranslateResult extends Application {
             }
         });
 
+        /*
+         * 未登录状态
+         */
         btnEdit.setDisable(!isOnline);
         btnAddWord.setDisable(!isOnline);
 

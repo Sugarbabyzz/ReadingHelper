@@ -149,7 +149,13 @@ public class Register extends Application {
                 if (result.get() == ButtonType.OK) {
 
                     //启动在线状态主页面
-                    new MainPage().showWindow();
+                    Platform.runLater(() -> {
+                        try {
+                            new MainPage().showWindow();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
                     //销毁当前窗口
                     Stage stage = (Stage) btnSignUp.getScene().getWindow();
                     stage.close();

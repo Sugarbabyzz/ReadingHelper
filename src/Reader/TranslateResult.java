@@ -1,6 +1,7 @@
 package Reader;
 
 import Constant.Constant;
+import Util.DragUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -61,9 +62,6 @@ public class TranslateResult extends Application {
     private String ukUrl; //英式发音链接
     private String usUrl; //美式发音链接
 
-    private double X;
-    private double Y;
-
     private static HashMap<String, String> transToWord = new HashMap<String, String>();
 
     public static void main(String[] args) {
@@ -86,31 +84,10 @@ public class TranslateResult extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        /**
-         * 设置为可移动窗口
-         */
-        scene.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent m) {
 
-                //获取当前窗口的坐标
-                double x_stage = primaryStage.getX();
-                double y_stage = primaryStage.getY();
-                //计算
-                primaryStage.setX(x_stage + m.getX() - X);
-                primaryStage.setY(y_stage + m.getY() - Y);
-            }
-        });
+        // 拖动监听器
+        DragUtil.addDragListener(primaryStage, root);
 
-
-        scene.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent m) {
-                //按下鼠标后，记录当前鼠标的坐标
-                X = m.getX();
-                Y = m.getY();
-            }
-        });
 
     }
 
@@ -136,8 +113,6 @@ public class TranslateResult extends Application {
         this.account = account;
         this.controller = controller;
         this.word = srcWord;
-        this.X = X;
-        this.Y = Y;
 
         Stage stage = new Stage();
         stage.setX(X);

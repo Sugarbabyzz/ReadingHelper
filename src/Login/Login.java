@@ -109,10 +109,16 @@ public class Login extends Application {
      * @param actionEvent
      */
     @FXML
-    public void signUp(ActionEvent actionEvent) throws Exception {
+    public void signUp(ActionEvent actionEvent) {
 
         //启动注册窗口
-        new Register().showWindow();
+        Platform.runLater(() -> {
+            try {
+                new Register().showWindow();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         //销毁当前窗口
         Stage stage = (Stage) btnSignUp.getScene().getWindow();
         stage.close();
@@ -124,10 +130,16 @@ public class Login extends Application {
      * @param actionEvent
      */
     @FXML
-    public void offlineUse(ActionEvent actionEvent) throws Exception {
+    public void offlineUse(ActionEvent actionEvent){
 
         //启动离线状态主页面
-        new MainPage().showWindow();
+        Platform.runLater(() -> {
+            try {
+                new MainPage().showWindow();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         //销毁当前窗口
         Stage stage = (Stage) btnOfflineUse.getScene().getWindow();
         stage.close();
@@ -159,7 +171,13 @@ public class Login extends Application {
             if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
                 //启动在线状态主页面
-                new MainPage().showWindow(account);
+                Platform.runLater(() -> {
+                    try {
+                        new MainPage().showWindow(account);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
                 //销毁当前窗口
                 Stage stage = (Stage) btnSignIn.getScene().getWindow();
                 stage.close();

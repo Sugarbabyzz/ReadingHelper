@@ -117,12 +117,17 @@ public class TranslateResult extends Application {
             public void handle(javafx.scene.input.MouseEvent event) {
                 if (event.getClickCount() == 2) {
 
+                    /**
+                     * 替换
+                     */
                     replaceWord = taTransResult.getSelectedText().trim();
                     //System.out.println(replaceWord);
 
                     controller.replaceWord(replaceWord);
 
-                    //提交lastChoice
+                    /**
+                     * 提交最后一次选择的译文
+                     */
                     new Thread(() -> {
                         Platform.runLater(() -> {
                             try {
@@ -168,11 +173,10 @@ public class TranslateResult extends Application {
     /**
      * 恢复原文按钮
      *
-     * @param event
      */
-    public void recover(ActionEvent event) {
+    public void recover() {
 
-        controller.recoverWord(tSrcWord.getText());
+        controller.recoverWord(word);
     }
 
 

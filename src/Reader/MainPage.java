@@ -2,6 +2,7 @@ package Reader;
 
 import Dictionary.Dictionary;
 import javafx.application.Application;
+import javafx.concurrent.Worker;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +17,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainPage extends Application {
 
@@ -145,14 +148,19 @@ public class MainPage extends Application {
     public void replaceWord(String replaceWord) {
 
         /**
-         * 存在bug，需用正则表达式进行查找
+         * 存在bug，会匹配所有包含该字母的单词 (已修复）
+         *
+         * 解决：
+         * 需用正则表达式进行查找
          */
 
-        String replaceResult;
-        this.replaceWord = " " + replaceWord + " ";
-        replaceResult = textArea.getText().replace(srcWord, replaceWord);
+        String replaceResult = textArea.getText();
+        Pattern pattern = Pattern.compile("\\s" + srcWord + "\\s");
+        Matcher matcher = pattern.matcher(replaceResult);
+        replaceResult = matcher.replaceAll(" " + replaceWord + " ");
         srcWord = replaceWord;
         textArea.setText(replaceResult);
+
     }
 
     /**
@@ -162,9 +170,9 @@ public class MainPage extends Application {
      */
     public void recoverWord(String sourceWord) {
 
-//        String replaceResult;
-//        replaceResult = textArea.getText().replace(replaceWord, sourceWord);
-//        textArea.setText(replaceResult);
+        String replaceResult;
+        replaceResult = textArea.getText().replace(replaceWord, sourceWord);
+        textArea.setText(replaceResult);
 
     }
 }

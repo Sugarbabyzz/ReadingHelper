@@ -45,7 +45,7 @@ public class Login extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/login_layout.fxml"));
         Scene scene = new Scene(root, 400, 275);
-        primaryStage.setTitle("用户登录");
+        primaryStage.setTitle("登录");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

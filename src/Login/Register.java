@@ -42,7 +42,7 @@ public class Register extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/register_layout.fxml"));
-        primaryStage.setTitle("注册账号");
+        primaryStage.setTitle("注册");
         primaryStage.setScene(new Scene(root, 350, 300));
         primaryStage.setResizable(false);
         primaryStage.show();

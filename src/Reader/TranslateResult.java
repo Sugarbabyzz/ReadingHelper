@@ -71,7 +71,7 @@ public class TranslateResult extends Application {
         Parent root = loader.load();
 
         primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.setTitle("ReadingHelper");
+        primaryStage.setTitle("翻译结果");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 

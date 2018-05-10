@@ -170,8 +170,12 @@ public class MainPage extends Application {
      */
     public void recoverWord(String sourceWord) {
 
-        String replaceResult;
-        replaceResult = textArea.getText().replace(replaceWord, sourceWord);
+
+        String replaceResult = textArea.getText();
+        Pattern pattern = Pattern.compile("\\s" + srcWord + "\\s");
+        Matcher matcher = pattern.matcher(replaceResult);
+        replaceResult = matcher.replaceAll(" " + sourceWord + " ");
+        srcWord = sourceWord;
         textArea.setText(replaceResult);
 
     }

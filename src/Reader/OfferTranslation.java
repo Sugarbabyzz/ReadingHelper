@@ -10,10 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TreeCell;
 import javafx.stage.Stage;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +22,7 @@ public class OfferTranslation extends Application {
 
     private static String account; //账号
     private static String word;
+
     Stage stage = new Stage();
 
     TranslateResult controller;
@@ -55,6 +54,14 @@ public class OfferTranslation extends Application {
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.show();
     }
+
+    /**
+     * 显示 提供译文 页面
+     * @param account
+     * @param srcWord
+     * @param controller
+     * @throws Exception
+     */
 
     public void showWindow(String account, String srcWord, TranslateResult controller) throws Exception {
         start(stage);

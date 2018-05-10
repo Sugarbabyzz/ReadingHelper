@@ -20,11 +20,7 @@ import javafx.stage.StageStyle;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 public class TranslateResult extends Application {
@@ -50,6 +46,7 @@ public class TranslateResult extends Application {
     private Button btnEdit;
     @FXML
     private Button btnAddWord;
+
     MainPage controller;
 
     private static String account; //账号
@@ -80,21 +77,35 @@ public class TranslateResult extends Application {
 
     }
 
-    public void showWindow(String account, boolean isOnline, String srcWord, String ukPhonetic, String ukUrl, String usPhonetic, String usUrl,
+    /**
+     * 显示 翻译结果 页面
+     *
+     * @param account    账号
+     * @param isOnline   状态
+     * @param srcWord    选中翻译的单词
+     * @param ukPhonetic
+     * @param ukUrl
+     * @param usPhonetic
+     * @param usUrl
+     * @param result
+     * @param X
+     * @param Y
+     * @param controller
+     * @throws Exception
+     */
+    public void showWindow(String account, boolean isOnline,
+                           String srcWord, String ukPhonetic, String ukUrl, String usPhonetic, String usUrl,
                            String result, double X, double Y, MainPage controller) throws Exception {
         this.account = account;
-
+        this.controller = controller;
+        this.word = srcWord;
 
         Stage stage = new Stage();
         stage.setX(X);
         stage.setY(Y);
         start(stage);
 
-        this.controller = controller;
-
         tSrcWord.setText(srcWord);
-        this.word = tSrcWord.getText(); //顺序！！
-
         ukPhoneticSymbol.setText(ukPhonetic);
         usPhoneticSymbol.setText(usPhonetic);
         this.ukUrl = ukUrl;
@@ -210,11 +221,12 @@ public class TranslateResult extends Application {
      * @param selfTrans
      */
     public void setSelfTrans(String selfTrans) {
+
         taSelfTrans.setText(selfTrans);
     }
 
     /**
-     * 提交最后一次选择的译文
+     * 提交最后一次选择的译文模块
      *
      * @param lastChoice
      */

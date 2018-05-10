@@ -21,7 +21,7 @@ public class MainPage extends Application {
 
     Stage stage = new Stage();
 
-    private static boolean isOnline;
+    private static boolean isOnline; //判断是否登录账号
     private static String account; //传过来的账号
 
     private boolean flag = true;
@@ -42,13 +42,23 @@ public class MainPage extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/main_page.fxml"));
-        primaryStage.setTitle("Reader");
+        primaryStage.setTitle("英语阅读器");
         primaryStage.setScene(new Scene(root, 1000, 500));
         primaryStage.show();
     }
 
     /**
-     * 账号登录的使用
+     * 显示 Main 页面 （离线版）
+     *
+     * @throws Exception
+     */
+    public void showWindow() throws Exception {
+        this.isOnline = false;
+        start(stage);
+    }
+
+    /**
+     * 显示 Main 页面 （在线版）
      *
      * @param account
      * @throws Exception
@@ -59,16 +69,12 @@ public class MainPage extends Application {
         start(stage);
     }
 
-    /**
-     * 离线使用
-     *
-     * @throws Exception
-     */
-    public void showWindow() throws Exception {
-        this.isOnline = false;
-        start(stage);
-    }
 
+    /**
+     * 打开文件
+     *
+     * @throws IOException
+     */
     public void openFile() throws IOException {
         FileChooser fileChooser = new FileChooser();
         File filePath = fileChooser.showOpenDialog(new Stage());

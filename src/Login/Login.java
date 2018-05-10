@@ -43,7 +43,7 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../Layout/login_layout.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/login_layout.fxml"));
         Scene scene = new Scene(root, 400, 275);
         primaryStage.setTitle("用户登录");
         primaryStage.setScene(scene);
@@ -52,6 +52,11 @@ public class Login extends Application {
 
     }
 
+    /**
+     * 显示 Login 窗口
+     *
+     * @throws Exception
+     */
     public void showWindow() throws Exception {
         start(stage);
     }
@@ -107,8 +112,6 @@ public class Login extends Application {
         //销毁当前窗口
         Stage stage = (Stage) btnSignUp.getScene().getWindow();
         stage.close();
-
-
     }
 
     /**

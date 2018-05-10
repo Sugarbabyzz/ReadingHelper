@@ -11,18 +11,18 @@ import java.util.regex.Pattern;
 
 public class Dictionary {
 
+
+    public static String EnglishPhoneticSymbol;
+    public static String EnglishAccentUrl;
+    public static String AmericanPhoneticSymbol;
+    public static String AmericanAccentUrl;
+
     /**
      * 发起http get请求获取网页源代码
      *
      * @param requestUrl String    请求地址
      * @return String    该地址返回的html字符串
      */
-    public static String EnglishPhoneticSymbol;
-    public static String EnglishAccentUrl;
-    public static String AmericanPhoneticSymbol;
-    public static String AmericanAccentUrl;
-
-
     public static String httpRequest(String requestUrl) {
         StringBuffer buffer = null;
         BufferedReader bufferedReader = null;
@@ -93,7 +93,6 @@ public class Dictionary {
         String str1 = "";
         String str2 = "";
         String str3 = "";
-        String str4 = "";
         //buffer.append("翻译结果: \t\n");
 
         // 取出有用的范围

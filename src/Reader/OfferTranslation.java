@@ -74,7 +74,10 @@ public class OfferTranslation extends Application {
             Platform.runLater(() -> {
                 try {
                     //调用提交译文模块
-                    submitSelfTranslation(taSelfTrans.getText());
+                    /**
+                     * 中文url存在编码问题！！待解决！！
+                     */
+                    //submitSelfTranslation(taSelfTrans.getText());
                 } catch (Exception e) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
                     alert.setHeaderText(null);

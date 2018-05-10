@@ -116,6 +116,9 @@ public class TranslateResult extends Application {
                         Platform.runLater(() -> {
                             try {
                                 //调用提交最后一次选择的译文模块
+                                /**
+                                 * 中文url存在编码问题！！待解决！！
+                                 */
                                 //submitLastChoice(taTransResult.getSelectedText().trim());
                             } catch (Exception e) {
 //                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");

@@ -57,6 +57,7 @@ public class OfferTranslation extends Application {
 
     /**
      * 显示 提供译文 页面
+     *
      * @param account
      * @param srcWord
      * @param controller
@@ -75,21 +76,29 @@ public class OfferTranslation extends Application {
      * 提交译文按钮
      */
     public void submit() {
-        controller.setSelfTrans(taSelfTrans.getText()); //设置翻译页面的提供译文栏
 
-        new Thread(() -> {
-            Platform.runLater(() -> {
-                try {
-                    //调用提交译文模块
-                    submitSelfTranslation(taSelfTrans.getText());
-                } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                    alert.setHeaderText(null);
-                    alert.showAndWait();
-                }
-            });
-        }).start();
+        if (taSelfTrans.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文不能为空！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
 
+            System.out.println("提交译文不能为空！");
+        } else {
+            controller.setSelfTrans(taSelfTrans.getText()); //设置翻译页面的提供译文栏
+
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    try {
+                        //调用提交译文模块
+                        submitSelfTranslation(taSelfTrans.getText());
+                    } catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
+                    }
+                });
+            }).start();
+        }
     }
 
     /**

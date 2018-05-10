@@ -218,13 +218,15 @@ public class TranslateResult extends Application {
             stringBuffer.append("\n");
         }
 
-        if (!otherTranslation.equals(" ")) {
+        if (!otherTranslation.equals(" ") && !selfTranslation.equals("null")) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
-        if (!selfTranslation.equals(" ")) {
+
+        if (!selfTranslation.equals(" ") && !selfTranslation.equals("null")) {
             taSelfTrans.setText(selfTranslation);
         }
-        if (!lastChoice.equals(" ")) {
+
+        if (!lastChoice.equals(" ") && !selfTranslation.equals("null")) {
             taLastChoice.setText(lastChoice);
         }
 

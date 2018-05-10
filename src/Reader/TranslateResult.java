@@ -29,7 +29,13 @@ public class TranslateResult extends Application {
     @FXML
     private Text tSrcWord;
     @FXML
-    private TextArea taTransResult;
+    private TextArea taTransResult; //翻译结果
+    @FXML
+    private TextArea taOtherTransResult; // 别人提供的译文
+    @FXML
+    private TextArea taSelfTrans; //自己提供的译文
+    @FXML
+    private TextArea taLastChoice; //自己LastChoice
     @FXML
     private Button btnQuit;
     @FXML
@@ -40,8 +46,6 @@ public class TranslateResult extends Application {
     private ImageView ukVoice; //英式发音图标
     @FXML
     private ImageView usVoice; //美式发音图标
-    @FXML
-    private TextArea taSelfTrans; //自己对该词的翻译
     @FXML
     private Button btnEdit;
     @FXML
@@ -149,7 +153,40 @@ public class TranslateResult extends Application {
         btnEdit.setDisable(!isOnline);
         btnAddWord.setDisable(!isOnline);
 
+        initData();
+    }
 
+    private void initData() throws IOException {
+        URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + word);
+        // 接收servlet返回值，是字节
+        InputStream is = url.openStream();
+        System.out.println("nnnnnnnnnnnnnn" + url.toString());
+        // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuffer sb = new StringBuffer();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+
+        String response = sb.toString();
+        System.out.println("nnnnn" + response);
+
+        String[] responseArray = response.split("///");
+        String lastChoice = responseArray[0];
+        String selfTranslation = responseArray[1];
+        String otherTranslation = responseArray[2];
+        String[] otherTranslationArray = otherTranslation.split(",,,");
+
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i=0; i<otherTranslationArray.length ; i++){
+            stringBuffer.append(otherTranslationArray[i]);
+            stringBuffer.append("\n");
+        }
+
+        taOtherTransResult.setText(stringBuffer.toString());
+        taSelfTrans.setText(selfTranslation);
+        taLastChoice.setText(lastChoice);
     }
 
     /**

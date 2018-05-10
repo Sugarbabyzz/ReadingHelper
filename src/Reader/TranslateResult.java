@@ -201,6 +201,7 @@ public class TranslateResult extends Application {
             stringBuffer.append(otherTranslationArray[i]);
             stringBuffer.append("\n");
         }
+
         if (!otherTranslation.equals(" ")){
             taOtherTransResult.setText(stringBuffer.toString());
         }
@@ -219,7 +220,7 @@ public class TranslateResult extends Application {
                     /**
                      * 替换
                      */
-                    replaceWord = taTransResult.getSelectedText().trim();
+                    replaceWord = taOtherTransResult.getSelectedText().trim();
                     //System.out.println(replaceWord);
 
                     controller.replaceWord(replaceWord);
@@ -254,7 +255,7 @@ public class TranslateResult extends Application {
                     /**
                      * 替换
                      */
-                    replaceWord = taTransResult.getSelectedText().trim();
+                    replaceWord = taSelfTrans.getSelectedText().trim();
                     //System.out.println(replaceWord);
 
                     controller.replaceWord(replaceWord);
@@ -267,6 +268,41 @@ public class TranslateResult extends Application {
                             try {
                                 //调用提交最后一次选择的译文模块
                                 submitLastChoice(taSelfTrans.getSelectedText().trim());
+                            } catch (Exception e) {
+                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                alert.setHeaderText(null);
+                                alert.showAndWait();
+                                e.printStackTrace();
+                                System.out.println("提交最后一次选择的译文失败！");
+                            }
+                        });
+                    }).start();
+
+                }
+            }
+        });
+
+        taLastChoice.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(javafx.scene.input.MouseEvent event) {
+                if (event.getClickCount() == 2) {
+
+                    /**
+                     * 替换
+                     */
+                    replaceWord = taLastChoice.getSelectedText().trim();
+                    //System.out.println(replaceWord);
+
+                    controller.replaceWord(replaceWord);
+
+                    /**
+                     * 提交最后一次选择的译文
+                     */
+                    new Thread(() -> {
+                        Platform.runLater(() -> {
+                            try {
+                                //调用提交最后一次选择的译文模块
+                                submitLastChoice(taLastChoice.getSelectedText().trim());
                             } catch (Exception e) {
                                 Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
                                 alert.setHeaderText(null);

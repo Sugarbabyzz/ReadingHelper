@@ -192,7 +192,7 @@ public class MainPage extends Application {
         String replaceResult = textArea.getText();
         Pattern pattern = Pattern.compile("\\b" + srcWord + "\\b");
         Matcher matcher = pattern.matcher(replaceResult);
-        replaceResult = matcher.replaceAll(" " + sourceWord + " ");
+        replaceResult = matcher.replaceAll(sourceWord);
         srcWord = sourceWord;
         textArea.setText(replaceResult);
 

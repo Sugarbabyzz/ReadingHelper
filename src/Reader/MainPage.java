@@ -173,9 +173,9 @@ public class MainPage extends Application {
          */
 
         String replaceResult = textArea.getText();
-        Pattern pattern = Pattern.compile("\\s" + srcWord + "\\s");
+        Pattern pattern = Pattern.compile("\\b" + srcWord + "\\b");
         Matcher matcher = pattern.matcher(replaceResult);
-        replaceResult = matcher.replaceAll(" " + replaceWord + " ");
+        replaceResult = matcher.replaceAll(replaceWord);
         srcWord = replaceWord;
         textArea.setText(replaceResult);
 
@@ -190,7 +190,7 @@ public class MainPage extends Application {
 
 
         String replaceResult = textArea.getText();
-        Pattern pattern = Pattern.compile("\\s" + srcWord + "\\s");
+        Pattern pattern = Pattern.compile("\\b" + srcWord + "\\b");
         Matcher matcher = pattern.matcher(replaceResult);
         replaceResult = matcher.replaceAll(" " + sourceWord + " ");
         srcWord = sourceWord;

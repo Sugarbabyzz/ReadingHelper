@@ -138,8 +138,12 @@ public class MainPage extends Application {
      */
     public void replaceWord(String replaceWord) {
 
+        /**
+         * 存在bug，需用正则表达式进行查找
+         */
+
         String replaceResult;
-        this.replaceWord = replaceWord;
+        this.replaceWord = " " + replaceWord + " ";
         replaceResult = textArea.getText().replace(srcWord, replaceWord);
         srcWord = replaceWord;
         textArea.setText(replaceResult);

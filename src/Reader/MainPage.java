@@ -87,6 +87,7 @@ public class MainPage extends Application {
         if (filePath != null) {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
             textArea.setWrapText(true);
+            textArea.setEditable(false);
             textArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
@@ -113,7 +114,7 @@ public class MainPage extends Application {
                 }
             });
 
-            textArea.setEditable(false);
+
 
             //一行一行读取至BufferReader并输出到textArea
             String str_line;

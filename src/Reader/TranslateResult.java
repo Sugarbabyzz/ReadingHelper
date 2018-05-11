@@ -375,7 +375,62 @@ public class TranslateResult extends Application {
      * @param event
      */
     public void addWord(ActionEvent event) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                try {
+                    //调用加入生词本模块
+                    addNewWord();
+                } catch (Exception e) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "登录失败！");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
+                }
+            });
+        }).start();
+    }
 
+    /**
+     * 加入生词本模块
+     */
+    private void addNewWord() {
+
+        try {
+
+            URL url = new URL(Constant.URL_AddNewWord + "account=" + account + "&" + "word=" + word);
+            // 接收servlet返回值，是字节
+            InputStream is = url.openStream();
+
+            // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuffer sb = new StringBuffer();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+
+            if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("加入生词本");
+                alert.setHeaderText(null);
+                alert.setContentText("单词加入生词本成功！");
+
+                System.out.println("加入生词本成功！");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+
+                System.out.println("加入生词本失败！");
+            }
+        } catch (Exception e) {
+            //网络不通的情况
+            Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+
+            e.printStackTrace();
+        }
     }
 
     /**

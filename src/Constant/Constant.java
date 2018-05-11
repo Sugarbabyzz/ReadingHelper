@@ -14,4 +14,6 @@ public class Constant {
     public static String URL_SetSelfTranslation = URL + "SubmitSelfTranslationServlet?";
     public static String URL_SetLastChoice = URL + "SetLastChoiceServlet?";
     public static String URL_GetAll = URL + "GetAllServlet?";
+    public static String URL_ChangePassword = URL + "ChangePswServlet?";
+    public static String URL_AddNewWord = URL + "AddNewWordServlet?";
 }

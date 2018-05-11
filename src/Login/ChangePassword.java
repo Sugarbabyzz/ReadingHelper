@@ -113,7 +113,7 @@ public class ChangePassword extends Application {
         try {
             String password = pfNewPassword.getText();
 
-            URL url = new URL(Constant.URL_Register + "account=" + account + "&" + "password=" + password);
+            URL url = new URL(Constant.URL_ChangePassword + "account=" + account + "&" + "password=" + password);
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 

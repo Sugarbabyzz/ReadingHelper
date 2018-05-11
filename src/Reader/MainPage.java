@@ -1,8 +1,10 @@
 package Reader;
 
 import Dictionary.Dictionary;
+import Login.ChangePassword;
 import Login.Login;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -198,5 +200,21 @@ public class MainPage extends Application {
         srcWord = sourceWord;
         textArea.setText(replaceResult);
 
+    }
+
+    /**
+     * 修改密码
+     * @param event
+     */
+    public void changePsw(ActionEvent event) {
+
+        //启动修改密码主页面
+        Platform.runLater(() -> {
+            try {
+                new ChangePassword().showWindow(account);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

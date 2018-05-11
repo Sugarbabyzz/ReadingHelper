@@ -20,6 +20,7 @@
                 <Menu mnemonicParsing="false" text="个人">
                     <items>
                         <MenuItem mnemonicParsing="false" text="生词本"/>
+                        <MenuItem mnemonicParsing="false" onAction="#changePsw" text="修改密码"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="帮助">

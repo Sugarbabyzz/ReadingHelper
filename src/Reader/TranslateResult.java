@@ -145,7 +145,6 @@ public class TranslateResult extends Application {
                      */
                     replaceWord = taTransResult.getSelectedText().trim();
                     //System.out.println(replaceWord);
-
                     controller.replaceWord(replaceWord);
 
                     /**

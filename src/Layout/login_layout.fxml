@@ -45,7 +45,7 @@
             </GridPane.margin>
         </Button>
         <Button fx:id="btnOfflineUse" mnemonicParsing="false" onAction="#offlineUse" prefHeight="20.0" prefWidth="80.0"
-                text="离线登录" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                text="游客登录" GridPane.columnIndex="3" GridPane.rowIndex="4">
             <GridPane.margin>
                 <Insets/>
             </GridPane.margin>

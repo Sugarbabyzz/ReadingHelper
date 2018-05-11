@@ -14,12 +14,12 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开"/>
                         <MenuItem mnemonicParsing="false" text="保存"/>
+                        <MenuItem mnemonicParsing="false" onAction="#signOut" text="退出"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="个人">
                     <items>
                         <MenuItem mnemonicParsing="false" text="生词本"/>
-                        <MenuItem mnemonicParsing="false" onAction="#signOut" text="退出登录"/>
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="帮助">

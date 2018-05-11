@@ -165,11 +165,8 @@ public class MainPage extends Application {
      */
     public void replaceWord(String replaceWord) {
 
-        /**
-         * 存在bug，会匹配所有包含该字母的单词 (已修复）
-         *
-         * 解决：
-         * 需用正则表达式进行查找
+        /*
+         * 全局替换
          */
 
         String replaceResult = textArea.getText();
@@ -178,6 +175,10 @@ public class MainPage extends Application {
         replaceResult = matcher.replaceAll(replaceWord);
         srcWord = replaceWord;
         textArea.setText(replaceResult);
+
+        /*
+         * 局部替换
+         */
 
     }
 
@@ -197,6 +198,4 @@ public class MainPage extends Application {
         textArea.setText(replaceResult);
 
     }
-
-
 }

@@ -24,6 +24,8 @@ import javazoom.jl.player.Player;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class TranslateResult extends Application {
 
@@ -122,6 +124,9 @@ public class TranslateResult extends Application {
         tSrcWord.setText(srcWord);
         ukPhoneticSymbol.setText(ukPhonetic);
         usPhoneticSymbol.setText(usPhonetic);
+        /*
+         * 无发音，则喇叭不可见
+         */
         this.ukUrl = ukUrl;
         this.usUrl = usUrl;
         if (ukUrl.equals(" ")){
@@ -173,80 +178,6 @@ public class TranslateResult extends Application {
                 }
             }
         });
-
-        /*
-         * 未登录状态
-         */
-        btnEdit.setDisable(!isOnline);
-        btnAddWord.setDisable(!isOnline);
-
-        if (isOnline) {
-            /**
-             * 初始化数据
-             */
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    try {
-                        //调用初始化数据模块
-                        initData();
-                    } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "初始化数据失败！");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
-                        e.printStackTrace();
-                        System.out.println("初始化数据失败！");
-                    }
-                });
-            }).start();
-        }
-
-    }
-
-    /**
-     * 初始化数据
-     * 包括：自己提交过的译文、其他用户的译文、最后一次选择使用的译文
-     *
-     * @throws IOException
-     */
-    private void initData() throws IOException {
-        URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word));
-        // 接收servlet返回值，是字节
-        InputStream is = url.openStream();
-        // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuffer sb = new StringBuffer();
-        String line = null;
-        while ((line = reader.readLine()) != null) {
-            sb.append(line);
-        }
-
-        String response = sb.toString();
-        System.out.println(response);
-        String[] responseArray = response.split("///");
-
-        String lastChoice = responseArray[0];
-        String selfTranslation = responseArray[1];
-        String otherTranslation = responseArray[2];
-
-        String[] otherTranslationArray = otherTranslation.split(",,,");
-
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < otherTranslationArray.length; i++) {
-            stringBuffer.append(otherTranslationArray[i]);
-            stringBuffer.append("\n");
-        }
-
-        if (!otherTranslation.equals(" ") && !otherTranslation.equals("null") && !otherTranslation.equals(" null")) {
-            taOtherTransResult.setText(stringBuffer.toString());
-        }
-
-        if (!selfTranslation.equals(" ") && !selfTranslation.equals("null")) {
-            taSelfTrans.setText(selfTranslation);
-        }
-
-        if (!lastChoice.equals(" ") && !lastChoice.equals("null")) {
-            taLastChoice.setText(lastChoice);
-        }
 
         taOtherTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -367,6 +298,101 @@ public class TranslateResult extends Application {
                 }
             }
         });
+
+        /*
+         * 未登录状态
+         */
+        btnEdit.setDisable(!isOnline);
+        btnAddWord.setDisable(!isOnline);
+
+        if (isOnline) {
+            /**
+             * 初始化数据
+             */
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    try {
+                        //调用初始化数据模块
+                        initData();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("初始化数据失败！");
+                    }
+                });
+            }).start();
+        }
+
+    }
+
+    /**
+     * 初始化数据
+     * 包括：自己提交过的译文、其他用户的译文、最后一次选择使用的译文
+     *
+     * @throws IOException
+     */
+    private void initData() throws IOException {
+
+        URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word));
+        // 接收servlet返回值，是字节
+        InputStream is = url.openStream();
+        // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuffer sb = new StringBuffer();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line);
+        }
+
+        String response = sb.toString();
+        String lastChoice = " ";
+        String selfTranslation = " ";
+        String otherTranslation = " ";
+        System.out.println(response);
+
+        Pattern p = Pattern.compile("(.*)(<last>)(.*)(</last>)(.*)");
+        Matcher m = p.matcher(response);
+        if (m.find()){
+            lastChoice = m.group(3);
+        }
+        System.out.println(lastChoice);
+
+        p = Pattern.compile("(.*)(<selftrans>)(.*)(</selftrans>)(.*)");
+        m = p.matcher(response);
+        if (m.find()){
+            selfTranslation = m.group(3);
+        }
+        System.out.println(selfTranslation);
+
+        p = Pattern.compile("(.*)(<othertrans>)(.*)(</othertrans>)(.*)");
+        m = p.matcher(response);
+        if (m.find()){
+            otherTranslation = m.group(3);
+        }
+        System.out.println(otherTranslation);
+
+        String[] otherTranslationArray = otherTranslation.split("<span>");
+
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < otherTranslationArray.length; i++) {
+            stringBuffer.append(otherTranslationArray[i]);
+            stringBuffer.append("\n");
+        }
+
+        if (!otherTranslation.equals(" ") && !otherTranslation.equals("null") && !otherTranslation.equals(" null")) {
+            taOtherTransResult.setText(stringBuffer.toString());
+        }
+
+        if (!selfTranslation.equals(" ") && !selfTranslation.equals("null")) {
+            taSelfTrans.setText(selfTranslation);
+        }
+
+        if (!lastChoice.equals(" ") && !lastChoice.equals("null")) {
+            taLastChoice.setText(lastChoice);
+        }
+
+
+
+
     }
 
     /**
@@ -410,12 +436,17 @@ public class TranslateResult extends Application {
 
             if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
 
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("加入生词本");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "加入生词本成功！");
                 alert.setHeaderText(null);
-                alert.setContentText("单词加入生词本成功！");
+                alert.showAndWait();
 
                 System.out.println("加入生词本成功！");
+            } else if (sb.toString().equals(Constant.FLAG_ACCOUNT_EXIST)){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "该单词已加入生词本！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+
+                System.out.println("该单词已加入生词本！");
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
                 alert.setHeaderText(null);

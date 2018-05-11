@@ -237,7 +237,7 @@ public class TranslateResult extends Application {
             stringBuffer.append("\n");
         }
 
-        if (!otherTranslation.equals(" ") && !selfTranslation.equals(" null") && !selfTranslation.equals("null")) {
+        if (!otherTranslation.equals(" ") && !otherTranslation.equals("null") && !otherTranslation.equals(" null")) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
 
@@ -245,7 +245,7 @@ public class TranslateResult extends Application {
             taSelfTrans.setText(selfTranslation);
         }
 
-        if (!lastChoice.equals(" ") && !selfTranslation.equals("null")) {
+        if (!lastChoice.equals(" ") && !lastChoice.equals("null")) {
             taLastChoice.setText(lastChoice);
         }
 

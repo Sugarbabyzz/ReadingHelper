@@ -151,7 +151,7 @@ public class Register extends Application {
                     //启动在线状态主页面
                     Platform.runLater(() -> {
                         try {
-                            new MainPage().showWindow();
+                            new MainPage().showWindow(account);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

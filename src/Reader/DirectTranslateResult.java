@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,6 +41,7 @@ public class DirectTranslateResult extends Application {
         primaryStage.setTitle("翻译结果");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 300, 100));
+        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
     }
 

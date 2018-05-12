@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -75,6 +76,7 @@ public class MainPage extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/main_page.fxml"));
         primaryStage.setTitle("英语阅读器");
         primaryStage.setScene(new Scene(root, 1000, 500));
+        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
     }
 

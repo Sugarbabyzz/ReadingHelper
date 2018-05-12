@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -45,6 +46,7 @@ public class Register extends Application {
         primaryStage.setTitle("注册");
         primaryStage.setScene(new Scene(root, 350, 300));
         primaryStage.setResizable(false);
+        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
 
     }

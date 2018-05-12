@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
@@ -84,6 +85,7 @@ public class TranslateResult extends Application {
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("翻译结果");
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
 
 

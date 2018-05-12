@@ -27,12 +27,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.hwpf.extractor.WordExtractor;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -112,7 +114,54 @@ public class MainPage extends Application {
         FileChooser fileChooser = new FileChooser();
         File filePath = fileChooser.showOpenDialog(new Stage());
         if (filePath != null) {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            if (filePath.toString().endsWith(".txt")) {
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+                //一行一行读取至BufferReader并输出到textArea
+                String str_line;
+                while ((str_line = bufferedReader.readLine()) != null) {
+                    if (flag) {
+                        textArea.setText(str_line);
+                        flag = false;
+                    } else {
+                        textArea.setText(textArea.getText() + "\n" + str_line);
+                    }
+                }
+            } else if (filePath.toString().endsWith(".doc")) {
+
+                InputStream is = new FileInputStream(filePath.toString());
+                WordExtractor extractor = new WordExtractor(is);
+
+                //System.out.println(extractor.getText());
+                textArea.setText(extractor.getText());
+            } else if (filePath.toString().endsWith(".docx")){
+                XWPFDocument doc = new XWPFDocument(
+                        new FileInputStream(filePath.toString()));
+                //using XWPFWordExtractor Class
+                XWPFWordExtractor we = new XWPFWordExtractor(doc);
+
+                //System.out.println(we.getText());
+                textArea.setText(we.getText());
+            } else if (filePath.toString().endsWith(".pdf")) {
+                PDDocument document = null;
+                document = PDDocument.load(filePath);
+                // 获取页码
+                int pages = document.getNumberOfPages();
+                // 读文本内容
+                PDFTextStripper stripper = new PDFTextStripper();
+                // 设置按顺序输出
+                stripper.setSortByPosition(true);
+                stripper.setStartPage(1);
+                stripper.setEndPage(pages);
+                String content = stripper.getText(document);
+
+                //System.out.println(content);
+                textArea.setText(content);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "仅支持 word、pdf、txt格式文档！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+            }
+
             textArea.setWrapText(true);
             textArea.setEditable(false);
             textArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -143,21 +192,8 @@ public class MainPage extends Application {
                     }
 
                 }
-
-
             });
 
-
-            //一行一行读取至BufferReader并输出到textArea
-            String str_line;
-            while ((str_line = bufferedReader.readLine()) != null) {
-                if (flag) {
-                    textArea.setText(str_line);
-                    flag = false;
-                } else {
-                    textArea.setText(textArea.getText() + "\n" + str_line);
-                }
-            }
         }
     }
 

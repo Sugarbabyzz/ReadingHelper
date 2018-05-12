@@ -6,8 +6,6 @@ import Login.Login;
 import Util.WordStyleSet;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -35,7 +34,6 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.awt.*;
 import java.io.*;
-import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -69,6 +67,7 @@ public class MainPage extends Application {
     VBox vBox;
     @FXML
     ToggleButton toggle_button;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -90,6 +89,7 @@ public class MainPage extends Application {
     public void showWindow() throws Exception {
         this.isOnline = false;
         start(stage);
+
     }
 
     /**

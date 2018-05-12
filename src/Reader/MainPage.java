@@ -278,7 +278,7 @@ public class MainPage extends Application {
      * 显示字体设置栏
      */
     public void showWordStyle(){
-        //样式布局的根节点,包含以下四个控件
+        //此布局的根节点
         hBox = new HBox();
         hBox.prefHeight(25);
         hBox.prefWidth(600);

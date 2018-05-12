@@ -61,9 +61,9 @@ public class DirectTranslateResult extends Application {
         }
         String directResult = decodeUnicode(result);
 
-        System.out.println(result);
-        System.out.println(api.getTransResult(sourceSentence, "en", "zh"));
-        System.out.println(directResult);
+//        System.out.println(result);
+//        System.out.println(api.getTransResult(sourceSentence, "en", "zh"));
+//        System.out.println(directResult);
 
         txtResult.setText(directResult);
         txtResult.setWrappingWidth(300);

@@ -378,7 +378,7 @@ public class TranslateResult extends Application {
             stringBuffer.append("\n");
         }
 
-        if (!otherTranslation.equals(" ") && !otherTranslation.equals("null") && !otherTranslation.equals(" null")) {
+        if (!otherTranslation.equals(" ") && !otherTranslation.equals(" null<span>")) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
 

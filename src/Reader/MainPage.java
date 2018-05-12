@@ -12,7 +12,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -105,17 +108,22 @@ public class MainPage extends Application {
                         AmericanAccentUrl = Dictionary.AmericanAccentUrl;
                         EnglishPhoneticSymbol = Dictionary.EnglishPhoneticSymbol;
                         AmericanPhoneticSymbol = Dictionary.AmericanPhoneticSymbol;
-                        try {
-                            new TranslateResult().showWindow(account, isOnline, srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
-                                    result, event.getScreenX(), event.getScreenY(), MainPage.this);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
 
+                        //启动翻译结果页面
+                        Platform.runLater(() -> {
+                            try {
+                                new TranslateResult().showWindow(account, isOnline, srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
+                                        result, event.getScreenX(), event.getScreenY(), MainPage.this);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
                     }
-                }
-            });
 
+                }
+
+
+            });
 
 
             //一行一行读取至BufferReader并输出到textArea
@@ -133,12 +141,19 @@ public class MainPage extends Application {
 
     /**
      * 退出登录
+     *
      * @param event
      */
     public void signOut(ActionEvent event) throws Exception {
 
-        //启动登录窗口
-        new Login().showWindow();
+        //启动登录主页面
+        Platform.runLater(() -> {
+            try {
+                new Login().showWindow();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
         //销毁当前窗口
         Stage stage = (Stage) textArea.getScene().getWindow();
         stage.close();
@@ -204,6 +219,7 @@ public class MainPage extends Application {
 
     /**
      * 修改密码
+     *
      * @param event
      */
     public void changePsw(ActionEvent event) {
@@ -216,5 +232,25 @@ public class MainPage extends Application {
                 e.printStackTrace();
             }
         });
+    }
+
+    /**
+     * 调用百度翻译
+     *
+     * @param event
+     */
+    public void translate(ActionEvent event) {
+
+        String srcSentence = textArea.getSelectedText().trim();
+
+        //启动直接翻译结果主页面
+        Platform.runLater(() -> {
+            try {
+                new DirectTranslateResult().showWindow(srcSentence);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
     }
 }

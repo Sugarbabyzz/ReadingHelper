@@ -30,6 +30,14 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <TextArea fx:id="textArea" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS"/>
+        <TextArea fx:id="textArea" editable="false" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#translate" text="翻译"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TextArea>
     </children>
 </VBox>

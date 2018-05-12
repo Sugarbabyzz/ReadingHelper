@@ -31,11 +31,15 @@ public class DirectTranslateResult extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/direct_translate_result.fxml"));
-        Scene scene = new Scene(root, 300, 100);
-        primaryStage.setTitle("直接翻译");
-        primaryStage.setScene(scene);
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getClassLoader().getResource("Layout/direct_translate_result.fxml")
+        );
+        loader.setController(this);
+        Parent root = loader.load();
+
+        primaryStage.setTitle("翻译结果");
         primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root, 300, 100));
         primaryStage.show();
     }
 
@@ -51,8 +55,8 @@ public class DirectTranslateResult extends Application {
 
         String result = " ";
         Pattern p = Pattern.compile("(.*)(\"dst\":\")(.*)(\"})(.*)");
-        Matcher m = p.matcher(api.getTransResult(sourceSentence,"en", "zh" ));
-        if (m.find()){
+        Matcher m = p.matcher(api.getTransResult(sourceSentence, "en", "zh"));
+        if (m.find()) {
             result = m.group(3);
         }
         String directResult = decodeUnicode(result);
@@ -62,7 +66,7 @@ public class DirectTranslateResult extends Application {
         System.out.println(directResult);
 
         txtResult.setText(directResult);
-        //taResult.setEditable(false);
+        txtResult.setWrappingWidth(300);
     }
 
     //Unicode转中文

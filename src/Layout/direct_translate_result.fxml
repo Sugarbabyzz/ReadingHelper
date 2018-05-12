@@ -9,7 +9,7 @@
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0"
           prefWidth="200.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="Reader.DirectTranslateResult">
+ >
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
     </columnConstraints>
@@ -23,6 +23,6 @@
                 <Font size="21.0"/>
             </font>
         </Label>
-        <Text fx:id="txtResult" strokeType="OUTSIDE" strokeWidth="0.0" text="    " GridPane.rowIndex="1"/>
+        <Text fx:id="txtResult" strokeType="OUTSIDE" strokeWidth="0.0" text="未找到译文！" GridPane.rowIndex="1"/>
     </children>
 </GridPane>

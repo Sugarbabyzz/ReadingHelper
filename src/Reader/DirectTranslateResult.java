@@ -70,22 +70,21 @@ public class DirectTranslateResult extends Application {
     }
 
     //Unicode转中文
-    public static String decodeUnicode(final String dataStr) {
-        int start = 0;
-        int end = 0;
-        final StringBuffer buffer = new StringBuffer();
-        while (start > -1) {
-            end = dataStr.indexOf("\\u", start + 2);
-            String charStr = "";
-            if (end == -1) {
-                charStr = dataStr.substring(start + 2, dataStr.length());
-            } else {
-                charStr = dataStr.substring(start + 2, end);
+    private static String decodeUnicode(String asciicode) {
+
+        String[] asciis = asciicode.split("\\\\u");
+        String nativeValue = asciis[0];
+        try {
+            for (int i = 1; i < asciis.length; i++) {
+                String code = asciis[i];
+                nativeValue += (char) Integer.parseInt(code.substring(0, 4), 16);
+                if (code.length() > 4) {
+                    nativeValue += code.substring(4, code.length());
+                }
             }
-            char letter = (char) Integer.parseInt(charStr, 16); // 16进制parse整形字符串。
-            buffer.append(new Character(letter).toString());
-            start = end;
+        } catch (NumberFormatException e) {
+            return asciicode;
         }
-        return buffer.toString();
+        return nativeValue;
     }
 }

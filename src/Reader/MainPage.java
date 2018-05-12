@@ -3,23 +3,36 @@ package Reader;
 import Dictionary.Dictionary;
 import Login.ChangePassword;
 import Login.Login;
+import Util.WordStyleSet;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,9 +52,20 @@ public class MainPage extends Application {
     private String EnglishPhoneticSymbol;
     private String AmericanPhoneticSymbol;
     private String replaceWord;
+
+    private TextField tfWordFont;
+    private TextField tfWordSize;
+    private MenuButton mbFontSelect;
+    private MenuItem[] menuItemArray;
+    private HBox hBox;
+    int i;
+
     @FXML
     TextArea textArea;
-
+    @FXML
+    VBox vBox;
+    @FXML
+    ToggleButton toggle_button;
     public static void main(String[] args) {
         launch(args);
     }
@@ -248,5 +272,79 @@ public class MainPage extends Application {
             }
         });
 
+    }
+
+    /**
+     * 显示字体设置栏
+     */
+    public void showWordStyle(){
+        //样式布局的根节点,包含以下四个控件
+        hBox = new HBox();
+        hBox.prefHeight(25);
+        hBox.prefWidth(600);
+
+        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String[] fontName = e.getAvailableFontFamilyNames();
+        menuItemArray = new MenuItem[fontName.length];
+
+        for (i = 0; i < fontName.length; i++) {
+            menuItemArray[i] = new MenuItem(fontName[i]);
+        }
+
+        for (MenuItem mi:menuItemArray){
+            mi.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    String str = mi.getText();
+                    WordStyleSet.StyleSet(textArea,str,Double.parseDouble(tfWordSize.getText()));
+                    mbFontSelect.setText(str);
+                    System.out.println("字体:" + textArea.getFont().getName());
+                }
+            });
+        }
+
+        mbFontSelect = new MenuButton();
+        mbFontSelect.getItems().addAll(menuItemArray);
+        mbFontSelect.setText(textArea.getFont().getName());
+        mbFontSelect.prefWidth(100);
+        mbFontSelect.prefHeight(25);
+
+        //设置字体大小的按钮
+        Button setWordSize = new Button();
+        setWordSize.setText("设置字体大小");
+        //字体大小输入
+        tfWordSize = new TextField();
+        tfWordSize.prefWidth(15);
+        tfWordSize.prefHeight(25);
+        tfWordSize.setPadding(new Insets(4,-110,4,7));
+        tfWordSize.setText(textArea.getFont().getSize()+"");
+        //字体大小监听
+        setWordSize.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                WordStyleSet.StyleSet(textArea,mbFontSelect.getText(),Double.parseDouble(tfWordSize.getText()));
+            }
+        });
+
+        // 将控件加入字体样式根节点、设置间距
+        hBox.getChildren().addAll(setWordSize,tfWordSize,mbFontSelect);
+        hBox.setMargin(setWordSize,new Insets(0,0,0,50));
+        hBox.setMargin(mbFontSelect,new Insets(0,0,0,50));
+
+        // 将该根节点加入布局
+        vBox.getChildren().add(1,hBox);
+    }
+
+    /**
+     * 对toggleButton是否按下作判断
+     */
+    public void ifSetFont() {
+        if (toggle_button.isSelected() == true){
+            showWordStyle();
+            toggle_button.setText("隐藏字体设置");
+        }else {
+            vBox.getChildren().remove(hBox);
+            toggle_button.setText("字体设置");
+        }
     }
 }

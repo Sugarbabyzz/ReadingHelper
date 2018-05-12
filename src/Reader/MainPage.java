@@ -341,7 +341,7 @@ public class MainPage extends Application {
      * 对toggleButton是否按下作判断
      */
     public void ifSetFont() {
-        if (toggle_button.isSelected() == true){
+        if (toggle_button.isSelected()){
             showWordStyle();
             toggle_button.setText("隐藏字体设置");
         }else {

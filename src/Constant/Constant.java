@@ -6,6 +6,7 @@ public class Constant {
     public static final String FLAG_SUCCESS = "100";
     public static final String FLAG_FAIL = "200";
     public static final String FLAG_ACCOUNT_EXIST = "300";
+    public static final String FLAG_NULL = "400";
 
     //连接至远程服务器
     public static String URL = "http://47.94.253.65:8080/ReaderServlet/";
@@ -16,4 +17,5 @@ public class Constant {
     public static String URL_GetAll = URL + "GetAllServlet?";
     public static String URL_ChangePassword = URL + "ChangePswServlet?";
     public static String URL_AddNewWord = URL + "AddNewWordServlet?";
+    public static String URL_GetNewWordList = URL + "GetNewWordListServlet";
 }

@@ -247,7 +247,7 @@ public class MainPage extends Application {
      * @param srcWord 待翻译的单词
      * @return 返回翻译结果
      */
-    private String search(String srcWord) {
+    public static String search(String srcWord) {
         //调用httpRequest方法，获取html字符串
         String html = Dictionary.httpRequest("http://www.iciba.com/" + srcWord);
         //利用正则表达式，抓取单词翻译信息
@@ -261,17 +261,15 @@ public class MainPage extends Application {
      *
      * @param event
      */
-    public void newWord(ActionEvent event) {
+    public void newWord(ActionEvent event) throws IOException {
 
         if (!isOnline){
             Alert alert = new Alert(Alert.AlertType.ERROR, "游客登录无法使用此功能");
             alert.setHeaderText(null);
             alert.showAndWait();
         } else {
-            /*
-             * 此处加入生词本功能
-             */
-            //!!!!!!!!!!!!!!!!!!!!!!
+            //显示生词本界面
+            new NewWordList().showWindow(account);
         }
     }
 

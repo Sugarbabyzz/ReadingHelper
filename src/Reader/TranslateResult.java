@@ -121,7 +121,7 @@ public class TranslateResult extends Application {
 
         Stage stage = new Stage();
 
-        System.out.println(X + "\n" + Y);
+        //获取屏幕大小并让窗口总出现在屏幕范围内
         Toolkit tool = Toolkit.getDefaultToolkit();
         Dimension screen = tool.getScreenSize();
         if (X > (screen.width-600)){

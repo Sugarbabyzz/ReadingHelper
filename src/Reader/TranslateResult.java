@@ -22,6 +22,7 @@ import javafx.stage.StageStyle;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
@@ -119,6 +120,17 @@ public class TranslateResult extends Application {
         this.word = srcWord;
 
         Stage stage = new Stage();
+
+        System.out.println(X + "\n" + Y);
+        Toolkit tool = Toolkit.getDefaultToolkit();
+        Dimension screen = tool.getScreenSize();
+        if (X > (screen.width-600)){
+            X = X - 600;
+        }
+        if (Y > (screen.height - 400)){
+            Y = Y - 400;
+        }
+
         stage.setX(X);
         stage.setY(Y);
         start(stage);

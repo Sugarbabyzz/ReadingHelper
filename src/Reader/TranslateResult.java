@@ -89,7 +89,6 @@ public class TranslateResult extends Application {
         primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
 
-
         // 拖动监听器
         DragUtil.addDragListener(primaryStage, root);
 
@@ -164,31 +163,32 @@ public class TranslateResult extends Application {
                      */
                     replaceWord = taTransResult.getSelectedText().trim();
                     //System.out.println(replaceWord);
-                    controller.replaceWord(replaceWord);
+                    if (!replaceWord.isEmpty()){
+                        controller.replaceWord(replaceWord);
 
-                    /**
-                     * 存入哈希图
-                     */
-                    transToWord.put(replaceWord, word);
-                    System.out.println(transToWord);
-                    /**
-                     * 提交最后一次选择的译文
-                     */
-                    new Thread(() -> {
-                        Platform.runLater(() -> {
-                            try {
-                                //调用提交最后一次选择的译文模块
-                                submitLastChoice(taTransResult.getSelectedText().trim());
-                            } catch (Exception e) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                                alert.setHeaderText(null);
-                                alert.showAndWait();
-                                e.printStackTrace();
-                                System.out.println("提交最后一次选择的译文失败！");
-                            }
-                        });
-                    }).start();
-
+                        /**
+                         * 存入哈希图
+                         */
+                        transToWord.put(replaceWord, word);
+                        System.out.println(transToWord);
+                        /**
+                         * 提交最后一次选择的译文
+                         */
+                        new Thread(() -> {
+                            Platform.runLater(() -> {
+                                try {
+                                    //调用提交最后一次选择的译文模块
+                                    submitLastChoice(taTransResult.getSelectedText().trim());
+                                } catch (Exception e) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                    alert.setHeaderText(null);
+                                    alert.showAndWait();
+                                    e.printStackTrace();
+                                    System.out.println("提交最后一次选择的译文失败！");
+                                }
+                            });
+                        }).start();
+                    }
                 }
             }
         });
@@ -204,31 +204,32 @@ public class TranslateResult extends Application {
                     replaceWord = taOtherTransResult.getSelectedText().trim();
                     //System.out.println(replaceWord);
 
-                    controller.replaceWord(replaceWord);
+                    if (!replaceWord.isEmpty()){
+                        controller.replaceWord(replaceWord);
 
-                    /**
-                     * 存入哈希图
-                     */
-                    transToWord.put(replaceWord, word);
-                    System.out.println(transToWord);
-                    /**
-                     * 提交最后一次选择的译文
-                     */
-                    new Thread(() -> {
-                        Platform.runLater(() -> {
-                            try {
-                                //调用提交最后一次选择的译文模块
-                                submitLastChoice(taOtherTransResult.getSelectedText().trim());
-                            } catch (Exception e) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                                alert.setHeaderText(null);
-                                alert.showAndWait();
-                                e.printStackTrace();
-                                System.out.println("提交最后一次选择的译文失败！");
-                            }
-                        });
-                    }).start();
-
+                        /**
+                         * 存入哈希图
+                         */
+                        transToWord.put(replaceWord, word);
+                        System.out.println(transToWord);
+                        /**
+                         * 提交最后一次选择的译文
+                         */
+                        new Thread(() -> {
+                            Platform.runLater(() -> {
+                                try {
+                                    //调用提交最后一次选择的译文模块
+                                    submitLastChoice(taOtherTransResult.getSelectedText().trim());
+                                } catch (Exception e) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                    alert.setHeaderText(null);
+                                    alert.showAndWait();
+                                    e.printStackTrace();
+                                    System.out.println("提交最后一次选择的译文失败！");
+                                }
+                            });
+                        }).start();
+                    }
                 }
             }
         });
@@ -244,31 +245,32 @@ public class TranslateResult extends Application {
                     replaceWord = taSelfTrans.getSelectedText().trim();
                     //System.out.println(replaceWord);
 
-                    controller.replaceWord(replaceWord);
+                    if (!replaceWord.isEmpty()){
+                        controller.replaceWord(replaceWord);
 
-                    /**
-                     * 存入哈希图
-                     */
-                    transToWord.put(replaceWord, word);
-                    System.out.println(transToWord);
-                    /**
-                     * 提交最后一次选择的译文
-                     */
-                    new Thread(() -> {
-                        Platform.runLater(() -> {
-                            try {
-                                //调用提交最后一次选择的译文模块
-                                submitLastChoice(taSelfTrans.getSelectedText().trim());
-                            } catch (Exception e) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                                alert.setHeaderText(null);
-                                alert.showAndWait();
-                                e.printStackTrace();
-                                System.out.println("提交最后一次选择的译文失败！");
-                            }
-                        });
-                    }).start();
-
+                        /**
+                         * 存入哈希图
+                         */
+                        transToWord.put(replaceWord, word);
+                        System.out.println(transToWord);
+                        /**
+                         * 提交最后一次选择的译文
+                         */
+                        new Thread(() -> {
+                            Platform.runLater(() -> {
+                                try {
+                                    //调用提交最后一次选择的译文模块
+                                    submitLastChoice(taSelfTrans.getSelectedText().trim());
+                                } catch (Exception e) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                    alert.setHeaderText(null);
+                                    alert.showAndWait();
+                                    e.printStackTrace();
+                                    System.out.println("提交最后一次选择的译文失败！");
+                                }
+                            });
+                        }).start();
+                    }
                 }
             }
         });
@@ -284,31 +286,32 @@ public class TranslateResult extends Application {
                     replaceWord = taLastChoice.getSelectedText().trim();
                     //System.out.println(replaceWord);
 
-                    controller.replaceWord(replaceWord);
+                    if (!replaceWord.isEmpty()){
+                        controller.replaceWord(replaceWord);
 
-                    /**
-                     * 存入哈希图
-                     */
-                    transToWord.put(replaceWord, word);
-                    System.out.println(transToWord);
-                    /**
-                     * 提交最后一次选择的译文
-                     */
-                    new Thread(() -> {
-                        Platform.runLater(() -> {
-                            try {
-                                //调用提交最后一次选择的译文模块
-                                submitLastChoice(taLastChoice.getSelectedText().trim());
-                            } catch (Exception e) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                                alert.setHeaderText(null);
-                                alert.showAndWait();
-                                e.printStackTrace();
-                                System.out.println("提交最后一次选择的译文失败！");
-                            }
-                        });
-                    }).start();
-
+                        /**
+                         * 存入哈希图
+                         */
+                        transToWord.put(replaceWord, word);
+                        System.out.println(transToWord);
+                        /**
+                         * 提交最后一次选择的译文
+                         */
+                        new Thread(() -> {
+                            Platform.runLater(() -> {
+                                try {
+                                    //调用提交最后一次选择的译文模块
+                                    submitLastChoice(taLastChoice.getSelectedText().trim());
+                                } catch (Exception e) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                    alert.setHeaderText(null);
+                                    alert.showAndWait();
+                                    e.printStackTrace();
+                                    System.out.println("提交最后一次选择的译文失败！");
+                                }
+                            });
+                        }).start();
+                    }
                 }
             }
         });
@@ -346,7 +349,7 @@ public class TranslateResult extends Application {
      */
     private void initData() throws IOException {
 
-        URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word));
+        URL url = new URL(Constant.URL_GetAll + "account=" + account + "&" + "word=" + java.net.URLEncoder.encode(word, "utf-8"));
         // 接收servlet返回值，是字节
         InputStream is = url.openStream();
         // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
@@ -392,7 +395,7 @@ public class TranslateResult extends Application {
             stringBuffer.append("\n");
         }
 
-        if (!otherTranslation.equals(" ") && !otherTranslation.equals(" null<span>")) {
+        if (!otherTranslation.equals(" ") && !otherTranslation.equals(" null<span>") && !otherTranslation.equals("null")) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
 
@@ -421,7 +424,7 @@ public class TranslateResult extends Application {
                     //调用加入生词本模块
                     addNewWord();
                 } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "登录失败！");
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
                     alert.setHeaderText(null);
                     alert.showAndWait();
                 }
@@ -469,8 +472,8 @@ public class TranslateResult extends Application {
                 System.out.println("加入生词本失败！");
             }
         } catch (Exception e) {
-            //网络不通的情况
-            Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常！");
+            //编码错误，即将中文加入生词本的情况
+            Alert alert = new Alert(Alert.AlertType.ERROR, "仅能将英文单词加入生词本！");
             alert.setHeaderText(null);
             alert.showAndWait();
 

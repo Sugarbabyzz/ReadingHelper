@@ -60,7 +60,7 @@
 
         <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
             <children>
-                <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="80.0" text="编辑">
+                <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#edit" prefHeight="40.0" prefWidth="80.0" text="编辑译文">
                     <FlowPane.margin>
                         <Insets left="25.0" right="25.0" top="20.0" />
                     </FlowPane.margin>

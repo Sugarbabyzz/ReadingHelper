@@ -170,6 +170,7 @@ public class MainPage extends Application {
                     if (event.getClickCount() == 2) {
 
                         srcWord = textArea.getSelectedText().trim();
+
                         System.out.println(srcWord);
                         //翻译
                         result = search(srcWord);
@@ -263,7 +264,7 @@ public class MainPage extends Application {
      */
     public void newWord(ActionEvent event) throws IOException {
 
-        if (!isOnline){
+        if (!isOnline) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "游客登录无法使用此功能");
             alert.setHeaderText(null);
             alert.showAndWait();
@@ -313,7 +314,6 @@ public class MainPage extends Application {
         textArea.setText(replaceResult);
 
     }
-
 
 
     /**

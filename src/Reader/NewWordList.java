@@ -73,7 +73,7 @@ public class NewWordList extends Application {
      */
     private void initWordList() {
         try {
-            URL url = new URL(Constant.URL_GetNewWordList + "?account=" + account);
+            URL url = new URL(Constant.URL_GetNewWordList + "account=" + account);
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 
@@ -147,18 +147,12 @@ public class NewWordList extends Application {
             HBox.setMargin(text,new Insets(0,0,0,20));
             button.setOnAction(event -> {
                 System.out.println("clicked item: " + lastItem);
-
+                //显示与隐藏释义
                 if (button.isSelected()) {
-                    // 还判断一步是否隐藏是为了保证只联网搜索过一次结果
-                    // 点击过一次后再也不需要再执行search方法
-                    if (text.isVisible()){
-                        text.setText(MainPage.search(lastItem));
-                    }else {
-                        text.setVisible(true);
-                    }
+                    text.setText(MainPage.search(lastItem));
                     button.setText("隐藏");
                 } else {
-                    text.setVisible(false);
+                    text.setText("");
                     button.setText("释义");
                 }
 

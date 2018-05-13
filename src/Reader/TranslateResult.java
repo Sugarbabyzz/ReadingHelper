@@ -553,13 +553,14 @@ public class TranslateResult extends Application {
             // 获取账号、单词和提交的译文
             String account = this.account;
             String word = this.word;
+
             /**
              * 坑来了！！
              * 传入含有中文字符的URL，需要将其进行编码
              */
-            String lastchoice = java.net.URLEncoder.encode(lastChoice, "utf-8");
-
-            URL url = new URL(Constant.URL_SetLastChoice + "account=" + account + "&" + "word=" + word + "&" + "lastchoice=" + lastchoice);
+            URL url = new URL(Constant.URL_SetLastChoice + "account=" + account + "&"
+                                                               + "word=" + java.net.URLEncoder.encode(word, "utf-8") + "&"
+                                                               + "lastchoice=" + java.net.URLEncoder.encode(lastChoice, "utf-8"));
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 
@@ -583,7 +584,6 @@ public class TranslateResult extends Application {
                 System.out.println("提交最后一次选择的译文失败！");
             }
         } catch (Exception e) {
-            //网络不通的情况
             Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常，提交最后一次选择的译文失败！");
             alert.setHeaderText(null);
             alert.showAndWait();

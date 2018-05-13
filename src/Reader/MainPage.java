@@ -133,7 +133,7 @@ public class MainPage extends Application {
 
                 //System.out.println(extractor.getText());
                 textArea.setText(extractor.getText());
-            } else if (filePath.toString().endsWith(".docx")){
+            } else if (filePath.toString().endsWith(".docx")) {
                 XWPFDocument doc = new XWPFDocument(
                         new FileInputStream(filePath.toString()));
                 //using XWPFWordExtractor Class
@@ -218,6 +218,28 @@ public class MainPage extends Application {
 
     }
 
+    /**
+     * 修改密码
+     *
+     * @param event
+     */
+    public void changePsw(ActionEvent event) {
+
+        if (!isOnline) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "游客登录无法使用此功能");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        } else {
+            //启动修改密码主页面
+            Platform.runLater(() -> {
+                try {
+                    new ChangePassword().showWindow(account);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+    }
 
     /**
      * 访问网络获取翻译结果
@@ -232,6 +254,25 @@ public class MainPage extends Application {
         String result = Dictionary.GetResult(html);
 
         return result;
+    }
+
+    /**
+     * 生词本
+     *
+     * @param event
+     */
+    public void newWord(ActionEvent event) {
+
+        if (!isOnline){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "游客登录无法使用此功能");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        } else {
+            /*
+             * 此处加入生词本功能
+             */
+            //!!!!!!!!!!!!!!!!!!!!!!
+        }
     }
 
     /**
@@ -275,22 +316,7 @@ public class MainPage extends Application {
 
     }
 
-    /**
-     * 修改密码
-     *
-     * @param event
-     */
-    public void changePsw(ActionEvent event) {
 
-        //启动修改密码主页面
-        Platform.runLater(() -> {
-            try {
-                new ChangePassword().showWindow(account);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-    }
 
     /**
      * 调用百度翻译
@@ -315,7 +341,7 @@ public class MainPage extends Application {
     /**
      * 显示字体设置栏
      */
-    public void showWordStyle(){
+    public void showWordStyle() {
         //此布局的根节点
         hBox = new HBox();
         hBox.prefHeight(25);
@@ -329,12 +355,12 @@ public class MainPage extends Application {
             menuItemArray[i] = new MenuItem(fontName[i]);
         }
 
-        for (MenuItem mi:menuItemArray){
+        for (MenuItem mi : menuItemArray) {
             mi.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     String str = mi.getText();
-                    WordStyleSet.StyleSet(textArea,str,Double.parseDouble(tfWordSize.getText()));
+                    WordStyleSet.StyleSet(textArea, str, Double.parseDouble(tfWordSize.getText()));
                     mbFontSelect.setText(str);
                     System.out.println("字体:" + textArea.getFont().getName());
                 }
@@ -354,35 +380,37 @@ public class MainPage extends Application {
         tfWordSize = new TextField();
         tfWordSize.prefWidth(15);
         tfWordSize.prefHeight(25);
-        tfWordSize.setPadding(new Insets(4,-110,4,7));
-        tfWordSize.setText(textArea.getFont().getSize()+"");
+        tfWordSize.setPadding(new Insets(4, -110, 4, 7));
+        tfWordSize.setText(textArea.getFont().getSize() + "");
         //字体大小监听
         setWordSize.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                WordStyleSet.StyleSet(textArea,mbFontSelect.getText(),Double.parseDouble(tfWordSize.getText()));
+                WordStyleSet.StyleSet(textArea, mbFontSelect.getText(), Double.parseDouble(tfWordSize.getText()));
             }
         });
 
         // 将控件加入字体样式根节点、设置间距
-        hBox.getChildren().addAll(setWordSize,tfWordSize,mbFontSelect);
-        hBox.setMargin(setWordSize,new Insets(0,0,0,50));
-        hBox.setMargin(mbFontSelect,new Insets(0,0,0,50));
+        hBox.getChildren().addAll(setWordSize, tfWordSize, mbFontSelect);
+        hBox.setMargin(setWordSize, new Insets(0, 0, 0, 50));
+        hBox.setMargin(mbFontSelect, new Insets(0, 0, 0, 50));
 
         // 将该根节点加入布局
-        vBox.getChildren().add(1,hBox);
+        vBox.getChildren().add(1, hBox);
     }
 
     /**
      * 对toggleButton是否按下作判断
      */
     public void ifSetFont() {
-        if (toggle_button.isSelected()){
+        if (toggle_button.isSelected()) {
             showWordStyle();
             toggle_button.setText("隐藏字体设置");
-        }else {
+        } else {
             vBox.getChildren().remove(hBox);
             toggle_button.setText("字体设置");
         }
     }
+
+
 }

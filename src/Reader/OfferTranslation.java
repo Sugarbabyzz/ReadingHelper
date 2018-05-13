@@ -127,8 +127,9 @@ public class OfferTranslation extends Application {
              * 坑来了！！
              * 传入含有中文字符的URL，需要将其进行编码
              */
-            String translation = java.net.URLEncoder.encode(selfTranslation, "utf-8");
-            URL url = new URL(Constant.URL_SetSelfTranslation + "account=" + account + "&" + "word=" + word + "&" + "translation=" + translation);
+            URL url = new URL(Constant.URL_SetSelfTranslation + "account=" + account + "&"
+                                                                    + "word=" + java.net.URLEncoder.encode(word, "utf-8") + "&"
+                                                                    + "translation=" + java.net.URLEncoder.encode(selfTranslation, "utf-8"));
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 

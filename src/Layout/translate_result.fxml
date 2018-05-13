@@ -77,12 +77,6 @@
               </Button>
             </children>
         </FlowPane>
-
-        <Button fx:id="btnQuit" mnemonicParsing="false" onAction="#quit" prefHeight="41.0" prefWidth="42.0" text="X" textAlignment="CENTER" GridPane.columnIndex="1">
-            <GridPane.margin>
-                <Insets left="209.0" top="-21.0" />
-            </GridPane.margin>
-        </Button>
       <Label prefHeight="27.0" prefWidth="257.0" text="其他用户的翻译:" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <font>
             <Font size="20.0" />

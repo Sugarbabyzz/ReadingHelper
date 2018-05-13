@@ -43,8 +43,6 @@ public class TranslateResult extends Application {
     @FXML
     private TextArea taLastChoice; //自己LastChoice
     @FXML
-    private Button btnQuit;
-    @FXML
     private Text ukPhoneticSymbol; //英式音标
     @FXML
     private Text usPhoneticSymbol; //美式音标
@@ -58,6 +56,8 @@ public class TranslateResult extends Application {
     private Button btnAddWord;
 
     MainPage controller;
+
+    private static Stage stage = new Stage();
 
     private static String account; //账号
     private static String word; //当前选中的单词
@@ -83,11 +83,11 @@ public class TranslateResult extends Application {
         Parent root = loader.load();
 
         Scene scene = new Scene(root, 600, 400);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("翻译结果");
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
+
 
         // 拖动监听器
         DragUtil.addDragListener(primaryStage, root);
@@ -117,8 +117,6 @@ public class TranslateResult extends Application {
         this.account = account;
         this.controller = controller;
         this.word = srcWord;
-
-        Stage stage = new Stage();
 
         //获取屏幕大小并让窗口总出现在屏幕范围内
         Toolkit tool = Toolkit.getDefaultToolkit();
@@ -395,15 +393,15 @@ public class TranslateResult extends Application {
             stringBuffer.append("\n");
         }
 
-        if (!otherTranslation.equals(" ") && !otherTranslation.equals(" null<span>") && !otherTranslation.equals("null")) {
+        if (!otherTranslation.isEmpty()) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
 
-        if (!selfTranslation.equals(" ") && !selfTranslation.equals("null")) {
+        if (!selfTranslation.isEmpty() && !selfTranslation.equals("null")) {
             taSelfTrans.setText(selfTranslation);
         }
 
-        if (!lastChoice.equals(" ") && !lastChoice.equals("null")) {
+        if (!lastChoice.isEmpty() && !lastChoice.equals("null")) {
             taLastChoice.setText(lastChoice);
         }
 
@@ -506,19 +504,6 @@ public class TranslateResult extends Application {
 
     }
 
-
-    /**
-     * 退出按钮
-     *
-     * @param event
-     */
-    @FXML
-    public void quit(ActionEvent event) {
-
-        //销毁当前窗口
-        Stage stage = (Stage) btnQuit.getScene().getWindow();
-        stage.close();
-    }
 
     /**
      * 英式发音

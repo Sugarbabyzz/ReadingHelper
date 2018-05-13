@@ -2,6 +2,7 @@ package Reader;
 
 import Dictionary.Dictionary;
 import Login.ChangePassword;
+import Login.AboutThis;
 import Login.Login;
 import Util.WordStyleSet;
 import javafx.application.Application;
@@ -410,5 +411,20 @@ public class MainPage extends Application {
         }
     }
 
+    /**
+     * 菜单帮助 关于栏
+     * @param event
+     */
 
+    public void about(ActionEvent event) {
+
+        //启动关于软件窗口
+        Platform.runLater(() -> {
+            try {
+                new AboutThis().showWindow();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
 }

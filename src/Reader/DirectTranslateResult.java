@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class DirectTranslateResult extends Application {
     private static final String SECURITY_KEY = "pAi_1F_ReUEJSeQvA_QP";
 
     @FXML
-    private Text txtResult;
+    private TextArea taResult;
 
     public static void main(String[] args) {
         launch(args);
@@ -39,8 +38,7 @@ public class DirectTranslateResult extends Application {
         Parent root = loader.load();
 
         primaryStage.setTitle("翻译结果");
-        primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 300, 100));
+        primaryStage.setScene(new Scene(root, 300, 200));
         primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
     }
@@ -67,8 +65,8 @@ public class DirectTranslateResult extends Application {
 //        System.out.println(api.getTransResult(sourceSentence, "en", "zh"));
 //        System.out.println(directResult);
 
-        txtResult.setText(directResult);
-        txtResult.setWrappingWidth(300);
+        taResult.setText(directResult);
+        taResult.setEditable(false);
     }
 
 

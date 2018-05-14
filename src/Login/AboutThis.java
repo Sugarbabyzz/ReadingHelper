@@ -39,7 +39,7 @@ public class AboutThis extends Application {
     }
 
     /**
-     * 显示 关于 窗口
+     * 显示 帮助-关于 窗口
      *
      * @throws Exception
      */

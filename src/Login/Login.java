@@ -125,7 +125,7 @@ public class Login extends Application {
     }
 
     /**
-     * 离线使用按钮
+     * 游客登录按钮
      *
      * @param actionEvent
      */

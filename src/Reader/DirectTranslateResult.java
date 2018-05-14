@@ -71,7 +71,12 @@ public class DirectTranslateResult extends Application {
         txtResult.setWrappingWidth(300);
     }
 
-    //Unicode转中文
+
+    /**
+     * Unicode转中文 模块
+     * @param asciicode
+     * @return
+     */
     private static String decodeUnicode(String asciicode) {
 
         String[] asciis = asciicode.split("\\\\u");

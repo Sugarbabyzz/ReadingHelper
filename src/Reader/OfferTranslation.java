@@ -104,7 +104,7 @@ public class OfferTranslation extends Application {
     }
 
     /**
-     * 退回按钮
+     * 取消按钮
      */
     public void back() {
 

@@ -23,7 +23,7 @@ class HttpGet {
         try {
             // 设置SSLContext
             SSLContext sslcontext = SSLContext.getInstance("TLS");
-            sslcontext.init(null, new TrustManager[] { myX509TrustManager }, null);
+            sslcontext.init(null, new TrustManager[]{myX509TrustManager}, null);
 
             String sendUrl = getUrlWithQueryString(host, params);
 

@@ -76,7 +76,7 @@ public class Register extends Application {
             Alert alert = new Alert(Alert.AlertType.ERROR, "两次输入的密码不一致！");
             alert.setHeaderText(null);
             alert.showAndWait();
-        } else if (!tfAccount.getText().matches("[0-9A-Za-z]{1,15}") || pfPassword.getText().length() > 15){
+        } else if (!tfAccount.getText().matches("[0-9A-Za-z]{1,15}") || pfPassword.getText().length() > 15) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "用户名仅能包含数字和字母，\n且用户名与密码长度均不能超过15位！");
             alert.setHeaderText(null);
             alert.showAndWait();

@@ -31,7 +31,7 @@ import java.util.Optional;
 public class NewWordList extends Application {
 
     Stage stage = new Stage();
-    String account; //账号
+    String account; //传入账号
 
     @FXML
     ListView<String> lv_word_list;
@@ -56,7 +56,7 @@ public class NewWordList extends Application {
     }
 
     /**
-     * 显示生词本界面
+     * 显示 生词本 界面
      * @param account 账号
      */
     public void showWindow(String account) throws IOException {

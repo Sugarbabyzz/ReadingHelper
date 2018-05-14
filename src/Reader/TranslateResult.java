@@ -165,7 +165,7 @@ public class TranslateResult extends Application {
                         controller.replaceWord(replaceWord);
 
                         /**
-                         * 存入哈希图
+                         * 存入Hashmap，为实现恢复原词功能
                          */
                         transToWord.put(replaceWord, word);
                         System.out.println(transToWord);
@@ -206,7 +206,7 @@ public class TranslateResult extends Application {
                         controller.replaceWord(replaceWord);
 
                         /**
-                         * 存入哈希图
+                         * 存入Hashmap，为实现恢复原词功能
                          */
                         transToWord.put(replaceWord, word);
                         System.out.println(transToWord);
@@ -247,7 +247,7 @@ public class TranslateResult extends Application {
                         controller.replaceWord(replaceWord);
 
                         /**
-                         * 存入哈希图
+                         * 存入Hashmap，为实现恢复原词功能
                          */
                         transToWord.put(replaceWord, word);
                         System.out.println(transToWord);
@@ -288,7 +288,7 @@ public class TranslateResult extends Application {
                         controller.replaceWord(replaceWord);
 
                         /**
-                         * 存入哈希图
+                         * 存入Hashmap，为实现恢复原词功能
                          */
                         transToWord.put(replaceWord, word);
                         System.out.println(transToWord);
@@ -410,6 +410,33 @@ public class TranslateResult extends Application {
 
     }
 
+
+
+    /**
+     * 编辑译文 按钮
+     *
+     * @param event
+     */
+    public void edit(ActionEvent event) throws Exception {
+        new OfferTranslation().showWindow(account, word, TranslateResult.this);
+    }
+
+    /**
+     * 恢复原文按钮
+     */
+    public void recover() {
+
+        if (transToWord.get(word) != null) {
+            controller.recoverWord(transToWord.get(word));
+        } else {
+            controller.recoverWord(word);
+        }
+//        System.out.println(word);
+//        System.out.println(transToWord);
+//        System.out.println(transToWord.get(word));
+
+    }
+
     /**
      * 加入生词本按钮
      *
@@ -478,32 +505,6 @@ public class TranslateResult extends Application {
             e.printStackTrace();
         }
     }
-
-    /**
-     * 编辑按钮
-     *
-     * @param event
-     */
-    public void edit(ActionEvent event) throws Exception {
-        new OfferTranslation().showWindow(account, word, TranslateResult.this);
-    }
-
-    /**
-     * 恢复原文按钮
-     */
-    public void recover() {
-
-        if (transToWord.get(word) != null) {
-            controller.recoverWord(transToWord.get(word));
-        } else {
-            controller.recoverWord(word);
-        }
-//        System.out.println(word);
-//        System.out.println(transToWord);
-//        System.out.println(transToWord.get(word));
-
-    }
-
 
     /**
      * 英式发音

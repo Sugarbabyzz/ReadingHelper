@@ -45,8 +45,8 @@ public class MainPage extends Application {
 
     private static boolean isOnline; //判断是否登录账号
     private static String account; //传过来的账号
-
     private boolean flag = true;
+
     private String srcWord;
     private String result;
     private String EnglishAccentUrl;
@@ -54,20 +54,24 @@ public class MainPage extends Application {
     private String EnglishPhoneticSymbol;
     private String AmericanPhoneticSymbol;
     private String replaceWord;
-
-    private TextField tfWordFont;
-    private TextField tfWordSize;
-    private MenuButton mbFontSelect;
-    private MenuItem[] menuItemArray;
-    private HBox hBox;
     int i;
 
     @FXML
-    TextArea textArea;
+    private TextField tfWordFont;
     @FXML
-    VBox vBox;
+    private TextField tfWordSize;
     @FXML
-    ToggleButton toggle_button;
+    private MenuButton mbFontSelect;
+    @FXML
+    private MenuItem[] menuItemArray;
+    @FXML
+    private HBox hBox;
+    @FXML
+    private TextArea textArea;
+    @FXML
+    private VBox vBox;
+    @FXML
+    private ToggleButton toggle_button;
 
     public static void main(String[] args) {
         launch(args);
@@ -96,7 +100,7 @@ public class MainPage extends Application {
     /**
      * 显示 Main 页面 （在线版）
      *
-     * @param account
+     * @param account 传入账号信息
      * @throws Exception
      */
     public void showWindow(String account) throws Exception {
@@ -107,7 +111,7 @@ public class MainPage extends Application {
 
 
     /**
-     * 打开文件
+     * 菜单栏 文件-打开
      *
      * @throws IOException
      */
@@ -116,6 +120,9 @@ public class MainPage extends Application {
         File filePath = fileChooser.showOpenDialog(new Stage());
         if (filePath != null) {
             if (filePath.toString().endsWith(".txt")) {
+                /*
+                 * 打开txt
+                 */
                 BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
                 //一行一行读取至BufferReader并输出到textArea
                 String str_line;
@@ -128,6 +135,9 @@ public class MainPage extends Application {
                     }
                 }
             } else if (filePath.toString().endsWith(".doc")) {
+                /*
+                 * 打开doc格式
+                 */
 
                 InputStream is = new FileInputStream(filePath.toString());
                 WordExtractor extractor = new WordExtractor(is);
@@ -135,6 +145,9 @@ public class MainPage extends Application {
                 //System.out.println(extractor.getText());
                 textArea.setText(extractor.getText());
             } else if (filePath.toString().endsWith(".docx")) {
+                /*
+                 * 打开docx格式
+                 */
                 XWPFDocument doc = new XWPFDocument(
                         new FileInputStream(filePath.toString()));
                 //using XWPFWordExtractor Class
@@ -143,6 +156,9 @@ public class MainPage extends Application {
                 //System.out.println(we.getText());
                 textArea.setText(we.getText());
             } else if (filePath.toString().endsWith(".pdf")) {
+                /*
+                 * 打开pdf格式
+                 */
                 PDDocument document = null;
                 document = PDDocument.load(filePath);
                 // 获取页码
@@ -200,7 +216,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 退出登录
+     * 菜单栏 文件-退出
      *
      * @param event
      */
@@ -221,7 +237,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 修改密码
+     * 菜单栏 个人-修改密码
      *
      * @param event
      */
@@ -244,22 +260,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 访问网络获取翻译结果
-     *
-     * @param srcWord 待翻译的单词
-     * @return 返回翻译结果
-     */
-    public static String search(String srcWord) {
-        //调用httpRequest方法，获取html字符串
-        String html = Dictionary.httpRequest("http://www.iciba.com/" + srcWord);
-        //利用正则表达式，抓取单词翻译信息
-        String result = Dictionary.GetResult(html);
-
-        return result;
-    }
-
-    /**
-     * 生词本
+     * 菜单栏 个人-生词本
      *
      * @param event
      */
@@ -276,65 +277,35 @@ public class MainPage extends Application {
     }
 
     /**
-     * 将选中的单词替换为用户选中的释义
-     *
-     * @param replaceWord
-     */
-    public void replaceWord(String replaceWord) {
-
-        /*
-         * 全局替换
-         */
-
-        String replaceResult = textArea.getText();
-        Pattern pattern = Pattern.compile("\\b" + srcWord + "\\b");
-        Matcher matcher = pattern.matcher(replaceResult);
-        replaceResult = matcher.replaceAll(replaceWord);
-        srcWord = replaceWord;
-        textArea.setText(replaceResult);
-
-        /*
-         * 局部替换
-         */
-
-    }
-
-    /**
-     * 恢复原词
-     *
-     * @param sourceWord
-     */
-    public void recoverWord(String sourceWord) {
-
-
-        String replaceResult = textArea.getText();
-        Pattern pattern = Pattern.compile("\\b" + srcWord + "\\b");
-        Matcher matcher = pattern.matcher(replaceResult);
-        replaceResult = matcher.replaceAll(sourceWord);
-        srcWord = sourceWord;
-        textArea.setText(replaceResult);
-
-    }
-
-
-    /**
-     * 调用百度翻译
+     * 菜单栏 帮助-关于
      *
      * @param event
      */
-    public void translate(ActionEvent event) {
 
-        String srcSentence = textArea.getSelectedText().trim();
+    public void about(ActionEvent event) {
 
-        //启动直接翻译结果主页面
+        //启动关于软件窗口
         Platform.runLater(() -> {
             try {
-                new DirectTranslateResult().showWindow(srcSentence);
+                new AboutThis().showWindow();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+    }
 
+    /**
+     * 字体设置 按钮
+     * 对toggleButton是否按下作判断
+     */
+    public void ifSetFont() {
+        if (toggle_button.isSelected()) {
+            showWordStyle();
+            toggle_button.setText("隐藏字体设置");
+        } else {
+            vBox.getChildren().remove(hBox);
+            toggle_button.setText("字体设置");
+        }
     }
 
     /**
@@ -398,33 +369,88 @@ public class MainPage extends Application {
         vBox.getChildren().add(1, hBox);
     }
 
+
     /**
-     * 对toggleButton是否按下作判断
+     * 划词翻译
+     * 获取单词释义
+     *
+     * @param srcWord 待翻译的单词
+     * @return 返回翻译结果
      */
-    public void ifSetFont() {
-        if (toggle_button.isSelected()) {
-            showWordStyle();
-            toggle_button.setText("隐藏字体设置");
-        } else {
-            vBox.getChildren().remove(hBox);
-            toggle_button.setText("字体设置");
-        }
+    public static String search(String srcWord) {
+        //调用httpRequest方法，获取html字符串
+        String html = Dictionary.httpRequest("http://www.iciba.com/" + srcWord);
+        //利用正则表达式，抓取单词翻译信息
+        String result = Dictionary.GetResult(html);
+
+        return result;
+    }
+
+
+
+    /**
+     * 划词翻译
+     * 用译文替换单词
+     *
+     * @param replaceWord
+     */
+    public void replaceWord(String replaceWord) {
+
+        /*
+         * 全局替换
+         */
+
+        String replaceResult = textArea.getText();
+        Pattern pattern = Pattern.compile("\\b" + srcWord + "\\b");
+        Matcher matcher = pattern.matcher(replaceResult);
+        replaceResult = matcher.replaceAll(replaceWord);
+        srcWord = replaceWord;
+        textArea.setText(replaceResult);
+
+        /*
+         * 局部替换
+         * 待完成
+         */
+
     }
 
     /**
-     * 菜单帮助 关于栏
+     * 划词翻译
+     * 恢复原词
+     *
+     * @param sourceWord
+     */
+    public void recoverWord(String sourceWord) {
+
+
+        String replaceResult = textArea.getText();
+        Pattern pattern = Pattern.compile("\\b" + srcWord + "\\b");
+        Matcher matcher = pattern.matcher(replaceResult);
+        replaceResult = matcher.replaceAll(sourceWord);
+        srcWord = sourceWord;
+        textArea.setText(replaceResult);
+
+    }
+
+
+    /**
+     * 划句翻译
+     * 调用百度翻译API
+     *
      * @param event
      */
+    public void translate(ActionEvent event) {
 
-    public void about(ActionEvent event) {
+        String srcSentence = textArea.getSelectedText().trim();
 
-        //启动关于软件窗口
+        //启动直接翻译结果主页面
         Platform.runLater(() -> {
             try {
-                new AboutThis().showWindow();
+                new DirectTranslateResult().showWindow(srcSentence);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+
     }
 }

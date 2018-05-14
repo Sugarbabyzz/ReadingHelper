@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 
 /**
  * 拖拽监听器
+ *
  * @author Light
  */
 public class DragListener implements EventHandler<MouseEvent> {
@@ -27,9 +28,9 @@ public class DragListener implements EventHandler<MouseEvent> {
             yOffset = event.getSceneY();
         } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
             stage.setX(event.getScreenX() - xOffset);
-            if(event.getScreenY() - yOffset < 0) {
+            if (event.getScreenY() - yOffset < 0) {
                 stage.setY(0);
-            }else {
+            } else {
                 stage.setY(event.getScreenY() - yOffset);
             }
         }

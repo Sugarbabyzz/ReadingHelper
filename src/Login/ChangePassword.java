@@ -62,6 +62,7 @@ public class ChangePassword extends Application {
 
     /**
      * 确认修改密码 按钮
+     *
      * @param event
      */
     public void changePsw(ActionEvent event) {
@@ -73,7 +74,7 @@ public class ChangePassword extends Application {
             Alert alert = new Alert(Alert.AlertType.ERROR, "两次输入的密码不一致！");
             alert.setHeaderText(null);
             alert.showAndWait();
-        }  else {
+        } else {
             /*
              *  线程处理注册操作
              *  坑！！！
@@ -110,7 +111,7 @@ public class ChangePassword extends Application {
 
     /**
      * 修改密码模块
-      */
+     */
     private void change() {
         try {
             String password = pfNewPassword.getText();

@@ -38,7 +38,8 @@ public class DirectTranslateResult extends Application {
         Parent root = loader.load();
 
         primaryStage.setTitle("翻译结果");
-        primaryStage.setScene(new Scene(root, 300, 200));
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(root, 300, 120));
         primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
         primaryStage.show();
     }

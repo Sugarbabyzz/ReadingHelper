@@ -14,19 +14,74 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.HBox?>
 <BorderPane prefHeight="646.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
     <top>
-        <JFXToolbar BorderPane.alignment="CENTER">
-            <leftItems>
-                <JFXRippler fx:id="rippler1" maskType="CIRCLE">
-                    <control>
-                        <JFXHamburger fx:id="burger1" style="-fx-padding:15;"/>
-                    </control>
-                </JFXRippler>
-            </leftItems>
-        </JFXToolbar>
+        <!--<JFXToolbar BorderPane.alignment="CENTER">-->
+            <!--<leftItems>-->
+                <!--<JFXRippler fx:id="rippler1" maskType="CIRCLE">-->
+                    <!--<control>-->
+                        <!--<JFXHamburger fx:id="burger1" style="-fx-padding:15;"/>-->
+                    <!--</control>-->
+                <!--</JFXRippler>-->
+            <!--</leftItems>-->
+            <!--<leftItems>-->
+                <!--<JFXRippler fx:id="rippler2" maskType="CIRCLE">-->
+                    <!--<control>-->
+                        <!--<JFXHamburger fx:id="burger2" style="-fx-padding:15;"/>-->
+                    <!--</control>-->
+                <!--</JFXRippler>-->
+            <!--</leftItems>-->
+        <!--</JFXToolbar>-->
+        <HBox>
+            <children>
+                <MenuBar HBox.hgrow="ALWAYS">
+                    <menus>
+                        <Menu mnemonicParsing="false" text="文件">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开" />
+                                <MenuItem mnemonicParsing="false" onAction="#signOut" text="退出" />
+                            </items>
+                        </Menu>
+                        <Menu  mnemonicParsing="false" text="个人">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#newWord" text="生词本" />
+                                <MenuItem mnemonicParsing="false" onAction="#changePsw" text="修改密码" />
+                            </items>
+                        </Menu>
+                        <Menu mnemonicParsing="false" text="帮助">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#about" text="关于" />
+                            </items>
+                        </Menu>
+                    </menus>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </MenuBar>
+                <ToggleButton fx:id="toggle_button" mnemonicParsing="false" onAction="#ifSetFont" text="字体设置" HBox.hgrow="ALWAYS">
+                </ToggleButton>
+            </children>
+        </HBox>
     </top>
+
+    <center>
+        <TextArea fx:id="textArea" editable="false" prefHeight="445.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <contextMenu>
+                <ContextMenu>
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#translate" text="翻译"/>
+                    </items>
+                </ContextMenu>
+            </contextMenu>
+        </TextArea>
+    </center>
 
     <bottom>
         <GridPane BorderPane.alignment="CENTER">
@@ -47,17 +102,6 @@
         </GridPane>
     </bottom>
 
-    <center>
-        <TextArea fx:id="textArea" editable="false" prefHeight="445.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <contextMenu>
-                <ContextMenu>
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#translate" text="翻译"/>
-                    </items>
-                </ContextMenu>
-            </contextMenu>
-        </TextArea>
-    </center>
 
 
 </BorderPane>

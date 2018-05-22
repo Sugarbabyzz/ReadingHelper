@@ -7,6 +7,7 @@ import Login.Login;
 import Util.WordStyleSet;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXRippler;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -72,6 +73,8 @@ public class MainPage extends Application {
     private VBox vBox;
     @FXML
     private ToggleButton toggle_button;
+
+    @FXML private JFXPopup popup;
 
     public static void main(String[] args) {
         launch(args);

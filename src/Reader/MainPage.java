@@ -5,9 +5,7 @@ import Login.ChangePassword;
 import Login.AboutThis;
 import Login.Login;
 import Util.WordStyleSet;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -25,6 +23,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -73,8 +72,10 @@ public class MainPage extends Application {
     private VBox vBox;
     @FXML
     private ToggleButton toggle_button;
-
-    @FXML private JFXPopup popup;
+    @FXML
+    private JFXCheckBox ckTransSentence;
+    @FXML
+    private JFXCheckBox ckTransWord;
 
     public static void main(String[] args) {
         launch(args);
@@ -89,7 +90,6 @@ public class MainPage extends Application {
         primaryStage.setTitle("英语阅读器");
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
-
         primaryStage.show();
     }
 
@@ -191,7 +191,7 @@ public class MainPage extends Application {
             textArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
-                    if (event.getClickCount() == 2) {
+                    if (ckTransWord.isSelected() && event.getClickCount() == 2) {
 
                         srcWord = textArea.getSelectedText().trim();
 

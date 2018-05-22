@@ -94,14 +94,13 @@
                 <RowConstraints/>
             </rowConstraints>
             <children>
-                <JFXCheckBox checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0" text="划句"
+                <JFXCheckBox fx:id="ckTransSentence" checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0" text="划句"
                              GridPane.columnIndex="1"/>
-                <JFXCheckBox checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0" text="划词"
+                <JFXCheckBox fx:id="ckTransWord" checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0" text="划词"
                              GridPane.columnIndex="2"/>
             </children>
         </GridPane>
     </bottom>
-
 
 
 </BorderPane>

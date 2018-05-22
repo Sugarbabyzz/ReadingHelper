@@ -93,7 +93,6 @@ public class MainPage extends Application {
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
 
-//        textArea.setStyle(".text-area");
     }
 
     /**

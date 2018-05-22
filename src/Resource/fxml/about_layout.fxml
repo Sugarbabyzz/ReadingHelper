@@ -19,7 +19,7 @@
         <RowConstraints maxHeight="279.0" minHeight="10.0" prefHeight="114.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <children>
-        <Label text="关于软件" textAlignment="CENTER">
+        <Label text="关于软件" textAlignment="CENTER" style="-fx-text-fill:WHITE;">
             <GridPane.margin>
                 <Insets left="70.0"/>
             </GridPane.margin>
@@ -29,7 +29,7 @@
         </Label>
         <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
             <children>
-                <Label fx:id="labAbout" text="关于"/>
+                <Label fx:id="labAbout" text="关于" style="-fx-text-fill:WHITE;"/>
             </children>
         </FlowPane>
     </children>

@@ -84,17 +84,19 @@
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="502.0" minWidth="10.0" prefWidth="493.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="53.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.0" minWidth="10.0" prefWidth="54.0"/>
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0"
+                                   prefWidth="50.0"/>
+                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0"
+                                   prefWidth="50.0"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints/>
             </rowConstraints>
             <children>
                 <JFXCheckBox fx:id="ckTransSentence" checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0"
-                             text="划句" GridPane.columnIndex="1"/>
-                <JFXCheckBox fx:id="ckTransWord" checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0" text="划词"
-                             GridPane.columnIndex="2"/>
+                             style="-fx-text-fill:WHITE;" text="划句" GridPane.columnIndex="1"/>
+                <JFXCheckBox fx:id="ckTransWord" checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0"
+                             style="-fx-text-fill:WHITE;" text="划词" GridPane.columnIndex="2"/>
             </children>
         </GridPane>
     </bottom>

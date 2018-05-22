@@ -3,6 +3,7 @@ package Login;
 import Constant.Constant;
 import Reader.MainPage;
 import Util.AlertMaker;
+import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -13,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 

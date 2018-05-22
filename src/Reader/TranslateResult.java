@@ -22,6 +22,8 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 import java.awt.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
@@ -86,7 +88,6 @@ public class TranslateResult extends Application {
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
-
 
         // 拖动监听器
         DragUtil.addDragListener(primaryStage, root);

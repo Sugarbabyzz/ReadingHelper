@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXHamburger?>
-<?import com.jfoenix.controls.JFXRippler?>
-<?import com.jfoenix.controls.JFXToolbar?>
-<?import com.jfoenix.controls.JFXPopup?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.HBox?>
-<BorderPane prefHeight="646.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage"
-            stylesheets="@/Resource/css/dark-theme.css">
+<?import javafx.scene.control.TextArea?>
+<BorderPane prefHeight="646.0" prefWidth="600.0" stylesheets="@/Resource/css/dark-theme.css"
+            xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
     <top>
         <!--<JFXToolbar BorderPane.alignment="CENTER">-->
         <!--<leftItems>-->
@@ -74,7 +68,9 @@
     </top>
 
     <center>
-        <TextArea fx:id="textArea" editable="false" prefHeight="445.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <TextArea fx:id="textArea" editable="false"  maxHeight="1.7976931348623157E308"
+                     maxWidth="1.7976931348623157E308" prefHeight="563.0" prefWidth="1000.0"
+                     BorderPane.alignment="CENTER" >
             <contextMenu>
                 <ContextMenu>
                     <items>
@@ -97,8 +93,7 @@
             </rowConstraints>
             <children>
                 <JFXCheckBox fx:id="ckTransSentence" checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0"
-                             text="划句"
-                             GridPane.columnIndex="1"/>
+                             text="划句" GridPane.columnIndex="1"/>
                 <JFXCheckBox fx:id="ckTransWord" checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0" text="划词"
                              GridPane.columnIndex="2"/>
             </children>
@@ -107,4 +102,3 @@
 
 
 </BorderPane>
-

@@ -33,7 +33,7 @@ public class AboutThis extends Application {
         primaryStage.setTitle("关于");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 300, 150));
-        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
+        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
         primaryStage.show();
 
     }

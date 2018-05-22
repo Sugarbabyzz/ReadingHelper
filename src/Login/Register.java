@@ -44,9 +44,9 @@ public class Register extends Application {
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/register_layout.fxml"));
         primaryStage.setTitle("注册");
-        primaryStage.setScene(new Scene(root, 350, 300));
+        primaryStage.setScene(new Scene(root, 350, 350));
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
+        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
         primaryStage.show();
 
     }

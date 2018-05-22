@@ -85,7 +85,7 @@ public class TranslateResult extends Application {
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("翻译结果");
         primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
+        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
         primaryStage.show();
 
 

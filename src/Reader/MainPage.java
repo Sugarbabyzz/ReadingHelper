@@ -82,7 +82,7 @@ public class MainPage extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/main_page.fxml"));
         primaryStage.setTitle("英语阅读器");
         primaryStage.setScene(new Scene(root, 1000, 500));
-        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
+        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
         primaryStage.show();
     }
 

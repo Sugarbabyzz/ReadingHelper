@@ -42,11 +42,11 @@ public class ChangePassword extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/changePassword_layout.fxml"));
-        Scene scene = new Scene(root, 400, 275);
+        Scene scene = new Scene(root, 300, 300);
         primaryStage.setTitle("修改密码");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
+        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
         primaryStage.show();
     }
 

@@ -40,7 +40,7 @@ public class DirectTranslateResult extends Application {
         primaryStage.setTitle("翻译结果");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 300, 120));
-        primaryStage.getIcons().add(new Image("/Res/icon.jpg"));
+        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
         primaryStage.show();
     }
 

@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXHamburger?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.JFXPopup?>
+<?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<VBox fx:id="vBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
 
-    <children>
-      <HBox>
-         <children>
-              <MenuBar HBox.hgrow="ALWAYS">
-                  <menus>
-                      <Menu mnemonicParsing="false" text="文件">
-                          <items>
-                              <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开" />
-                              <MenuItem mnemonicParsing="false" onAction="#signOut" text="退出" />
-                          </items>
-                      </Menu>
-                      <Menu  mnemonicParsing="false" text="个人">
-                          <items>
-                              <MenuItem mnemonicParsing="false" onAction="#newWord" text="生词本" />
-                              <MenuItem mnemonicParsing="false" onAction="#changePsw" text="修改密码" />
-                          </items>
-                      </Menu>
-                      <Menu mnemonicParsing="false" text="帮助">
-                          <items>
-                              <MenuItem mnemonicParsing="false" onAction="#about" text="关于" />
-                          </items>
-                      </Menu>
-                  </menus>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-              </MenuBar>
-            <ToggleButton fx:id="toggle_button" mnemonicParsing="false" onAction="#ifSetFont" text="字体设置" HBox.hgrow="ALWAYS">
-            </ToggleButton>
-         </children>
-      </HBox>
-        <TextArea fx:id="textArea" editable="false" prefHeight="445.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+<BorderPane prefHeight="646.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
+    <top>
+        <JFXToolbar BorderPane.alignment="CENTER">
+            <leftItems>
+                <JFXRippler fx:id="rippler1" maskType="CIRCLE">
+                    <control>
+                        <JFXHamburger fx:id="burger1" style="-fx-padding:15;"/>
+                    </control>
+                </JFXRippler>
+            </leftItems>
+        </JFXToolbar>
+    </top>
+
+    <bottom>
+        <GridPane BorderPane.alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="502.0" minWidth="10.0" prefWidth="493.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="53.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="55.0" minWidth="10.0" prefWidth="54.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints/>
+            </rowConstraints>
+            <children>
+                <JFXCheckBox checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0" text="划句"
+                             GridPane.columnIndex="1"/>
+                <JFXCheckBox checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0" text="划词"
+                             GridPane.columnIndex="2"/>
+            </children>
+        </GridPane>
+    </bottom>
+
+    <center>
+        <TextArea fx:id="textArea" editable="false" prefHeight="445.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <contextMenu>
                 <ContextMenu>
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#translate" text="翻译" />
+                        <MenuItem mnemonicParsing="false" onAction="#translate" text="翻译"/>
                     </items>
                 </ContextMenu>
             </contextMenu>
         </TextArea>
-    </children>
-</VBox>
+    </center>
+
+
+</BorderPane>
+

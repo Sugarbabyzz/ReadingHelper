@@ -156,7 +156,7 @@ public class Login extends Application {
             String account = tfAccount.getText();
             String password = pfPassword.getText();
 
-            URL url = new URL(Constant.URL_Login + "account=" + account + "&" + "password=" + password);
+            URL url = new URL(Constant.URL_Login + "account=" + account + "&" + "password=" + java.net.URLEncoder.encode(password, "utf-8"));
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 

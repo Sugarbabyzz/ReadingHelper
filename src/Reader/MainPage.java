@@ -5,6 +5,8 @@ import Login.ChangePassword;
 import Login.AboutThis;
 import Login.Login;
 import Util.WordStyleSet;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXPopup;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -78,9 +80,13 @@ public class MainPage extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Resource/fxml/main_page.fxml"));
+        Scene scene = new Scene(root, 1000, 500);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("Resource/css/jfoenix-main-demo.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("Resource/css/jfoenix-components.css").toExternalForm());
         primaryStage.setTitle("英语阅读器");
-        primaryStage.setScene(new Scene(root, 1000, 500));
+        primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+
         primaryStage.show();
     }
 

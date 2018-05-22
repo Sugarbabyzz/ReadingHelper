@@ -1,7 +1,6 @@
 package Login;
 
 import Constant.Constant;
-import Reader.MainPage;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -41,12 +40,12 @@ public class ChangePassword extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/changePassword_layout.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Resource/fxml/changePassword_layout.fxml"));
         Scene scene = new Scene(root, 300, 300);
         primaryStage.setTitle("修改密码");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
+        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
     }
 

@@ -46,14 +46,14 @@ public class OfferTranslation extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getClassLoader().getResource("Layout/user_offer_translate.fxml")
+                getClass().getClassLoader().getResource("Resource/fxml/user_offer_translate.fxml")
         );
         loader.setController(this);
         Parent root = loader.load();
 
         primaryStage.setTitle("提供译文");
         primaryStage.setScene(new Scene(root, 500, 300));
-        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
+        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
     }
 

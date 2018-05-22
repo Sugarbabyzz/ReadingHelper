@@ -5,8 +5,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -19,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -44,14 +41,14 @@ public class NewWordList extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getClassLoader().getResource("Layout/new_word_list.fxml")
+                getClass().getClassLoader().getResource("Resource/fxml/new_word_list.fxml")
         );
         loader.setController(this);
         Parent root = loader.load();
 
         primaryStage.setTitle("生词本");
         primaryStage.setScene(new Scene(root, 500, 300));
-        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
+        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
     }
 

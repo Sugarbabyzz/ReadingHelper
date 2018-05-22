@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -77,7 +76,7 @@ public class TranslateResult extends Application {
 
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getClassLoader().getResource("Layout/translate_result.fxml")
+                getClass().getClassLoader().getResource("Resource/fxml/translate_result.fxml")
         );
         loader.setController(this);
         Parent root = loader.load();
@@ -85,7 +84,7 @@ public class TranslateResult extends Application {
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("翻译结果");
         primaryStage.setScene(scene);
-        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
+        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
 
 

@@ -11,8 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -43,12 +41,12 @@ public class Login extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Layout/login_layout.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Resource/fxml/login_layout.fxml"));
         Scene scene = new Scene(root, 350, 400);
         primaryStage.setTitle("登录");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
+        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
 
     }

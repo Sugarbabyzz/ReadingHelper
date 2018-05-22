@@ -32,7 +32,7 @@ public class DirectTranslateResult extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getClassLoader().getResource("Layout/direct_translate_result.fxml")
+                getClass().getClassLoader().getResource("Resource/fxml/direct_translate_result.fxml")
         );
         loader.setController(this);
         Parent root = loader.load();
@@ -40,7 +40,7 @@ public class DirectTranslateResult extends Application {
         primaryStage.setTitle("翻译结果");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 300, 120));
-        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
+        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
     }
 

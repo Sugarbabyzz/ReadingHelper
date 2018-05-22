@@ -25,7 +25,7 @@ public class AboutThis extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(
-                getClass().getClassLoader().getResource("Layout/about_layout.fxml")
+                getClass().getClassLoader().getResource("Resource/fxml/about_layout.fxml")
         );
         loader.setController(this);
         Parent root = loader.load();
@@ -33,7 +33,7 @@ public class AboutThis extends Application {
         primaryStage.setTitle("关于");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 300, 150));
-        primaryStage.getIcons().add(new Image("/Res/mainicon.png"));
+        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
 
     }

@@ -76,7 +76,7 @@
         <ImageView fx:id="image" fitHeight="60.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true"
                    GridPane.columnIndex="2" GridPane.rowIndex="1">
             <image>
-                <Image url="/Res/mainicon.png"/>
+                <Image url="/Resource/icon/mainicon.png"/>
             </image>
             <GridPane.margin>
                 <Insets left="10.0"/>

@@ -7,4 +7,5 @@
 <?import javafx.scene.layout.*?>
 
 
-<ListView fx:id="lv_word_list" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<ListView fx:id="lv_word_list" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+          stylesheets="@/Resource/css/dark-theme.css"/>

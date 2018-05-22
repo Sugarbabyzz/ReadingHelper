@@ -11,13 +11,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 
 <?import com.jfoenix.validation.RequiredFieldValidator?>
 
 <?import de.jensd.fx.fontawesome.Icon?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0"
           prefWidth="339.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="Login.Login">
+          fx:controller="Login.Login" stylesheets="@/Resource/css/dark-theme.css">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="36.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="61.0"/>
@@ -42,21 +43,23 @@
     <children>
         <JFXButton fx:id="btnSignIn" buttonType="RAISED" mnemonicParsing="false" onAction="#signIn" prefHeight="40.0"
                    prefWidth="80.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"
-                   text="登录" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                   text="登录" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="6"
+                   styleClass="about-button">
 
         </JFXButton>
 
         <JFXButton fx:id="btnSignUp" buttonType="RAISED" mnemonicParsing="false" onAction="#signUp" prefHeight="20.0"
                    prefWidth="60.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"
-                   text="注册" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                   text="注册" GridPane.columnIndex="1" GridPane.rowIndex="7"
+                   styleClass="about-button">
 
         </JFXButton>
 
         <JFXButton fx:id="btnOfflineUse" buttonType="RAISED" mnemonicParsing="false" onAction="#offlineUse"
                    prefHeight="20.0" prefWidth="80.0"
                    style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;" text="游客登录"
-                   GridPane.columnIndex="3" GridPane.rowIndex="7">
-
+                   GridPane.columnIndex="3" GridPane.rowIndex="7"
+                   styleClass="about-button">
         </JFXButton>
 
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="英语阅读器" textAlignment="CENTER" wrappingWidth="139.0"

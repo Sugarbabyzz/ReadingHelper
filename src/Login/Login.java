@@ -2,6 +2,8 @@ package Login;
 
 import Constant.Constant;
 import Reader.MainPage;
+import Util.AlertMaker;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -11,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -76,6 +79,7 @@ public class Login extends Application {
             Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码错误！");
             alert.setHeaderText(null);
             alert.showAndWait();
+
         } else {
             /*
              *  线程处理登录操作

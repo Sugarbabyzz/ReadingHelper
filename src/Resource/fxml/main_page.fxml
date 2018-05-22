@@ -21,23 +21,24 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.HBox?>
 <BorderPane prefHeight="646.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage"
+            stylesheets="@/Resource/css/dark-theme.css">
     <top>
         <!--<JFXToolbar BorderPane.alignment="CENTER">-->
-            <!--<leftItems>-->
-                <!--<JFXRippler fx:id="rippler1" maskType="CIRCLE">-->
-                    <!--<control>-->
-                        <!--<JFXHamburger fx:id="burger1" style="-fx-padding:15;"/>-->
-                    <!--</control>-->
-                <!--</JFXRippler>-->
-            <!--</leftItems>-->
-            <!--<leftItems>-->
-                <!--<JFXRippler fx:id="rippler2" maskType="CIRCLE">-->
-                    <!--<control>-->
-                        <!--<JFXHamburger fx:id="burger2" style="-fx-padding:15;"/>-->
-                    <!--</control>-->
-                <!--</JFXRippler>-->
-            <!--</leftItems>-->
+        <!--<leftItems>-->
+        <!--<JFXRippler fx:id="rippler1" maskType="CIRCLE">-->
+        <!--<control>-->
+        <!--<JFXHamburger fx:id="burger1" style="-fx-padding:15;"/>-->
+        <!--</control>-->
+        <!--</JFXRippler>-->
+        <!--</leftItems>-->
+        <!--<leftItems>-->
+        <!--<JFXRippler fx:id="rippler2" maskType="CIRCLE">-->
+        <!--<control>-->
+        <!--<JFXHamburger fx:id="burger2" style="-fx-padding:15;"/>-->
+        <!--</control>-->
+        <!--</JFXRippler>-->
+        <!--</leftItems>-->
         <!--</JFXToolbar>-->
         <HBox>
             <children>
@@ -45,27 +46,28 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="文件">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开" />
-                                <MenuItem mnemonicParsing="false" onAction="#signOut" text="退出" />
+                                <MenuItem mnemonicParsing="false" onAction="#openFile" text="打开"/>
+                                <MenuItem mnemonicParsing="false" onAction="#signOut" text="退出"/>
                             </items>
                         </Menu>
-                        <Menu  mnemonicParsing="false" text="个人">
+                        <Menu mnemonicParsing="false" text="个人">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#newWord" text="生词本" />
-                                <MenuItem mnemonicParsing="false" onAction="#changePsw" text="修改密码" />
+                                <MenuItem mnemonicParsing="false" onAction="#newWord" text="生词本"/>
+                                <MenuItem mnemonicParsing="false" onAction="#changePsw" text="修改密码"/>
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="帮助">
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#about" text="关于" />
+                                <MenuItem mnemonicParsing="false" onAction="#about" text="关于"/>
                             </items>
                         </Menu>
                     </menus>
                     <HBox.margin>
-                        <Insets />
+                        <Insets/>
                     </HBox.margin>
                 </MenuBar>
-                <ToggleButton fx:id="toggle_button" mnemonicParsing="false" onAction="#ifSetFont" text="字体设置" HBox.hgrow="ALWAYS">
+                <ToggleButton fx:id="toggle_button" mnemonicParsing="false" onAction="#ifSetFont" text="字体设置"
+                              HBox.hgrow="ALWAYS">
                 </ToggleButton>
             </children>
         </HBox>
@@ -94,7 +96,8 @@
                 <RowConstraints/>
             </rowConstraints>
             <children>
-                <JFXCheckBox fx:id="ckTransSentence" checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0" text="划句"
+                <JFXCheckBox fx:id="ckTransSentence" checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0"
+                             text="划句"
                              GridPane.columnIndex="1"/>
                 <JFXCheckBox fx:id="ckTransWord" checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0" text="划词"
                              GridPane.columnIndex="2"/>

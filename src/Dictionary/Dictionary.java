@@ -339,6 +339,23 @@ public class Dictionary {
                     buffer.append(" \n");
                 }
 
+                //conj
+                p = Pattern.compile("(.*)(<span class=\"prop\">conj.</span>)(.*?)(</p>)(.*)");
+                m = p.matcher(str2);
+                if (m.matches()) {
+                    str3 = m.group(3);
+                    buffer.append("conj. ");
+
+                    //细节
+                    p = Pattern.compile("(.*?)(<span>)(.*?)(</span>)(.*?)");
+                    m = p.matcher(str3);
+                    while (m.find()) {
+                        buffer.append(m.group(3));
+                    }
+
+                    buffer.append(" \n");
+                }
+
                 //aux
                 p = Pattern.compile("(.*)(<span class=\"prop\">aux.</span>)(.*?)(</p>)(.*)");
                 m = p.matcher(str2);

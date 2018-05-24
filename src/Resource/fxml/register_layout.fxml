@@ -46,7 +46,7 @@
         </JFXButton>
 
 
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="用户注册" textAlignment="CENTER" wrappingWidth="139.0"
+        <Text fill="#5264AE" strokeType="OUTSIDE" strokeWidth="0.0" text="用户注册" textAlignment="CENTER" wrappingWidth="139.0"
               GridPane.columnIndex="1">
             <font>
                 <Font name="Xingkai SC Bold" size="25.0"/>

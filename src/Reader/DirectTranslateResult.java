@@ -93,4 +93,13 @@ public class DirectTranslateResult extends Application {
         }
         return nativeValue;
     }
+
+    /**
+     * 鼠标移出界面
+     */
+    private void moveout(){
+        //销毁当前窗口
+        Stage stage = (Stage) taResult.getScene().getWindow();
+        stage.close();
+    }
 }

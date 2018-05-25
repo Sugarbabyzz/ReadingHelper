@@ -2,6 +2,8 @@ package Reader;
 
 import Constant.Constant;
 import Util.DragUtil;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import de.jensd.fx.fontawesome.Icon;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,8 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -35,13 +35,13 @@ public class TranslateResult extends Application {
     @FXML
     private Text tSrcWord;
     @FXML
-    private TextArea taTransResult; //翻译结果
+    private JFXTextArea taTransResult; //翻译结果
     @FXML
-    private TextArea taOtherTransResult; // 别人提供的译文
+    private JFXTextArea taOtherTransResult; // 别人提供的译文
     @FXML
-    private TextArea taSelfTrans; //自己提供的译文
+    private JFXTextArea taSelfTrans; //自己提供的译文
     @FXML
-    private TextArea taLastChoice; //自己LastChoice
+    private JFXTextArea taLastChoice; //自己LastChoice
     @FXML
     private Text ukPhoneticSymbol; //英式音标
     @FXML
@@ -51,9 +51,9 @@ public class TranslateResult extends Application {
     @FXML
     private ImageView usVoice; //美式发音图标
     @FXML
-    private Button btnEdit;
+    private JFXButton btnEdit;
     @FXML
-    private Button btnAddWord;
+    private JFXButton btnAddWord;
     @FXML
     private Icon iconAddWord;
 
@@ -90,25 +90,6 @@ public class TranslateResult extends Application {
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
-
-        iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    try {
-                        //调用加入生词本模块
-                        addNewWord();
-                    } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
-                    }
-                });
-            }).start();
-        });
-
-        // 拖动监听器
-        DragUtil.addDragListener(primaryStage, root);
-
 
     }
 
@@ -164,7 +145,20 @@ public class TranslateResult extends Application {
             usVoice.setVisible(false);
         }
 
-
+        iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    try {
+                        //调用加入生词本模块
+                        addNewWord();
+                    } catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
+                    }
+                });
+            }).start();
+        });
 
         taTransResult.setText(result);
         taTransResult.setEditable(false);

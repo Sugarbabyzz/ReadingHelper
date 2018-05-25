@@ -1,14 +1,16 @@
 package Reader;
 
 import Util.TransApi;
+import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -23,7 +25,7 @@ public class DirectTranslateResult extends Application {
     private static final String SECURITY_KEY = "pAi_1F_ReUEJSeQvA_QP";
 
     @FXML
-    private TextArea taResult;
+    private JFXTextArea taResult;
 
     public static void main(String[] args) {
         launch(args);
@@ -37,9 +39,10 @@ public class DirectTranslateResult extends Application {
         loader.setController(this);
         Parent root = loader.load();
 
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("翻译结果");
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 300, 120));
+        primaryStage.setScene(new Scene(root, 300, 80));
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
     }
@@ -68,6 +71,12 @@ public class DirectTranslateResult extends Application {
 
         taResult.setText(directResult);
         taResult.setEditable(false);
+
+        taResult.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+            moveout();
+        });
+
+
     }
 
 

@@ -17,22 +17,6 @@
 <BorderPane prefHeight="646.0" prefWidth="600.0" stylesheets="@/Resource/css/dark-theme.css"
             xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
     <top>
-        <!--<JFXToolbar BorderPane.alignment="CENTER">-->
-        <!--<leftItems>-->
-        <!--<JFXRippler fx:id="rippler1" maskType="CIRCLE">-->
-        <!--<control>-->
-        <!--<JFXHamburger fx:id="burger1" style="-fx-padding:15;"/>-->
-        <!--</control>-->
-        <!--</JFXRippler>-->
-        <!--</leftItems>-->
-        <!--<leftItems>-->
-        <!--<JFXRippler fx:id="rippler2" maskType="CIRCLE">-->
-        <!--<control>-->
-        <!--<JFXHamburger fx:id="burger2" style="-fx-padding:15;"/>-->
-        <!--</control>-->
-        <!--</JFXRippler>-->
-        <!--</leftItems>-->
-        <!--</JFXToolbar>-->
         <HBox>
             <children>
                 <MenuBar HBox.hgrow="ALWAYS">
@@ -67,16 +51,9 @@
     </top>
 
     <center>
-        <TextArea fx:id="textArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                  prefHeight="563.0" prefWidth="1000.0" style="-fx-background-color: #2A2E37;"
-                  BorderPane.alignment="CENTER">
-            <contextMenu>
-                <ContextMenu>
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#translate" text="翻译"/>
-                    </items>
-                </ContextMenu>
-            </contextMenu>
+        <TextArea fx:id="textArea" editable="false"
+                  prefHeight="563.0" prefWidth="1000.0"
+                  BorderPane.alignment="CENTER" >
         </TextArea>
     </center>
 

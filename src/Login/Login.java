@@ -2,9 +2,6 @@ package Login;
 
 import Constant.Constant;
 import Reader.MainPage;
-import Util.AlertMaker;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,8 +11,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -38,14 +33,17 @@ public class Login extends Application {
     private Button btnSignUp;
     @FXML
     private Button btnOfflineUse;
-
+//    @FXML
+//    private ProgressIndicator pi;
+//
+//    MyTask task;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) throws IOException{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Resource/fxml/login_layout.fxml"));
         Scene scene = new Scene(root, 350, 400);
         primaryStage.setTitle("登录");
@@ -72,12 +70,14 @@ public class Login extends Application {
      */
     @FXML
     public void signIn(ActionEvent actionEvent) {
+//        task = new MyTask();
+//        task.valueProperty().addListener(new MyTaskListener());
 
         if (tfAccount.getText().isEmpty() || pfPassword.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码不能为空！");
             alert.setHeaderText(null);
             alert.showAndWait();
-        }  else if (!tfAccount.getText().matches("[0-9A-Za-z]*")){
+        } else if (!tfAccount.getText().matches("[0-9A-Za-z]*")) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码错误！");
             alert.setHeaderText(null);
             alert.showAndWait();
@@ -135,7 +135,7 @@ public class Login extends Application {
      * @param actionEvent
      */
     @FXML
-    public void offlineUse(ActionEvent actionEvent){
+    public void offlineUse(ActionEvent actionEvent) {
 
         //启动离线状态主页面
         Platform.runLater(() -> {
@@ -149,7 +149,6 @@ public class Login extends Application {
         Stage stage = (Stage) btnOfflineUse.getScene().getWindow();
         stage.close();
     }
-
 
 
     /**
@@ -206,7 +205,43 @@ public class Login extends Application {
         }
     }
 
-
+//    public class MyTask extends Task<Integer> {
+//
+//
+//        private String exception ;
+//        private int status ;
+//
+//        public int getStatus() {
+//            return status;
+//        }
+//
+//        public String getExceptions() {
+//            return exception;
+//        }
+//        protected Integer call() throws Exception {
+//            System.out.println("111");
+//            Thread.sleep(2000);
+//
+//            return 1;
+//        }
+//    }
+//
+//    public class MyTaskListener implements ChangeListener<Integer> {
+//
+//        public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+//
+//            if (task.getStatus() == 1) {
+//                pi.setVisible(false);
+//            } else {
+//
+//                String exception = task.getExceptions();
+//
+//                if (exception != null && !exception.equals("")) {
+//                    System.out.println();
+//                }
+//            }
+//        }
+//    }
 }
 
 

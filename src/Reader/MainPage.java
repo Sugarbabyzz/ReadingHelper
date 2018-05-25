@@ -193,6 +193,10 @@ public class MainPage extends Application {
             textArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(javafx.scene.input.MouseEvent event) {
+
+                    /*
+                     * 选中划词，启用双击划词翻译
+                     */
                     if (ckTransWord.isSelected() && event.getClickCount() == 2) {
 
                         srcWord = textArea.getSelectedText().trim();
@@ -212,6 +216,22 @@ public class MainPage extends Application {
                             try {
                                 new TranslateResult().showWindow(account, isOnline, srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
                                         result, event.getScreenX(), event.getScreenY(), MainPage.this);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+
+                    /*
+                     * 选中划句，启用划句翻译
+                     * 调用百度翻译API
+                     */
+                    if (ckTransSentence.isSelected() && !textArea.getSelectedText().isEmpty()){
+                        String srcSentence = textArea.getSelectedText().trim();
+                        //启动直接翻译结果主页面
+                        Platform.runLater(() -> {
+                            try {
+                                new DirectTranslateResult().showWindow(srcSentence);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -442,24 +462,4 @@ public class MainPage extends Application {
     }
 
 
-    /**
-     * 划句翻译
-     * 调用百度翻译API
-     *
-     * @param event
-     */
-    public void translate(ActionEvent event) {
-
-        String srcSentence = textArea.getSelectedText().trim();
-
-        //启动直接翻译结果主页面
-        Platform.runLater(() -> {
-            try {
-                new DirectTranslateResult().showWindow(srcSentence);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-
-    }
 }

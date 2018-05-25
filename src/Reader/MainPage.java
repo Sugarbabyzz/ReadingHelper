@@ -231,7 +231,7 @@ public class MainPage extends Application {
                         //启动直接翻译结果主页面
                         Platform.runLater(() -> {
                             try {
-                                new DirectTranslateResult().showWindow(srcSentence);
+                                new DirectTranslateResult().showWindow(srcSentence, event.getScreenX(), event.getScreenY());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

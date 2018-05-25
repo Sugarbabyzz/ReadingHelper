@@ -12,6 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -52,7 +53,20 @@ public class DirectTranslateResult extends Application {
      *
      * @throws Exception
      */
-    public void showWindow(String sourceSentence) throws Exception {
+    public void showWindow(String sourceSentence, double X, double Y) throws Exception {
+
+        //获取屏幕大小并让窗口总出现在屏幕范围内
+        Toolkit tool = Toolkit.getDefaultToolkit();
+        Dimension screen = tool.getScreenSize();
+        if (X > (screen.width-600)){
+            X = X - 600;
+        }
+        if (Y > (screen.height - 400)){
+            Y = Y - 400;
+        }
+
+        stage.setX(X);
+        stage.setY(Y);
         start(stage);
 
         TransApi api = new TransApi(APP_ID, SECURITY_KEY);

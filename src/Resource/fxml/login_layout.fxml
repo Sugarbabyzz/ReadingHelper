@@ -12,6 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ProgressIndicator?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0"
           prefWidth="339.0" stylesheets="@/Resource/css/dark-theme.css" xmlns="http://javafx.com/javafx/9.0.4"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.Login">
@@ -83,5 +84,7 @@
                 <Insets left="10.0"/>
             </GridPane.margin>
         </ImageView>
+
+        <ProgressIndicator GridPane.columnIndex="2"  GridPane.rowIndex="4" fx:id="pi" visible="false"/>
     </children>
 </GridPane>

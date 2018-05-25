@@ -52,7 +52,7 @@ public class OfferTranslation extends Application {
         Parent root = loader.load();
 
         primaryStage.setTitle("提供译文");
-        primaryStage.setScene(new Scene(root, 500, 300));
+        primaryStage.setScene(new Scene(root, 300, 230));
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
     }

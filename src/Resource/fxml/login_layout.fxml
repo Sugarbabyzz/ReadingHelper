@@ -13,8 +13,10 @@
 
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.fontawesome.Icon?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0"
-          prefWidth="339.0" stylesheets="@/Resource/css/dark-theme.css" xmlns="http://javafx.com/javafx/9.0.4"
+          prefWidth="339.0" stylesheets="@/Resource/css/theme.css" xmlns="http://javafx.com/javafx/9.0.4"
           xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.Login">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="36.0"/>
@@ -39,7 +41,7 @@
     </padding>
     <children>
         <JFXButton fx:id="btnSignIn" buttonType="RAISED" mnemonicParsing="false" onAction="#signIn" prefHeight="40.0"
-                   prefWidth="225.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"
+                   prefWidth="225.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:20px;"
                    styleClass="about-button" text="登录" textAlignment="CENTER" GridPane.columnIndex="1"
                    GridPane.columnSpan="3" GridPane.rowIndex="6">
 
@@ -57,7 +59,8 @@
                    styleClass="about-button" text="游客登录" GridPane.columnIndex="3" GridPane.rowIndex="7">
         </JFXButton>
 
-        <Text fill="#5264AE" strokeType="OUTSIDE" strokeWidth="0.0" text="英语阅读器" textAlignment="CENTER" wrappingWidth="139.0"
+        <Text fill="#5264AE" strokeType="OUTSIDE" strokeWidth="0.0" text="英语阅读器" textAlignment="CENTER"
+              wrappingWidth="139.0"
               GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
             <font>
                 <Font name="Xingkai SC Bold" size="25.0"/>
@@ -85,6 +88,9 @@
             </GridPane.margin>
         </ImageView>
 
-        <ProgressIndicator GridPane.columnIndex="2"  GridPane.rowIndex="4" fx:id="pi" visible="false"/>
+        <Icon awesomeIcon="USER" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <Icon awesomeIcon="KEY" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+
+        <ProgressIndicator GridPane.columnIndex="2" GridPane.rowIndex="4" fx:id="pi" visible="false"/>
     </children>
 </GridPane>

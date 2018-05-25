@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<?import javafx.scene.image.Image?>
+<FlowPane maxHeight="250.0" maxWidth="300.0" minHeight="250.0" minWidth="300.0" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <Text fx:id="tSrcWord" fill="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="283.21875">
+            <font>
+                <Font size="44.0" />
+            </font>
+            <FlowPane.margin>
+                <Insets left="10.0" top="5.0" />
+            </FlowPane.margin>
+        </Text>
+
+        <ImageView fx:id="ukVoice" fitHeight="28.0" fitWidth="32.0" onMouseClicked="#pronounceUk" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="/Resource/icon/speak.png"/>
+            </image>
+            <FlowPane.margin>
+                <Insets left="10.0" top="5.0" />
+            </FlowPane.margin>
+        </ImageView>
+
+        <Text fx:id="ukPhoneticSymbol" fill="black" strokeType="OUTSIDE" strokeWidth="0.0" text="英式" wrappingWidth="252.30029296875" />
+
+        <ImageView fx:id="usVoice" fitHeight="28.0" fitWidth="32.0" onMouseClicked="#pronounceUs" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="/Resource/icon/speak.png"/>
+            </image>
+            <FlowPane.margin>
+                <Insets left="10.0" top="5.0" />
+            </FlowPane.margin>
+        </ImageView>
+
+        <Text fx:id="usPhoneticSymbol" fill="black" strokeType="OUTSIDE" strokeWidth="0.0" text="美式" wrappingWidth="247.30029296875" />
+
+        <JFXTextArea fx:id="taTransResult" editable="false" focusColor="#bbbbbb" prefHeight="71.0" prefWidth="280.0" promptText="翻译" unFocusColor="#bababa" wrapText="true">
+            <FlowPane.margin>
+                <Insets left="10.0" right="10.0" top="5.0" />
+            </FlowPane.margin>
+        </JFXTextArea>
+
+
+        <FlowPane minHeight="50.0" prefHeight="34.0" prefWidth="300.0">
+            <children>
+
+                <JFXButton fx:id="btnRecover" buttonType="RAISED" mnemonicParsing="false" onAction="#recover" prefHeight="40.0" prefWidth="80.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;" styleClass="about-button" text="恢复原文">
+                    <FlowPane.margin>
+                        <Insets left="100.0" right="50.0" top="10.0" />
+                    </FlowPane.margin>
+                </JFXButton>
+            </children>
+        </FlowPane>
+    </children>
+</FlowPane>

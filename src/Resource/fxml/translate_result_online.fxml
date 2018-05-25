@@ -61,7 +61,7 @@
 
         <Label prefHeight="27.0" prefWidth="257.0" text="其他用户的翻译:" textFill="#5264ae">
             <font>
-                <Font size="20.0"/>
+                <Font size="15.0"/>
             </font>
             <FlowPane.margin>
                 <Insets left="10.0" top="5.0"/>

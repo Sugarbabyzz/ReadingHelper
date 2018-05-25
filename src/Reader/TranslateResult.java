@@ -1,7 +1,6 @@
 package Reader;
 
 import Constant.Constant;
-import Util.DragUtil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import de.jensd.fx.fontawesome.Icon;
@@ -62,6 +61,7 @@ public class TranslateResult extends Application {
     private static Stage stage = new Stage();
 
     private static String account; //账号
+    private static Boolean isOnline;
     private static String word; //当前选中的单词
     private String replaceWord; //替换的释义
 
@@ -77,20 +77,33 @@ public class TranslateResult extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
+        if (isOnline) {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getClassLoader().getResource("Resource/fxml/translate_result_online.fxml")
+            );
+            loader.setController(this);
+            Parent root = loader.load();
 
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getClassLoader().getResource("Resource/fxml/translate_result.fxml")
-        );
-        loader.setController(this);
-        Parent root = loader.load();
+            Scene scene = new Scene(root, 300, 480);
+            primaryStage.setTitle("翻译结果");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+            primaryStage.show();
+        } else {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getClassLoader().getResource("Resource/fxml/translate_result_offline.fxml")
+            );
+            loader.setController(this);
+            Parent root = loader.load();
 
-        Scene scene = new Scene(root, 300, 480);
-        primaryStage.setTitle("翻译结果");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
-        primaryStage.show();
-
+            Scene scene = new Scene(root, 300, 250);
+            primaryStage.setTitle("翻译结果");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+            primaryStage.show();
+        }
     }
 
     /**
@@ -115,15 +128,26 @@ public class TranslateResult extends Application {
         this.account = account;
         this.controller = controller;
         this.word = srcWord;
+        this.isOnline = isOnline;
 
         //获取屏幕大小并让窗口总出现在屏幕范围内
         Toolkit tool = Toolkit.getDefaultToolkit();
         Dimension screen = tool.getScreenSize();
-        if (X > (screen.width-600)){
-            X = X - 600;
-        }
-        if (Y > (screen.height - 400)){
-            Y = Y - 400;
+
+        if (isOnline) {
+            if (X > (screen.width - 300)) {
+                X = X - 300;
+            }
+            if (Y > (screen.height - 480)) {
+                Y = Y - 480;
+            }
+        } else {
+            if (X > (screen.width - 300)) {
+                X = X - 300;
+            }
+            if (Y > (screen.height - 240)) {
+                Y = Y - 250;
+            }
         }
 
         stage.setX(X);
@@ -138,30 +162,14 @@ public class TranslateResult extends Application {
          */
         this.ukUrl = ukUrl;
         this.usUrl = usUrl;
-        if (ukUrl.equals(" ")){
+        if (ukUrl.equals(" ")) {
             ukVoice.setVisible(false);
         }
-        if (usUrl.equals(" ")){
+        if (usUrl.equals(" ")) {
             usVoice.setVisible(false);
         }
 
-        iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    try {
-                        //调用加入生词本模块
-                        addNewWord();
-                    } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
-                    }
-                });
-            }).start();
-        });
-
         taTransResult.setText(result);
-        taTransResult.setEditable(false);
         taTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(javafx.scene.input.MouseEvent event) {
@@ -172,7 +180,7 @@ public class TranslateResult extends Application {
                      */
                     replaceWord = taTransResult.getSelectedText().trim();
                     //System.out.println(replaceWord);
-                    if (!replaceWord.isEmpty()){
+                    if (!replaceWord.isEmpty()) {
                         controller.replaceWord(replaceWord);
 
                         /**
@@ -202,136 +210,149 @@ public class TranslateResult extends Application {
             }
         });
 
-        taOtherTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(javafx.scene.input.MouseEvent event) {
-                if (event.getClickCount() == 2) {
-
-                    /**
-                     * 替换
-                     */
-                    replaceWord = taOtherTransResult.getSelectedText().trim();
-                    //System.out.println(replaceWord);
-
-                    if (!replaceWord.isEmpty()){
-                        controller.replaceWord(replaceWord);
-
-                        /**
-                         * 存入Hashmap，为实现恢复原词功能
-                         */
-                        transToWord.put(replaceWord, word);
-                        System.out.println(transToWord);
-                        /**
-                         * 提交最后一次选择的译文
-                         */
-                        new Thread(() -> {
-                            Platform.runLater(() -> {
-                                try {
-                                    //调用提交最后一次选择的译文模块
-                                    submitLastChoice(taOtherTransResult.getSelectedText().trim());
-                                } catch (Exception e) {
-                                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                                    alert.setHeaderText(null);
-                                    alert.showAndWait();
-                                    e.printStackTrace();
-                                    System.out.println("提交最后一次选择的译文失败！");
-                                }
-                            });
-                        }).start();
-                    }
-                }
-            }
-        });
-
-        taSelfTrans.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(javafx.scene.input.MouseEvent event) {
-                if (event.getClickCount() == 2) {
-
-                    /**
-                     * 替换
-                     */
-                    replaceWord = taSelfTrans.getSelectedText().trim();
-                    //System.out.println(replaceWord);
-
-                    if (!replaceWord.isEmpty()){
-                        controller.replaceWord(replaceWord);
-
-                        /**
-                         * 存入Hashmap，为实现恢复原词功能
-                         */
-                        transToWord.put(replaceWord, word);
-                        System.out.println(transToWord);
-                        /**
-                         * 提交最后一次选择的译文
-                         */
-                        new Thread(() -> {
-                            Platform.runLater(() -> {
-                                try {
-                                    //调用提交最后一次选择的译文模块
-                                    submitLastChoice(taSelfTrans.getSelectedText().trim());
-                                } catch (Exception e) {
-                                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                                    alert.setHeaderText(null);
-                                    alert.showAndWait();
-                                    e.printStackTrace();
-                                    System.out.println("提交最后一次选择的译文失败！");
-                                }
-                            });
-                        }).start();
-                    }
-                }
-            }
-        });
-
-        taLastChoice.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(javafx.scene.input.MouseEvent event) {
-                if (event.getClickCount() == 2) {
-
-                    /**
-                     * 替换
-                     */
-                    replaceWord = taLastChoice.getSelectedText().trim();
-                    //System.out.println(replaceWord);
-
-                    if (!replaceWord.isEmpty()){
-                        controller.replaceWord(replaceWord);
-
-                        /**
-                         * 存入Hashmap，为实现恢复原词功能
-                         */
-                        transToWord.put(replaceWord, word);
-                        System.out.println(transToWord);
-                        /**
-                         * 提交最后一次选择的译文
-                         */
-                        new Thread(() -> {
-                            Platform.runLater(() -> {
-                                try {
-                                    //调用提交最后一次选择的译文模块
-                                    submitLastChoice(taLastChoice.getSelectedText().trim());
-                                } catch (Exception e) {
-                                    Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
-                                    alert.setHeaderText(null);
-                                    alert.showAndWait();
-                                    e.printStackTrace();
-                                    System.out.println("提交最后一次选择的译文失败！");
-                                }
-                            });
-                        }).start();
-                    }
-                }
-            }
-        });
 
         /*
-         * 未登录状态
+         * 登录状态加载以下功能
          */
-        btnEdit.setDisable(!isOnline);
-        iconAddWord.setVisible(!isOnline);
-
         if (isOnline) {
+            iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                new Thread(() -> {
+                    Platform.runLater(() -> {
+                        try {
+                            //调用加入生词本模块
+                            addNewWord();
+                        } catch (Exception e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
+                            alert.setHeaderText(null);
+                            alert.showAndWait();
+                        }
+                    });
+                }).start();
+            });
+
+            taOtherTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(javafx.scene.input.MouseEvent event) {
+                    if (event.getClickCount() == 2) {
+
+                        /**
+                         * 替换
+                         */
+                        replaceWord = taOtherTransResult.getSelectedText().trim();
+                        //System.out.println(replaceWord);
+
+                        if (!replaceWord.isEmpty()) {
+                            controller.replaceWord(replaceWord);
+
+                            /**
+                             * 存入Hashmap，为实现恢复原词功能
+                             */
+                            transToWord.put(replaceWord, word);
+                            System.out.println(transToWord);
+                            /**
+                             * 提交最后一次选择的译文
+                             */
+                            new Thread(() -> {
+                                Platform.runLater(() -> {
+                                    try {
+                                        //调用提交最后一次选择的译文模块
+                                        submitLastChoice(taOtherTransResult.getSelectedText().trim());
+                                    } catch (Exception e) {
+                                        Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                        alert.setHeaderText(null);
+                                        alert.showAndWait();
+                                        e.printStackTrace();
+                                        System.out.println("提交最后一次选择的译文失败！");
+                                    }
+                                });
+                            }).start();
+                        }
+                    }
+                }
+            });
+
+            taSelfTrans.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(javafx.scene.input.MouseEvent event) {
+                    if (event.getClickCount() == 2) {
+
+                        /**
+                         * 替换
+                         */
+                        replaceWord = taSelfTrans.getSelectedText().trim();
+                        //System.out.println(replaceWord);
+
+                        if (!replaceWord.isEmpty()) {
+                            controller.replaceWord(replaceWord);
+
+                            /**
+                             * 存入Hashmap，为实现恢复原词功能
+                             */
+                            transToWord.put(replaceWord, word);
+                            System.out.println(transToWord);
+                            /**
+                             * 提交最后一次选择的译文
+                             */
+                            new Thread(() -> {
+                                Platform.runLater(() -> {
+                                    try {
+                                        //调用提交最后一次选择的译文模块
+                                        submitLastChoice(taSelfTrans.getSelectedText().trim());
+                                    } catch (Exception e) {
+                                        Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                        alert.setHeaderText(null);
+                                        alert.showAndWait();
+                                        e.printStackTrace();
+                                        System.out.println("提交最后一次选择的译文失败！");
+                                    }
+                                });
+                            }).start();
+                        }
+                    }
+                }
+            });
+
+            taLastChoice.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(javafx.scene.input.MouseEvent event) {
+                    if (event.getClickCount() == 2) {
+
+                        /**
+                         * 替换
+                         */
+                        replaceWord = taLastChoice.getSelectedText().trim();
+                        //System.out.println(replaceWord);
+
+                        if (!replaceWord.isEmpty()) {
+                            controller.replaceWord(replaceWord);
+
+                            /**
+                             * 存入Hashmap，为实现恢复原词功能
+                             */
+                            transToWord.put(replaceWord, word);
+                            System.out.println(transToWord);
+                            /**
+                             * 提交最后一次选择的译文
+                             */
+                            new Thread(() -> {
+                                Platform.runLater(() -> {
+                                    try {
+                                        //调用提交最后一次选择的译文模块
+                                        submitLastChoice(taLastChoice.getSelectedText().trim());
+                                    } catch (Exception e) {
+                                        Alert alert = new Alert(Alert.AlertType.ERROR, "提交译文失败！");
+                                        alert.setHeaderText(null);
+                                        alert.showAndWait();
+                                        e.printStackTrace();
+                                        System.out.println("提交最后一次选择的译文失败！");
+                                    }
+                                });
+                            }).start();
+                        }
+                    }
+                }
+            });
+
             /**
              * 初始化数据
              */
@@ -347,6 +368,7 @@ public class TranslateResult extends Application {
                 });
             }).start();
         }
+
 
     }
 
@@ -377,21 +399,21 @@ public class TranslateResult extends Application {
 
         Pattern p = Pattern.compile("(.*)(<last>)(.*)(</last>)(.*)");
         Matcher m = p.matcher(response);
-        if (m.find()){
+        if (m.find()) {
             lastChoice = m.group(3);
         }
         System.out.println(lastChoice);
 
         p = Pattern.compile("(.*)(<selftrans>)(.*)(</selftrans>)(.*)");
         m = p.matcher(response);
-        if (m.find()){
+        if (m.find()) {
             selfTranslation = m.group(3);
         }
         System.out.println(selfTranslation);
 
         p = Pattern.compile("(.*)(<othertrans>)(.*)(</othertrans>)(.*)");
         m = p.matcher(response);
-        if (m.find()){
+        if (m.find()) {
             otherTranslation = m.group(3);
         }
         System.out.println(otherTranslation);
@@ -417,10 +439,7 @@ public class TranslateResult extends Application {
         }
 
 
-
-
     }
-
 
 
     /**
@@ -475,7 +494,7 @@ public class TranslateResult extends Application {
                 alert.showAndWait();
 
                 System.out.println("加入生词本成功！");
-            } else if (sb.toString().equals(Constant.FLAG_ACCOUNT_EXIST)){
+            } else if (sb.toString().equals(Constant.FLAG_ACCOUNT_EXIST)) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "该单词已加入生词本！");
                 alert.setHeaderText(null);
                 alert.showAndWait();
@@ -552,8 +571,8 @@ public class TranslateResult extends Application {
              * 传入含有中文字符的URL，需要将其进行编码
              */
             URL url = new URL(Constant.URL_SetLastChoice + "account=" + account + "&"
-                                                               + "word=" + java.net.URLEncoder.encode(word, "utf-8") + "&"
-                                                               + "lastchoice=" + java.net.URLEncoder.encode(lastChoice, "utf-8"));
+                    + "word=" + java.net.URLEncoder.encode(word, "utf-8") + "&"
+                    + "lastchoice=" + java.net.URLEncoder.encode(lastChoice, "utf-8"));
             // 接收servlet返回值，是字节
             InputStream is = url.openStream();
 

@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="646.0" prefWidth="600.0" stylesheets="@/Resource/css/dark-theme.css"
+<BorderPane prefHeight="646.0" prefWidth="1000.0" stylesheets="@/Resource/css/theme.css"
             xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
     <top>
         <HBox>
@@ -51,29 +50,28 @@
     </top>
 
     <center>
-        <TextArea fx:id="textArea" editable="false"
-                  prefHeight="563.0" prefWidth="1000.0"
-                  BorderPane.alignment="CENTER" >
+        <TextArea fx:id="textArea" editable="false" prefHeight="500.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
         </TextArea>
     </center>
-
     <bottom>
-        <GridPane BorderPane.alignment="CENTER">
+        <GridPane prefHeight="20.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="502.0" minWidth="10.0" prefWidth="493.0"/>
-                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0"
-                                   prefWidth="50.0"/>
-                <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0"
-                                   prefWidth="50.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="200.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="200.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="15.0" prefWidth="17.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <JFXCheckBox fx:id="ckTransSentence" checkedColor="#9c1010" prefHeight="18.0" prefWidth="136.0"
-                             style="-fx-text-fill:WHITE;" text="划句" GridPane.columnIndex="1"/>
-                <JFXCheckBox fx:id="ckTransWord" checkedColor="#9c1010" prefHeight="18.0" prefWidth="103.0"
-                             style="-fx-text-fill:WHITE;" text="划词" GridPane.columnIndex="2"/>
+                <JFXCheckBox fx:id="ckTransSentence" checkedColor="#9c1010" maxHeight="20.0" maxWidth="60.0"
+                             minHeight="20.0" minWidth="60.0" prefHeight="20.0" prefWidth="60.0"
+                             style="-fx-text-fill:BLACK;" text="划句" GridPane.columnIndex="2"/>
+                <JFXCheckBox fx:id="ckTransWord" checkedColor="#9c1010" maxWidth="60.0" minWidth="60.0"
+                             prefHeight="20.0" prefWidth="60.0" style="-fx-text-fill:BLACK;" text="划词"
+                             GridPane.columnIndex="4"/>
             </children>
         </GridPane>
     </bottom>

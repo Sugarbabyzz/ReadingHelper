@@ -13,7 +13,7 @@ import java.io.IOException;
 
 public class AboutThis extends Application {
 
-    Stage stage  = new Stage();
+    Stage stage = new Stage();
 
     @FXML
     private Label labAbout;
@@ -45,10 +45,10 @@ public class AboutThis extends Application {
      */
     public void showWindow() throws Exception {
         start(stage);
-        labAbout.setText("支持在位（in-place）翻译的英文文档阅读器 \n"
-                        + "组员：\t唐载钏 41524162\n"
-                        + "\t\t顾松 41524160\n"
-                        + "\t\t赵冰玉 41524156\n"
-                        + "\t\t刘卫卫 41524140\n");
+        labAbout.setText("支持在位（in-place）翻译的英文文档阅读器 v1.0\n\n"
+                + "组员：\t唐载钏 41524162\n"
+                + "\t\t顾松 41524160\n"
+                + "\t\t赵冰玉 41524156\n"
+                + "\t\t刘卫卫 41524140\n");
     }
 }

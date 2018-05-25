@@ -6,11 +6,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0"
-      prefWidth="500.0" stylesheets="@/Resource/css/dark-theme.css" xmlns="http://javafx.com/javafx/9.0.4"
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0"
+      prefWidth="300.0" stylesheets="@/Resource/css/theme.css" xmlns="http://javafx.com/javafx/9.0.4"
       xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <TextArea fx:id="taSelfTrans" prefHeight="304.0" prefWidth="500.0"/>
+        <TextArea fx:id="taSelfTrans" prefHeight="230.0" prefWidth="300.0"/>
         <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
                 <JFXButton fx:id="btnSubmit" buttonType="RAISED" mnemonicParsing="false" onAction="#submit"
@@ -18,7 +18,7 @@
                            style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"
                            styleClass="about-button" text="提交翻译">
                     <HBox.margin>
-                        <Insets left="50.0"/>
+                        <Insets left="30.0"/>
                     </HBox.margin>
                 </JFXButton>
 
@@ -27,7 +27,7 @@
                            style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"
                            styleClass="about-button" text="取消">
                     <HBox.margin>
-                        <Insets left="50.0"/>
+                        <Insets left="40.0"/>
                     </HBox.margin>
                 </JFXButton>
             </children>

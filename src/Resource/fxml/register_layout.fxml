@@ -10,23 +10,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0"
-          prefWidth="340.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="Login.Register" stylesheets="@/Resource/css/dark-theme.css">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="315.0" minWidth="350.0" prefHeight="314.0"
+          prefWidth="354.0" stylesheets="@/Resource/css/theme.css" xmlns="http://javafx.com/javafx/9.0.4"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.Register">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="58.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="56.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="20.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="63.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="123.0"/>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="152.0" minWidth="10.0" prefWidth="22.0"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="58.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="40.0" minWidth="40.0" prefWidth="20.0"/>
     </columnConstraints>
     <rowConstraints>
         <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="146.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES"/>
-        <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="146.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="146.0" minHeight="50.0" prefHeight="50.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="146.0" minHeight="50.0" prefHeight="46.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="86.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="26.0" vgrow="SOMETIMES"/>
         <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES"/>
     </rowConstraints>
     <padding>
@@ -35,24 +35,24 @@
     <children>
         <JFXButton fx:id="btnSignUp" buttonType="RAISED" mnemonicParsing="false" onAction="#signUp" prefHeight="40.0"
                    prefWidth="80.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"
-                   text="完成注册" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4"
-                   styleClass="about-button">
+                   styleClass="about-button" text="完成注册" textAlignment="CENTER" GridPane.columnIndex="2"
+                   GridPane.rowIndex="4">
         </JFXButton>
 
         <JFXButton fx:id="btnBack" buttonType="RAISED" mnemonicParsing="false" onAction="#back" prefHeight="20.0"
                    prefWidth="60.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;"
-                   text="返回" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5"
-                   styleClass="about-button">
+                   styleClass="about-button" text="返回" textAlignment="CENTER" GridPane.columnIndex="1"
+                   GridPane.rowIndex="5">
         </JFXButton>
 
 
-        <Text fill="#5264AE" strokeType="OUTSIDE" strokeWidth="0.0" text="用户注册" textAlignment="CENTER" wrappingWidth="139.0"
-              GridPane.columnIndex="1">
+        <Text fill="#5264AE" strokeType="OUTSIDE" strokeWidth="0.0" text="用户注册" textAlignment="CENTER"
+              wrappingWidth="139.0" GridPane.columnIndex="1">
             <font>
                 <Font name="Xingkai SC Bold" size="25.0"/>
             </font>
             <GridPane.margin>
-                <Insets left="25.0" top="5.0"/>
+                <Insets left="20.0" top="5.0"/>
             </GridPane.margin>
         </Text>
 

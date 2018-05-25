@@ -2,6 +2,7 @@ package Reader;
 
 import Constant.Constant;
 import Util.DragUtil;
+import de.jensd.fx.fontawesome.Icon;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -22,8 +23,6 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 import java.awt.*;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
@@ -55,6 +54,8 @@ public class TranslateResult extends Application {
     private Button btnEdit;
     @FXML
     private Button btnAddWord;
+    @FXML
+    private Icon iconAddWord;
 
     MainPage controller;
 
@@ -83,11 +84,27 @@ public class TranslateResult extends Application {
         loader.setController(this);
         Parent root = loader.load();
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 300, 480);
         primaryStage.setTitle("翻译结果");
         primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
+
+        iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            new Thread(() -> {
+                Platform.runLater(() -> {
+                    try {
+                        //调用加入生词本模块
+                        addNewWord();
+                    } catch (Exception e) {
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
+                    }
+                });
+            }).start();
+        });
 
         // 拖动监听器
         DragUtil.addDragListener(primaryStage, root);
@@ -318,7 +335,7 @@ public class TranslateResult extends Application {
          * 未登录状态
          */
         btnEdit.setDisable(!isOnline);
-        btnAddWord.setDisable(!isOnline);
+        iconAddWord.setVisible(!isOnline);
 
         if (isOnline) {
             /**
@@ -437,25 +454,6 @@ public class TranslateResult extends Application {
 
     }
 
-    /**
-     * 加入生词本按钮
-     *
-     * @param event
-     */
-    public void addWord(ActionEvent event) {
-        new Thread(() -> {
-            Platform.runLater(() -> {
-                try {
-                    //调用加入生词本模块
-                    addNewWord();
-                } catch (Exception e) {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
-                    alert.setHeaderText(null);
-                    alert.showAndWait();
-                }
-            });
-        }).start();
-    }
 
     /**
      * 加入生词本模块
@@ -592,4 +590,5 @@ public class TranslateResult extends Application {
             e.printStackTrace();
         }
     }
+
 }

@@ -215,7 +215,7 @@ public class MainPage extends Application {
                         Platform.runLater(() -> {
                             try {
                                 new TranslateResult().showWindow(account, isOnline, srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
-                                        result, event.getScreenX(), event.getScreenY(), MainPage.this);
+                                        result, event.getScreenX()+10, event.getScreenY()+10, MainPage.this);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -231,7 +231,7 @@ public class MainPage extends Application {
                         //启动直接翻译结果主页面
                         Platform.runLater(() -> {
                             try {
-                                new DirectTranslateResult().showWindow(srcSentence, event.getScreenX(), event.getScreenY());
+                                new DirectTranslateResult().showWindow(srcSentence, event.getScreenX()+10 , event.getScreenY()+10);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

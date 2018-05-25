@@ -1,5 +1,6 @@
 package Reader;
 
+import Util.DragUtil;
 import Util.TransApi;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Application;
@@ -46,6 +47,7 @@ public class DirectTranslateResult extends Application {
         primaryStage.setScene(new Scene(root, 300, 80));
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
+
     }
 
     /**
@@ -58,11 +60,11 @@ public class DirectTranslateResult extends Application {
         //获取屏幕大小并让窗口总出现在屏幕范围内
         Toolkit tool = Toolkit.getDefaultToolkit();
         Dimension screen = tool.getScreenSize();
-        if (X > (screen.width-600)){
-            X = X - 600;
+        if (X > (screen.width-300)){
+            X = X - 300;
         }
-        if (Y > (screen.height - 400)){
-            Y = Y - 400;
+        if (Y > (screen.height - 80)){
+            Y = Y - 80;
         }
 
         stage.setX(X);

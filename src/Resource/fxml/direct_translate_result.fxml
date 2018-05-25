@@ -6,7 +6,7 @@
 <BorderPane xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <JFXTextArea fx:id="taResult" focusColor="BLACK" prefHeight="80" prefWidth="300" promptText="无翻译结果!"
-                     style="-fx-background-color:WHITE; -fx-text-fill:BLACK;  -fx-border-color: BLACK"
-                     styleClass="t_area" unFocusColor="BLACK" BorderPane.alignment="CENTER"/>
+                     style="-fx-background-color:WHITE; -fx-text-fill:BLACK;  -fx-border-color: BLACK; "
+                     unFocusColor="BLACK" BorderPane.alignment="CENTER"/>
     </top>
 </BorderPane>

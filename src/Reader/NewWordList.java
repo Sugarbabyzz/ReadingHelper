@@ -47,6 +47,7 @@ public class NewWordList extends Application {
         Parent root = loader.load();
 
         primaryStage.setTitle("生词本");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 500, 300));
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();

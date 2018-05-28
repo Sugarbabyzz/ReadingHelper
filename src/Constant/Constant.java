@@ -18,4 +18,5 @@ public class Constant {
     public static String URL_ChangePassword = URL + "ChangePswServlet?";
     public static String URL_AddNewWord = URL + "AddNewWordServlet?";
     public static String URL_GetNewWordList = URL + "GetNewWordListServlet?";
+    public static String URL_RemoveWord = URL + "RemoveWordServlet?";
 }

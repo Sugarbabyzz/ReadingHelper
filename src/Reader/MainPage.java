@@ -1,11 +1,13 @@
 package Reader;
 
 import Dictionary.Dictionary;
-import Login.ChangePassword;
 import Login.AboutThis;
+import Login.ChangePassword;
 import Login.Login;
+import Util.AlertMaker;
 import Util.WordStyleSet;
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXSlider;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,11 +23,12 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -34,6 +37,7 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
+import javax.security.auth.callback.Callback;
 import java.awt.*;
 import java.io.*;
 import java.util.regex.Matcher;
@@ -55,24 +59,9 @@ public class MainPage extends Application {
     private String EnglishPhoneticSymbol;
     private String AmericanPhoneticSymbol;
     private String replaceWord;
-    int i;
 
     @FXML
-    private TextField tfWordFont;
-    @FXML
-    private TextField tfWordSize;
-    @FXML
-    private MenuButton mbFontSelect;
-    @FXML
-    private MenuItem[] menuItemArray;
-    @FXML
-    private HBox hBox;
-    @FXML
     private TextArea textArea;
-    @FXML
-    private VBox vBox;
-    @FXML
-    private ToggleButton toggle_button;
     @FXML
     private JFXCheckBox ckTransSentence;
     @FXML
@@ -93,6 +82,8 @@ public class MainPage extends Application {
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
 
+
+
     }
 
     /**
@@ -103,7 +94,6 @@ public class MainPage extends Application {
     public void showWindow() throws Exception {
         this.isOnline = false;
         start(stage);
-
     }
 
     /**
@@ -312,7 +302,6 @@ public class MainPage extends Application {
      */
 
     public void about(ActionEvent event) {
-
         //启动关于软件窗口
         Platform.runLater(() -> {
             try {
@@ -321,81 +310,6 @@ public class MainPage extends Application {
                 e.printStackTrace();
             }
         });
-    }
-
-    /**
-     * 字体设置 按钮
-     * 对toggleButton是否按下作判断
-     */
-    public void ifSetFont() {
-        if (toggle_button.isSelected()) {
-            showWordStyle();
-            toggle_button.setText("隐藏字体设置");
-        } else {
-            vBox.getChildren().remove(hBox);
-            toggle_button.setText("字体设置");
-        }
-    }
-
-    /**
-     * 显示字体设置栏
-     */
-    public void showWordStyle() {
-        //此布局的根节点
-        hBox = new HBox();
-        hBox.prefHeight(25);
-        hBox.prefWidth(600);
-
-        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String[] fontName = e.getAvailableFontFamilyNames();
-        menuItemArray = new MenuItem[fontName.length];
-
-        for (i = 0; i < fontName.length; i++) {
-            menuItemArray[i] = new MenuItem(fontName[i]);
-        }
-
-        for (MenuItem mi : menuItemArray) {
-            mi.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    String str = mi.getText();
-                    WordStyleSet.StyleSet(textArea, str, Double.parseDouble(tfWordSize.getText()));
-                    mbFontSelect.setText(str);
-                    System.out.println("字体:" + textArea.getFont().getName());
-                }
-            });
-        }
-
-        mbFontSelect = new MenuButton();
-        mbFontSelect.getItems().addAll(menuItemArray);
-        mbFontSelect.setText(textArea.getFont().getName());
-        mbFontSelect.prefWidth(100);
-        mbFontSelect.prefHeight(25);
-
-        //设置字体大小的按钮
-        Button setWordSize = new Button();
-        setWordSize.setText("设置字体大小");
-        //字体大小输入
-        tfWordSize = new TextField();
-        tfWordSize.prefWidth(15);
-        tfWordSize.prefHeight(25);
-        tfWordSize.setPadding(new Insets(4, -110, 4, 7));
-        tfWordSize.setText(textArea.getFont().getSize() + "");
-        //字体大小监听
-        setWordSize.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                WordStyleSet.StyleSet(textArea, mbFontSelect.getText(), Double.parseDouble(tfWordSize.getText()));
-            }
-        });
-
-        // 将控件加入字体样式根节点、设置间距
-        hBox.getChildren().addAll(setWordSize, tfWordSize, mbFontSelect);
-        hBox.setMargin(setWordSize, new Insets(0, 0, 0, 50));
-        hBox.setMargin(mbFontSelect, new Insets(0, 0, 0, 50));
-
-        // 将该根节点加入布局
-        vBox.getChildren().add(1, hBox);
     }
 
 

@@ -1,21 +1,24 @@
 package Reader;
 
 import Constant.Constant;
+import Util.AlertMaker;
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.text.Text;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -23,15 +26,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.Optional;
+import java.util.ArrayList;
 
 public class NewWordList extends Application {
 
-    Stage stage = new Stage();
-    String account; //传入账号
+    private Stage stage = new Stage();
+    private String account; //传入账号
 
+    private String word;
     @FXML
-    ListView<String> lv_word_list;
+    private
+    ProgressIndicator pi;
+    @FXML
+    private
+    TableView<WordBook> tableView;
+    @FXML
+    private
+    TableColumn colWord; //word column
+    @FXML
+    private
+    TableColumn colTranslation; //translation column
+    @FXML
+    private
+    AnchorPane anchorPane; //root pane
+
 
     public static void main(String[] args) {
         launch(args);
@@ -45,136 +63,258 @@ public class NewWordList extends Application {
         );
         loader.setController(this);
         Parent root = loader.load();
-
         primaryStage.setTitle("生词本");
-        primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(root, 500, 300));
+        primaryStage.setScene(new Scene(root, 500, 600));
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
+
+        // progress indicator
+        pi = new ProgressIndicator(); // create progress indicator
+        pi.setPrefSize(60, 60); //set size
+        pi.setLayoutX(anchorPane.getWidth() / 2 - 30);    //set location
+        pi.setLayoutY(anchorPane.getHeight() / 2 - 30);
+        anchorPane.getChildren().add(pi); //add to anchorPane
+        // bind progress to wordTask so that it shows progress accordingly
+        // very important
+        pi.progressProperty().bind(getWordTask.progressProperty());
+        new Thread(getWordTask).start(); // the actual thread to get <getWordTask> going
+
+
+        // ******************
+        // 注意下这里进行的onSucceeded不是指wordTask获取到成功标志而做的事情
+        // 只是wordTask顺利完成了call中执行的语句后的回调,无法判断执行后是否是成功还是失败
+        // 只要该task顺利完成，过程中没有语句错误,即认为Task succeeded
+        // same like service down below
+        // ******************
+        getWordTask.setOnSucceeded(event -> {
+            //so we have to add custom logic here
+            switch (getWordTask.getValue()) { //getValue method get the return value of the call method in Task
+                case Constant.FLAG_SUCCESS: // success
+                    pi.setDisable(true); // disable pi
+                    pi.setVisible(false);
+                    System.out.println("get new word list SUCCEEDED");
+                    //resize column to fit screen
+                    tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+                    tableView.setVisible(true);
+                    break;
+                case Constant.FLAG_NULL: // when user got no new word in word book
+                    System.out.println("get new word list NULL");
+                    stage.close();
+                    AlertMaker.showSimpleAlert("Alert", "您尚未添加任何单词!");
+                    break;
+                case Constant.FLAG_FAIL: // almost never happens
+                    System.out.println("get new word list FAILED");
+                    stage.close();
+                    AlertMaker.showErrorMessage("Error", "获取列表错误!");
+                    break;
+            }
+        });
+        // This part is only called when the call method in Task
+        // Encountered something wrong
+        // Also almost never happens
+        getWordTask.setOnFailed(event -> {
+            stage.close();
+            AlertMaker.showErrorMessage("Error", "执行错误!");
+        });
+
+
+        // just like in task
+        mRemoveService.setOnSucceeded(event -> {
+            switch (mRemoveService.getValue()){
+                case Constant.FLAG_SUCCESS:
+                    //get selected row and delete it if it's been deleted from database
+                    WordBook i = tableView.getSelectionModel().getSelectedItem();
+                    tableView.getItems().remove(i);// remove it
+                    // get a log
+                    System.out.println("Word:" + word + " removeD");
+                    break;
+                case Constant.FLAG_FAIL:
+                    AlertMaker.showErrorMessage("Error","移除失败!");
+                    break;
+            }
+        });
+        // again, almost never happens
+        mRemoveService.setOnFailed(event -> AlertMaker.showErrorMessage("Error", "执行错误!"));
+
+        // set row right click event
+        tableView.setRowFactory(tv -> {
+            TableRow<WordBook> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                // detect right click
+                if (event.getButton() == MouseButton.SECONDARY && (!row.isEmpty())) {
+                    // pop up menu
+                    ContextMenu cm = new ContextMenu();
+                    MenuItem mi = new MenuItem("移除");
+                    //set menu click event
+                    mi.setOnAction(event1 -> {
+                        WordBook rowData = row.getItem();
+                        word = rowData.getWord();
+                        // Has to call restart method since service have to initialize
+                        // Status to reExecute
+                        mRemoveService.restart();
+                    });
+                    cm.getItems().add(mi);//add it to context menu
+                    cm.show(stage,event.getScreenX(),event.getScreenY());//show it on screen
+                }
+            });
+            return row;
+        });
     }
 
     /**
      * 显示 生词本 界面
+     *
      * @param account 账号
      */
     public void showWindow(String account) throws IOException {
 
         this.account = account;
-        Platform.runLater(() -> {
-            initWordList();
-        });
+
         start(stage);
     }
 
     /**
-     * 获取生词本列表
+     * Get word list task
+     * Differentiate from Service
      */
-    private void initWordList() {
-        try {
-            URL url = new URL(Constant.URL_GetNewWordList + "account=" + account);
-            // 接收servlet返回值，是字节
-            InputStream is = url.openStream();
+    private Task<String> getWordTask = new Task<>() {
 
-            // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuffer sb = new StringBuffer();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
+        @Override
+        protected String call() {
+            String FLAG = null;
+            try {
+                URL url = new URL(Constant.URL_GetNewWordList + "account=" + account);
+                // 接收servlet返回值，是字节
+                InputStream is = url.openStream();
+                // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                StringBuffer sb = new StringBuffer();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line);
+                }
+                //格式:  FLAG/take,where,twist,...
+                String[] responseArray = sb.toString().split("/");
+                switch (responseArray[0]) { // flag of success or failure
+
+                    case Constant.FLAG_SUCCESS: //on success
+
+                        String[] wl = responseArray[1].split(",");//get word array
+                        colWord.setCellValueFactory(
+                                new PropertyValueFactory<>("word")
+                        ); //set column <word>
+
+                        colTranslation.setCellValueFactory(
+                                new PropertyValueFactory<>("translation")
+                        );//set column <transaltion>
+                        ArrayList<WordBook> al = new ArrayList<>(); //WordBook arraylist to store Wordbook records
+                        for (int i = 0; i < wl.length; i++) {
+                            String trans = MainPage.search(wl[i]); //search word for translation
+                            al.add(new WordBook(wl[i], trans)); //create WordBook to store this record and add it to ArrayList
+                            // this is where we update the progress
+                            // so that progressIndicator that binds this wordTask updates
+                            updateProgress(i, wl.length);
+                        }
+                        ObservableList<WordBook> data = FXCollections.observableArrayList(al);// has to be observableList to set tableVIew data Source
+                        tableView.setItems(data); //set tableView data source
+                        FLAG = Constant.FLAG_SUCCESS; //set FLAG
+                        break;
+                    case Constant.FLAG_FAIL: //on fail
+                        FLAG = Constant.FLAG_FAIL; //set FLAG
+                        break;
+                    case Constant.FLAG_NULL: //on word book null
+                        FLAG = Constant.FLAG_NULL; //set FLAG
+                        break;
+                    default:
+                        break;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            //格式:  FLAG/take,where,twist,...
-            String[] responseArray = sb.toString().split("/");
-            switch (responseArray[0]){ // 标志位
-
-                case Constant.FLAG_SUCCESS: //获取成功
-                    //获取到生词数组
-                    String[] wl = responseArray[1].split(",");
-                    //设置listView数据,使用自定义布局
-                    ObservableList<String> wordList = FXCollections.observableArrayList(
-                            wl);
-                    lv_word_list.setItems(wordList);
-                    lv_word_list.setCellFactory(param -> new XCell());
-
-                    break;
-                case Constant.FLAG_FAIL: // 获取失败
-                    Alert alert1 = new Alert(Alert.AlertType.ERROR, "获取失败!");
-                    alert1.setHeaderText(null);
-                    Optional<ButtonType> result1 = alert1.showAndWait();
-                    if (result1.get() == ButtonType.OK){
-                        stage.close();
-                    }
-                    break;
-                case Constant.FLAG_NULL: // 这人没添加过任何生词
-                    Alert alert2 = new Alert(Alert.AlertType.ERROR, "您尚未添加任何生词!");
-                    alert2.setHeaderText(null);
-                    Optional<ButtonType> result2 = alert2.showAndWait();
-                    if (result2.get() == ButtonType.OK){
-                        stage.close();
-                    }
-                    break;
-                default:
-                    break;
-            }
-        } catch (Exception e) {
-            //网络不通的情况
-            Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常！");
-            alert.setHeaderText(null);
-            alert.showAndWait();
-
-            e.printStackTrace();
+            return FLAG;
         }
-    }
+    };
 
     /**
-     * listView子布局
+     * Remove word service
+     * Do not use task since it can only be exeD once
+     *
      */
-    static class XCell extends ListCell<String> {
-        HBox hbox = new HBox();
-        Label label = new Label("empty!!!");
-        Pane pane = new Pane();
-        Text text = new Text();
-        ToggleButton button = new ToggleButton("释义");
-        String lastItem;
+    private Service<String> mRemoveService = new Service<>() {
+        @Override
+        protected Task<String> createTask() {
+            return new Task<>() { // just like in task
+                @Override
+                protected String call() {
+                    String FLAG = null;
+                    try {
+                        URL url = new URL(Constant.URL_RemoveWord +
+                                "account=" + account
+                                + "&word=" + word);
+                        // 接收servlet返回值，是字节
+                        InputStream is = url.openStream();
 
-        public XCell() {
-            super();
-            //hBox下放了Label:放词，button按钮，text放释义,pane用来撑开布局
-            hbox.getChildren().addAll(label,button,text,pane);
-            HBox.setHgrow(pane, Priority.ALWAYS);
-            HBox.setMargin(button,new Insets(0,0,0,20));
-            HBox.setMargin(text,new Insets(0,0,0,20));
-            button.setOnAction(event -> {
-                System.out.println("clicked item: " + lastItem);
-                //显示与隐藏释义
-                if (button.isSelected()) {
-                    text.setText(MainPage.search(lastItem));
-                    button.setText("隐藏");
-                } else {
-                    text.setText("");
-                    button.setText("释义");
+                        // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                        StringBuffer sb = new StringBuffer();
+                        String line = null;
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line);
+                        }
+                        // judge results
+                        switch (sb.toString()) { // flag of success or failure
+                            case Constant.FLAG_SUCCESS: //on success
+                                FLAG = Constant.FLAG_SUCCESS;
+                                break;
+                            case Constant.FLAG_FAIL: //on fail
+                                FLAG = Constant.FLAG_FAIL; //set FLAG
+                                break;
+                            case Constant.FLAG_NULL: //on word book null
+                                FLAG = Constant.FLAG_NULL; //set FLAG
+                                break;
+                            default:
+                                break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return FLAG;
                 }
+            };
+        }
+    };
 
-            });
+    /**
+     * Did it with inner class
+     * This is torture, writing java ui with bare codes
+     * And with scene builder and loaded demo not working...
+     */
+    public static class WordBook {
+
+        private final SimpleStringProperty word;
+        private final SimpleStringProperty translation;
+
+        private WordBook(String word, String translation) {
+            this.word = new SimpleStringProperty(word);
+            this.translation = new SimpleStringProperty(translation);
         }
 
-        /**
-         * 保证lastItem始终是最新选择的
-         * @param item
-         * @param empty
-         */
-        @Override
-        protected void updateItem(String item, boolean empty) {
-            super.updateItem(item, empty);
-            setText(null);  // No text in label of super class
-            if (empty) {
-                lastItem = null;
-                setGraphic(null);
-            } else {
-                lastItem = item;
-                label.setText(item!=null ? item : "<null>");
-                setGraphic(hbox);
-            }
+        public String getWord() {
+            return word.get();
+        }
+
+        public void setWord(String word) {
+            this.word.set(word);
+        }
+
+        public String getTranslation() {
+            return translation.get();
+        }
+
+        public void setTranslation(String translation) {
+            this.translation.set(translation);
         }
     }
-
 }
+
+

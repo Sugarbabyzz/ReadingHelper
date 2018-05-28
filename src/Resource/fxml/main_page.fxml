@@ -2,17 +2,8 @@
 
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <BorderPane minHeight="300.0" minWidth="600.0" prefHeight="646.0" prefWidth="1000.0"
             stylesheets="@/Resource/css/theme.css" xmlns="http://javafx.com/javafx/9.0.4"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
@@ -43,9 +34,6 @@
                         <Insets/>
                     </HBox.margin>
                 </MenuBar>
-                <ToggleButton fx:id="toggle_button" mnemonicParsing="false" onAction="#ifSetFont" text="字体设置"
-                              HBox.hgrow="ALWAYS">
-                </ToggleButton>
             </children>
         </HBox>
     </top>

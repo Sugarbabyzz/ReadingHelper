@@ -55,6 +55,8 @@ public class TranslateResult extends Application {
     private JFXButton btnAddWord;
     @FXML
     private Icon iconAddWord;
+    @FXML
+    private Icon iconUnAddWord;
 
     MainPage controller;
 
@@ -215,20 +217,42 @@ public class TranslateResult extends Application {
          * 登录状态加载以下功能
          */
         if (isOnline) {
-            iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+
+            iconUnAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 new Thread(() -> {
                     Platform.runLater(() -> {
                         try {
                             //调用加入生词本模块
                             addNewWord();
+                            iconUnAddWord.setVisible(false);
+                            iconAddWord.setVisible(true);
                         } catch (Exception e) {
-                            Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败！");
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败，请检查网络！");
                             alert.setHeaderText(null);
                             alert.showAndWait();
                         }
                     });
                 }).start();
             });
+
+            iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                new Thread(() -> {
+                    Platform.runLater(() -> {
+                        try {
+                            //调用移出生词本模块
+                            removeNewWOrd();
+                            iconAddWord.setVisible(false);
+                            iconUnAddWord.setVisible(true);
+                        } catch (Exception e) {
+                            Alert alert = new Alert(Alert.AlertType.ERROR, "移出生词本失败，请检查网络！");
+                            alert.setHeaderText(null);
+                            alert.showAndWait();
+                        }
+                    });
+                }).start();
+            });
+
+
 
             taOtherTransResult.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -372,6 +396,8 @@ public class TranslateResult extends Application {
 
     }
 
+
+
     /**
      * 初始化数据
      * 包括：自己提交过的译文、其他用户的译文、最后一次选择使用的译文
@@ -395,8 +421,12 @@ public class TranslateResult extends Application {
         String lastChoice = " ";
         String selfTranslation = " ";
         String otherTranslation = " ";
+        String queryNewWord = "";
         System.out.println(response);
 
+        /*
+         * 解析 最后一次选择的单词
+         */
         Pattern p = Pattern.compile("(.*)(<last>)(.*)(</last>)(.*)");
         Matcher m = p.matcher(response);
         if (m.find()) {
@@ -404,6 +434,9 @@ public class TranslateResult extends Application {
         }
         System.out.println(lastChoice);
 
+        /*
+         * 解析 用户自己提交的译文
+         */
         p = Pattern.compile("(.*)(<selftrans>)(.*)(</selftrans>)(.*)");
         m = p.matcher(response);
         if (m.find()) {
@@ -411,6 +444,9 @@ public class TranslateResult extends Application {
         }
         System.out.println(selfTranslation);
 
+        /*
+         * 解析 其他用户的译文
+         */
         p = Pattern.compile("(.*)(<othertrans>)(.*)(</othertrans>)(.*)");
         m = p.matcher(response);
         if (m.find()) {
@@ -426,6 +462,20 @@ public class TranslateResult extends Application {
             stringBuffer.append("\n");
         }
 
+        /*
+         * 解析 用户是否将词加入生词本
+         */
+        p = Pattern.compile("(.*)(<newword>)(.*)(</newword>)(.*)");
+        m = p.matcher(response);
+        if (m.find()) {
+            queryNewWord = m.group(3);
+        }
+        System.out.println(selfTranslation);
+
+
+        /*
+         * 将结果加载到翻译结果页面
+         */
         if (!otherTranslation.isEmpty()) {
             taOtherTransResult.setText(stringBuffer.toString());
         }
@@ -436,6 +486,14 @@ public class TranslateResult extends Application {
 
         if (!lastChoice.isEmpty() && !lastChoice.equals("null")) {
             taLastChoice.setText(lastChoice);
+        }
+
+        if (queryNewWord.equals("true")){
+            iconAddWord.setVisible(true);
+            iconUnAddWord.setVisible(false);
+        }else {
+            iconAddWord.setVisible(false);
+            iconUnAddWord.setVisible(true);
         }
 
 
@@ -517,6 +575,48 @@ public class TranslateResult extends Application {
         }
     }
 
+    /**
+     * 移出生词本模块
+     */
+    private void removeNewWOrd() {
+        try {
+            URL url = new URL(Constant.URL_RemoveWord + "account=" + account + "&word=" + word);
+            // 接收servlet返回值，是字节
+            InputStream is = url.openStream();
+
+            // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuffer sb = new StringBuffer();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+
+            if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "移出生词本成功！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+
+                System.out.println("移出生词本成功！");
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "移出生词本失败！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
+
+                System.out.println("移出生词本失败！");
+            }
+
+        } catch (Exception e) {
+            //移出生词本失败的情况
+            Alert alert = new Alert(Alert.AlertType.ERROR, "移出生词本失败！");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+
+            e.printStackTrace();
+        }
+
+    }
     /**
      * 英式发音
      *

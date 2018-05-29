@@ -2,8 +2,12 @@ package Login;
 
 import Constant.Constant;
 import Reader.MainPage;
+import Util.AlertMaker;
+import Util.UrlUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,13 +15,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
 
 public class Login extends Application {
 
@@ -33,17 +34,17 @@ public class Login extends Application {
     private Button btnSignUp;
     @FXML
     private Button btnOfflineUse;
-//    @FXML
-//    private ProgressIndicator pi;
-//
-//    MyTask task;
+    @FXML
+    private ProgressIndicator pi;
+    @FXML
+    private AnchorPane anchorPane;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException{
+    public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Resource/fxml/login_layout.fxml"));
         Scene scene = new Scene(root, 350, 400);
         primaryStage.setTitle("登录");
@@ -70,8 +71,7 @@ public class Login extends Application {
      */
     @FXML
     public void signIn(ActionEvent actionEvent) {
-//        task = new MyTask();
-//        task.valueProperty().addListener(new MyTaskListener());
+
 
         if (tfAccount.getText().isEmpty() || pfPassword.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码不能为空！");
@@ -83,28 +83,56 @@ public class Login extends Application {
             alert.showAndWait();
 
         } else {
-            /*
-             *  线程处理登录操作
-             *  坑！！！
-             *  用runable run方法会报Not on FX application thread; currentThread = thread1的异常。
-             *  导致这个异常的原因就是因为修改界面的工作必须要由JavaFX的Application Thread来完成，由其它线程来完成不是线程安全的。
-             *
-             *  解决：Platform.runLater
-             *  JavaFX提供的一个工具方法，可以把修改界面的工作放到一个队列中，等到Application Thread空闲的时候，它就会自动执行队列中修改界面的工作了
-             */
+            // 初始化进度条
+            pi = new ProgressIndicator();
+            //pi.setPrefSize(100, 100); //set size
+            pi.setMinSize(60, 60);
+            pi.setLayoutX(anchorPane.getWidth() / 2 - 30);    //set location
+            pi.setLayoutY(anchorPane.getHeight() / 2 - 30);
+            anchorPane.getChildren().add(pi);
 
-            new Thread(() -> {
-                Platform.runLater(() -> {
-                    try {
-                        //调用登录模块
-                        login();
-                    } catch (Exception e) {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "登录失败！");
-                        alert.setHeaderText(null);
-                        alert.showAndWait();
-                    }
-                });
-            }).start();
+            //login service 顺利执行完成即视为succeed
+            mLoginService.setOnSucceeded(event -> {
+                switch (mLoginService.getValue()) {
+                    case Constant.FLAG_SUCCESS:
+                        System.out.println("登录成功!");
+                        pi.setDisable(true);
+                        pi.setVisible(false);
+                        // 启动mainPage
+                        Platform.runLater(() -> {
+                            try {
+                                new MainPage().showWindow(tfAccount.getText().trim());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        Stage stage = (Stage) btnSignUp.getScene().getWindow();
+                        stage.close();
+                        break;
+                    case Constant.FLAG_FAIL:
+                        System.out.println("登录失败!账号或密码错误!");
+                        pi.setDisable(true);
+                        pi.setVisible(false);
+                        AlertMaker.showErrorMessage("登录失败", "账号或密码错误");
+                        break;
+                    default:
+                        System.out.println("UNKNOWN ERROR WHEN LOGGING IN!");
+                        break;
+                }
+            });
+
+            // 网络问题会导致该错误
+            mLoginService.setOnFailed(event -> {
+                //dismiss current window
+                pi.setDisable(true);
+                pi.setVisible(false);
+                AlertMaker.showErrorMessage("Error", "网络错误!请检查网络!");
+            });
+
+            // 真正做登录
+            mLoginService.restart();
+//            Stage stage = (Stage) btnSignUp.getScene().getWindow();
+//            stage.setOpacity(0.7);
         }
     }
 
@@ -115,6 +143,15 @@ public class Login extends Application {
      */
     @FXML
     public void signUp(ActionEvent actionEvent) {
+        /*
+         *  线程处理登录操作
+         *  坑！！！
+         *  用runable run方法会报Not on FX application thread; currentThread = thread1的异常。
+         *  导致这个异常的原因就是因为修改界面的工作必须要由JavaFX的Application Thread来完成，由其它线程来完成不是线程安全的。
+         *
+         *  解决：Platform.runLater
+         *  JavaFX提供的一个工具方法，可以把修改界面的工作放到一个队列中，等到Application Thread空闲的时候，它就会自动执行队列中修改界面的工作了
+         */
 
         //启动注册窗口
         Platform.runLater(() -> {
@@ -154,94 +191,34 @@ public class Login extends Application {
     /**
      * 登录模块
      */
-    private void login() {
+    private Service<String> mLoginService = new Service<>() {
+        @Override
+        protected Task<String> createTask() {
+            return new Task<>() {
+                @Override
+                protected String call() throws IOException {
+                    String FLAG = null;
 
-        try {
-            // 获取账号和密码
-            String account = tfAccount.getText();
-            String password = pfPassword.getText();
-
-            URL url = new URL(Constant.URL_Login + "account=" + account + "&" + "password=" + java.net.URLEncoder.encode(password, "utf-8"));
-            // 接收servlet返回值，是字节
-            InputStream is = url.openStream();
-
-            // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuffer sb = new StringBuffer();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-
-            if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
-
-                //启动在线状态主页面
-                Platform.runLater(() -> {
-                    try {
-                        new MainPage().showWindow(account);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    String account = tfAccount.getText();
+                    String password = pfPassword.getText();
+                    // assemble url string
+                    String str = Constant.URL_Login + "account=" + account +
+                            "&password=" + java.net.URLEncoder.encode(password, "utf-8");
+                    //获取str对应Url的连接响应
+                    String result = UrlUtil.openConnection(str);
+                    System.out.println("result:" + result);
+                    // judge result
+                    if (result.equals(Constant.FLAG_SUCCESS)) {
+                        FLAG = Constant.FLAG_SUCCESS;
+                    } else if (result.equals(Constant.FLAG_FAIL)) {
+                        FLAG = Constant.FLAG_FAIL;
                     }
-                });
-                //销毁当前窗口
-                Stage stage = (Stage) btnSignIn.getScene().getWindow();
-                stage.close();
-
-                System.out.println("登录成功！");
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "账号或密码错误！");
-                alert.setHeaderText(null);
-                alert.showAndWait();
-
-                System.out.println("账号密码错误！");
-            }
-        } catch (Exception e) {
-            //网络不通的情况
-            Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常！");
-            alert.setHeaderText(null);
-            alert.showAndWait();
-
-            e.printStackTrace();
+                    System.out.println("Flag:" + FLAG);
+                    return FLAG;
+                }
+            };
         }
-    }
-
-//    public class MyTask extends Task<Integer> {
-//
-//
-//        private String exception ;
-//        private int status ;
-//
-//        public int getStatus() {
-//            return status;
-//        }
-//
-//        public String getExceptions() {
-//            return exception;
-//        }
-//        protected Integer call() throws Exception {
-//            System.out.println("111");
-//            Thread.sleep(2000);
-//
-//            return 1;
-//        }
-//    }
-//
-//    public class MyTaskListener implements ChangeListener<Integer> {
-//
-//        public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-//
-//            if (task.getStatus() == 1) {
-//                pi.setVisible(false);
-//            } else {
-//
-//                String exception = task.getExceptions();
-//
-//                if (exception != null && !exception.equals("")) {
-//                    System.out.println();
-//                }
-//            }
-//        }
-//    }
+    };
 }
 
 

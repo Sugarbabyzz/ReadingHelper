@@ -187,7 +187,7 @@ public class MainPage extends Application {
                     /*
                      * 选中划词，启用双击划词翻译
                      */
-                    if (ckTransWord.isSelected() && event.getClickCount() == 2) {
+                    if (ckTransWord.isSelected() && !ckTransSentence.isSelected() && event.getClickCount() == 2) {
 
                         srcWord = textArea.getSelectedText().trim();
 
@@ -221,7 +221,7 @@ public class MainPage extends Application {
                         //启动直接翻译结果主页面
                         Platform.runLater(() -> {
                             try {
-                                new DirectTranslateResult().showWindow(srcSentence, event.getScreenX()+10 , event.getScreenY()+10);
+                                new DirectTranslateResult().showWindow(srcSentence, event.getScreenX() , event.getScreenY());
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

@@ -60,7 +60,7 @@ public class Register extends Application {
     }
 
     /**
-     * 显示 Register 窗口
+     * 显示 注册 窗口
      *
      * @throws Exception
      */
@@ -69,7 +69,7 @@ public class Register extends Application {
     }
 
     /**
-     * 完成注册按钮
+     * 完成注册 按钮
      *
      * @param actionEvent
      */
@@ -159,7 +159,7 @@ public class Register extends Application {
     }
 
     /**
-     * 返回按钮
+     * 返回 按钮
      *
      * @param event
      * @throws Exception

@@ -120,7 +120,7 @@ public class DirectTranslateResult extends Application {
     }
 
     /**
-     * 鼠标移出界面
+     * 鼠标移出界面 事件处理
      */
     private void moveout(){
         //销毁当前窗口

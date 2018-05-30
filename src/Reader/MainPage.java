@@ -87,7 +87,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 显示 Main 页面 （离线版）
+     * 显示 主 页面 （离线版）
      *
      * @throws Exception
      */
@@ -97,7 +97,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 显示 Main 页面 （在线版）
+     * 显示 主 页面 （在线版）
      *
      * @param account 传入账号信息
      * @throws Exception

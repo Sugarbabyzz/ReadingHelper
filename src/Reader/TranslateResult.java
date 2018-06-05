@@ -407,6 +407,7 @@ public class TranslateResult extends Application {
 
             });
 
+            //offline service onfailed
             mInitServiceOffline.setOnFailed(event -> {
                 pi.setDisable(true); // disable pi
                 pi.setVisible(false);

@@ -11,9 +11,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -353,70 +351,89 @@ public class TranslateResult extends Application {
             }
 
         } else {
-            /*
-             * 未登录状态 加载 translate_result_offline.fxml 布局
-             */
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getClassLoader().getResource("Resource/fxml/translate_result_offline.fxml")
-            );
-            loader.setController(this);
-            Parent root = loader.load();
+            if (isChinese(word)) {
+                /*
+                 * 登录状态，并且含有中文 - 加载 translate_result_chinese.fxml 布局
+                 */
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getClassLoader().getResource("Resource/fxml/translate_result_chinese.fxml")
+                );
+                loader.setController(this);
+                Parent root = loader.load();
+                Scene scene = new Scene(root, 70, 25);
+                primaryStage.setTitle("翻译结果");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+                primaryStage.show();
+                System.out.println("onlinE");
 
-            Scene scene = new Scene(root, 300, 250);
-            primaryStage.setTitle("翻译结果");
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
-            primaryStage.show();
+            } else {
+                /*
+                 * 未登录状态 加载 translate_result_offline.fxml 布局
+                 */
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getClassLoader().getResource("Resource/fxml/translate_result_offline.fxml")
+                );
+                loader.setController(this);
+                Parent root = loader.load();
 
-            // create offline progress indicator
-            pi = new ProgressIndicator(); // create progress indicator
-            //pi.setMinSize(60,60);
-            pi.setPrefSize(60, 60); //set size
-            pi.setLayoutX(anchorPaneOffline.getWidth() / 2 - 30);    //set location
-            pi.setLayoutY(anchorPaneOffline.getHeight() / 2 - 30);
-            anchorPaneOffline.getChildren().add(pi);
+                Scene scene = new Scene(root, 300, 250);
+                primaryStage.setTitle("翻译结果");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+                primaryStage.show();
 
-            mInitServiceOffline.restart();
+                // create offline progress indicator
+                pi = new ProgressIndicator(); // create progress indicator
+                //pi.setMinSize(60,60);
+                pi.setPrefSize(60, 60); //set size
+                pi.setLayoutX(anchorPaneOffline.getWidth() / 2 - 30);    //set location
+                pi.setLayoutY(anchorPaneOffline.getHeight() / 2 - 30);
+                anchorPaneOffline.getChildren().add(pi);
 
-            mInitServiceOffline.setOnSucceeded(event -> {
-                setUpUIOffline();//执行顺利,初始化UI
-                pi.setDisable(true); // disable pi
-                pi.setVisible(false);
+                mInitServiceOffline.restart();
 
-                //显示翻译结果
-                taTransResult.setOnMouseClicked(event1 -> {
-                    if (event1.getClickCount() == 2) {
+                mInitServiceOffline.setOnSucceeded(event -> {
+                    setUpUIOffline();//执行顺利,初始化UI
+                    pi.setDisable(true); // disable pi
+                    pi.setVisible(false);
 
-                        /**
-                         * 替换
-                         */
-                        replaceWord = taTransResult.getSelectedText().trim();
-                        //System.out.println(replaceWord);
-                        if (!replaceWord.isEmpty()) {
-                            controller.replaceWord(replaceWord);
+                    //显示翻译结果
+                    taTransResult.setOnMouseClicked(event1 -> {
+                        if (event1.getClickCount() == 2) {
 
                             /**
-                             * 存入Hashmap，为实现恢复原词功能
+                             * 替换
                              */
-                            transToWord.put(replaceWord, word);
-                            System.out.println(transToWord);
+                            replaceWord = taTransResult.getSelectedText().trim();
+                            //System.out.println(replaceWord);
+                            if (!replaceWord.isEmpty()) {
+                                controller.replaceWord(replaceWord);
+
+                                /**
+                                 * 存入Hashmap，为实现恢复原词功能
+                                 */
+                                transToWord.put(replaceWord, word);
+                                System.out.println(transToWord);
+                            }
                         }
-                    }
+                    });
+
                 });
 
-            });
-
-            mInitServiceOffline.setOnFailed(event -> {
-                pi.setDisable(true); // disable pi
-                pi.setVisible(false);
-                //dismiss window
-                Stage stage = (Stage) taTransResult.getScene().getWindow();
-                stage.close();
-                //alert user
-                AlertMaker.showErrorMessage("Error", "网络错误!请检查网络连接");
-                System.out.println("Network error!");
-            });
+                mInitServiceOffline.setOnFailed(event -> {
+                    pi.setDisable(true); // disable pi
+                    pi.setVisible(false);
+                    //dismiss window
+                    Stage stage = (Stage) taTransResult.getScene().getWindow();
+                    stage.close();
+                    //alert user
+                    AlertMaker.showErrorMessage("Error", "网络错误!请检查网络连接");
+                    System.out.println("Network error!");
+                });
+            }
         }
 
 

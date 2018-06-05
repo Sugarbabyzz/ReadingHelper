@@ -15,7 +15,6 @@
 <BorderPane fx:id="borderPane" minHeight="300.0" minWidth="600.0" prefHeight="646.0" prefWidth="1000.0"
             stylesheets="@/Resource/css/theme.css" xmlns="http://javafx.com/javafx/9.0.4"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
-    >>>>>>> c59cc08f941751cd39a6afc29c68bea57cdb91c7
     <top>
         <HBox>
             <children>

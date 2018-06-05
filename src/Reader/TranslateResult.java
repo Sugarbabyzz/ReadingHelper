@@ -353,6 +353,22 @@ public class TranslateResult extends Application {
             }
 
         } else {
+            if (isChinese(word)){
+            /*
+             * 未登录状态，并且含有中文 - 加载 translate_result_chinese.fxml 布局
+             */
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getClassLoader().getResource("Resource/fxml/translate_result_chinese.fxml")
+            );
+            loader.setController(this);
+            Parent root = loader.load();
+            Scene scene = new Scene(root, 70, 25);
+            primaryStage.setTitle("翻译结果");
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+            primaryStage.show();
+        }else {
             /*
              * 未登录状态 加载 translate_result_offline.fxml 布局
              */
@@ -368,6 +384,7 @@ public class TranslateResult extends Application {
             primaryStage.setResizable(false);
             primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
             primaryStage.show();
+        }
 
             // create offline progress indicator
             pi = new ProgressIndicator(); // create progress indicator

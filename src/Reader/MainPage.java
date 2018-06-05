@@ -25,6 +25,7 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
+import javax.swing.*;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,6 +60,8 @@ public class MainPage extends Application {
     private ProgressIndicator pi;
     @FXML
     private BorderPane borderPane;
+
+    private File CurFileName = null;//保存当前打开文件的文件目录
 
     public static void main(String[] args) {
         launch(args);
@@ -109,6 +112,7 @@ public class MainPage extends Application {
     public void openFile() throws IOException {
         FileChooser fileChooser = new FileChooser();
         File filePath = fileChooser.showOpenDialog(new Stage());
+        setCurFileName(filePath);
         if (filePath != null) {
             if (filePath.toString().endsWith(".txt")) {
                 /*
@@ -222,6 +226,66 @@ public class MainPage extends Application {
             });
 
         }
+    }
+
+    /**
+     * 菜单栏 文件-保存
+     *
+     * @param event
+     */
+    public void saveFile(ActionEvent event) {
+
+        File file = getCurFileName();
+
+        if ((file == null)) {
+            return;
+        }
+
+        //如果文件不存在，则创建
+        if (!file.exists()) {
+            //file.getParentFile();
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        if (!file.isFile()) {
+            return;
+        }
+
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        try {
+            fw = new FileWriter(file);
+            bw = new BufferedWriter(fw);
+            //获取textArea文本，并用\n分隔符分割文本
+            String[] s = this.textArea.getText().split("\n");
+            for (int i = 0; i < s.length; i++) {
+                bw.write(s[i] + "\r\n");
+                bw.flush();
+                //bw.newLine();
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            // TODO: handle exception
+        } finally {
+            try {
+                bw.close();
+                fw.close();
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+        }
+
+
     }
 
     /**
@@ -362,6 +426,14 @@ public class MainPage extends Application {
         srcWord = sourceWord;
         textArea.setText(replaceResult);
 
+    }
+
+    public File getCurFileName() {
+        return CurFileName;
+    }
+
+    public void setCurFileName(File curFileName) {
+        CurFileName = curFileName;
     }
 
 }

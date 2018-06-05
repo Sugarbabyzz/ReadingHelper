@@ -90,7 +90,6 @@ public class TranslateResult extends Application {
     private String queryNewWord = "";
 
 
-
     private String ukUrl; //英式发音链接
     private String usUrl; //美式发音链接
 
@@ -104,29 +103,49 @@ public class TranslateResult extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         if (isOnline) {
-            /*
-             * 登录状态 加载 translate_result_online.fxml 布局
-             */
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getClassLoader().getResource("Resource/fxml/translate_result_online.fxml")
-            );
-            loader.setController(this);
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 300, 480);
-            primaryStage.setTitle("翻译结果");
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
-            primaryStage.show();
-            System.out.println("onlinE");
 
-            // create online progress indicator
-            pi = new ProgressIndicator(); // create progress indicator
-            //pi.setMinSize(60,60);
-            pi.setPrefSize(60, 60); //set size
-            pi.setLayoutX(anchorPaneOnline.getWidth() / 2 - 30);    //set location
-            pi.setLayoutY(anchorPaneOnline.getHeight() / 2 - 30);
-            anchorPaneOnline.getChildren().add(pi);
+            if (isChinese(word)) {
+                /*
+                 * 登录状态，并且含有中文 - 加载 translate_result_chinese.fxml 布局
+                 */
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getClassLoader().getResource("Resource/fxml/translate_result_chinese.fxml")
+                );
+                loader.setController(this);
+                Parent root = loader.load();
+                Scene scene = new Scene(root, 70, 25);
+                primaryStage.setTitle("翻译结果");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+                primaryStage.show();
+                System.out.println("onlinE");
+
+            } else {
+                /*
+                 * 登录状态，并且不含有中文 - 加载 translate_result_online.fxml 布局
+                 */
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getClassLoader().getResource("Resource/fxml/translate_result_online.fxml")
+                );
+                loader.setController(this);
+                Parent root = loader.load();
+                Scene scene = new Scene(root, 300, 480);
+                primaryStage.setTitle("翻译结果");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+                primaryStage.show();
+                System.out.println("onlinE");
+
+                // create online progress indicator
+                pi = new ProgressIndicator(); // create progress indicator
+                //pi.setMinSize(60,60);
+                pi.setPrefSize(60, 60); //set size
+                pi.setLayoutX(anchorPaneOnline.getWidth() / 2 - 30);    //set location
+                pi.setLayoutY(anchorPaneOnline.getHeight() / 2 - 30);
+                anchorPaneOnline.getChildren().add(pi);
+            }
 
         } else {
             /*
@@ -203,33 +222,33 @@ public class TranslateResult extends Application {
 
                     iconUnAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event1 -> new Thread(() -> Platform.runLater(() -> {
-                        try {
-                            //调用加入生词本模块
-                            addNewWord();
-                            iconUnAddWord.setVisible(false);
-                            iconAddWord.setVisible(true);
-                        } catch (Exception e) {
-                            Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败，请检查网络！");
-                            alert.setHeaderText(null);
-                            alert.showAndWait();
-                        }
-                    })).start());
+                                try {
+                                    //调用加入生词本模块
+                                    addNewWord();
+                                    iconUnAddWord.setVisible(false);
+                                    iconAddWord.setVisible(true);
+                                } catch (Exception e) {
+                                    Alert alert = new Alert(Alert.AlertType.ERROR, "加入生词本失败，请检查网络！");
+                                    alert.setHeaderText(null);
+                                    alert.showAndWait();
+                                }
+                            })).start());
 
                     iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             event1 -> new Thread(() -> {
-                        Platform.runLater(() -> {
-                            try {
-                                //调用移出生词本模块
-                                removeNewWOrd();
-                                iconAddWord.setVisible(false);
-                                iconUnAddWord.setVisible(true);
-                            } catch (Exception e) {
-                                Alert alert = new Alert(Alert.AlertType.ERROR, "移出生词本失败，请检查网络！");
-                                alert.setHeaderText(null);
-                                alert.showAndWait();
-                            }
-                        });
-                    }).start());
+                                Platform.runLater(() -> {
+                                    try {
+                                        //调用移出生词本模块
+                                        removeNewWOrd();
+                                        iconAddWord.setVisible(false);
+                                        iconUnAddWord.setVisible(true);
+                                    } catch (Exception e) {
+                                        Alert alert = new Alert(Alert.AlertType.ERROR, "移出生词本失败，请检查网络！");
+                                        alert.setHeaderText(null);
+                                        alert.showAndWait();
+                                    }
+                                });
+                            }).start());
 
                     taOtherTransResult.setOnMouseClicked(event1 -> {
                         if (event1.getClickCount() == 2) {
@@ -348,12 +367,12 @@ public class TranslateResult extends Application {
                 }
 
 
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println("init Translate Result UI success!");
         });
+
         mInitService.setOnFailed(event -> {
             pi.setDisable(true); // disable pi
             pi.setVisible(false);
@@ -390,11 +409,13 @@ public class TranslateResult extends Application {
         Dimension screen = tool.getScreenSize();
 
         if (isOnline) {
-            if (X > (screen.width - 300)) {
-                X = X - 300;
-            }
-            if (Y > (screen.height - 480)) {
-                Y = Y - 480;
+            if (!isChinese(word)){
+                if (X > (screen.width - 300)) {
+                    X = X - 300;
+                }
+                if (Y > (screen.height - 480)) {
+                    Y = Y - 480;
+                }
             }
         } else {
             if (X > (screen.width - 300)) {
@@ -478,6 +499,7 @@ public class TranslateResult extends Application {
             };
         }
     };
+
     /**
      * 初始化UI
      * 包括：自己提交过的译文、其他用户的译文、最后一次选择使用的译文
@@ -730,6 +752,46 @@ public class TranslateResult extends Application {
 
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 判断所选内容中是否含有中文
+     *
+     * @param strName
+     * @return
+     */
+    public boolean isChinese(String strName) {
+        char[] ch = strName.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+            char c = ch[i];
+            if (isChinese(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isChinese(char c) {
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS) {
+            return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * 鼠标移出界面 事件处理
+     */
+    private void moveout(){
+        //销毁当前窗口
+        Stage stage = (Stage) btnAddWord.getScene().getWindow();
+        stage.close();
     }
 
 }

@@ -7,11 +7,7 @@ import Login.Login;
 import com.jfoenix.controls.JFXCheckBox;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -83,7 +79,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 显示 Main 页面 （离线版）
+     * 显示 主 页面 （离线版）
      *
      * @throws Exception
      */
@@ -93,7 +89,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 显示 Main 页面 （在线版）
+     * 显示 主 页面 （在线版）
      *
      * @param account 传入账号信息
      * @throws Exception
@@ -176,12 +172,13 @@ public class MainPage extends Application {
 
             textArea.setWrapText(true);
             textArea.setEditable(false);
+
             textArea.setOnMouseClicked(event -> {
 
                 /*
                  * 选中划词，启用双击划词翻译
                  */
-                if (ckTransWord.isSelected() && event.getClickCount() == 2) {
+                if (ckTransWord.isSelected() && !ckTransSentence.isSelected() && event.getClickCount() == 2) {
 
                     // 初始化进度条
                     pi = new ProgressIndicator();
@@ -205,7 +202,6 @@ public class MainPage extends Application {
                         }
                     });
                 }
-
                 /*
                  * 选中划句，启用划句翻译
                  * 调用百度翻译API
@@ -215,12 +211,13 @@ public class MainPage extends Application {
                     //启动直接翻译结果主页面
                     Platform.runLater(() -> {
                         try {
-                            new DirectTranslateResult().showWindow(srcSentence, event.getScreenX() + 10, event.getScreenY() + 10);
+                            new DirectTranslateResult().showWindow(srcSentence, event.getScreenX(), event.getScreenY());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     });
                 }
+
 
             });
 

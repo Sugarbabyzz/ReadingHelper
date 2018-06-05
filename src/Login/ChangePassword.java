@@ -50,7 +50,7 @@ public class ChangePassword extends Application {
     }
 
     /**
-     * 显示 ChangePassword 窗口
+     * 显示 修改密码 窗口
      *
      * @throws Exception
      */
@@ -97,7 +97,7 @@ public class ChangePassword extends Application {
     }
 
     /**
-     * 取消按钮
+     * 取消 按钮
      *
      * @param event
      * @throws Exception
@@ -109,7 +109,7 @@ public class ChangePassword extends Application {
     }
 
     /**
-     * 修改密码模块
+     *  修改密码 模块
      */
     private void change() {
         try {

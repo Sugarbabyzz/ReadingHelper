@@ -104,6 +104,9 @@ public class TranslateResult extends Application {
     public void start(Stage primaryStage) throws IOException {
 
         if (isOnline) {
+            /*
+             * 登录状态 加载 translate_result_online.fxml 布局
+             */
             FXMLLoader loader = new FXMLLoader(
                     getClass().getClassLoader().getResource("Resource/fxml/translate_result_online.fxml")
             );
@@ -126,6 +129,9 @@ public class TranslateResult extends Application {
             anchorPaneOnline.getChildren().add(pi);
 
         } else {
+            /*
+             * 未登录状态 加载 translate_result_offline.fxml 布局
+             */
             FXMLLoader loader = new FXMLLoader(
                     getClass().getClassLoader().getResource("Resource/fxml/translate_result_offline.fxml")
             );

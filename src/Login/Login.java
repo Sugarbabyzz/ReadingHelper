@@ -56,7 +56,7 @@ public class Login extends Application {
     }
 
     /**
-     * 显示 Login 窗口
+     * 显示 登录 窗口
      *
      * @throws Exception
      */
@@ -65,7 +65,7 @@ public class Login extends Application {
     }
 
     /**
-     * 登录按钮
+     * 登录 按钮
      *
      * @param actionEvent
      */
@@ -137,7 +137,7 @@ public class Login extends Application {
     }
 
     /**
-     * 注册按钮
+     * 注册 按钮
      *
      * @param actionEvent
      */
@@ -167,7 +167,7 @@ public class Login extends Application {
     }
 
     /**
-     * 游客登录按钮
+     * 游客登录 按钮
      *
      * @param actionEvent
      */
@@ -189,7 +189,7 @@ public class Login extends Application {
 
 
     /**
-     * 登录模块
+     * 登录 模块
      */
     private Service<String> mLoginService = new Service<>() {
         @Override

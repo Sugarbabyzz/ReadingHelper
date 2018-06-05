@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <BorderPane fx:id="borderPane" minHeight="300.0" minWidth="600.0" prefHeight="646.0" prefWidth="1000.0"
             stylesheets="@/Resource/css/theme.css" xmlns="http://javafx.com/javafx/9.0.4"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
+    >>>>>>> c59cc08f941751cd39a6afc29c68bea57cdb91c7
     <top>
         <HBox>
             <children>
@@ -45,8 +54,8 @@
     <bottom>
         <GridPane prefHeight="20.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="20.0" minWidth="200.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="200.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="800.0" minWidth="50.0" prefWidth="100.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="10.0" minWidth="15.0" prefWidth="17.0"/>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="70.0" prefWidth="70.0"/>

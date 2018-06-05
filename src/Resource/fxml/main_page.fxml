@@ -4,7 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane minHeight="300.0" minWidth="600.0" prefHeight="646.0" prefWidth="1000.0"
+<BorderPane fx:id="borderPane" minHeight="300.0" minWidth="600.0" prefHeight="646.0" prefWidth="1000.0"
             stylesheets="@/Resource/css/theme.css" xmlns="http://javafx.com/javafx/9.0.4"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="Reader.MainPage">
     <top>

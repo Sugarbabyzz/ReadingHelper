@@ -2,6 +2,7 @@ package Reader;
 
 import Constant.Constant;
 import Util.AlertMaker;
+import Util.UrlUtil;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -114,7 +115,7 @@ public class NewWordList extends Application {
         // Also almost never happens
         getWordTask.setOnFailed(event -> {
             stage.close();
-            AlertMaker.showErrorMessage("Error", "执行错误!");
+            AlertMaker.showErrorMessage("Error", "网络错误!请检查网络连接");
         });
 
 
@@ -134,7 +135,7 @@ public class NewWordList extends Application {
             }
         });
         // again, almost never happens
-        mRemoveService.setOnFailed(event -> AlertMaker.showErrorMessage("Error", "执行错误!"));
+        mRemoveService.setOnFailed(event -> AlertMaker.showErrorMessage("Error", "网络错误!请检查网络连接"));
 
         // set row right click event
         tableView.setRowFactory(tv -> {
@@ -248,21 +249,13 @@ public class NewWordList extends Application {
                 protected String call() {
                     String FLAG = null;
                     try {
-                        URL url = new URL(Constant.URL_RemoveWord +
+                        String str = Constant.URL_RemoveWord +
                                 "account=" + account
-                                + "&word=" + word);
-                        // 接收servlet返回值，是字节
-                        InputStream is = url.openStream();
+                                + "&word=" + word;
+                        String result = UrlUtil.openConnection(str);
 
-                        // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-                        StringBuffer sb = new StringBuffer();
-                        String line = null;
-                        while ((line = reader.readLine()) != null) {
-                            sb.append(line);
-                        }
                         // judge results
-                        switch (sb.toString()) { // flag of success or failure
+                        switch (result) { // flag of success or failure
                             case Constant.FLAG_SUCCESS: //on success
                                 FLAG = Constant.FLAG_SUCCESS;
                                 break;

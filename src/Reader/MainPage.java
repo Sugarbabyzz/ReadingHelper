@@ -4,31 +4,23 @@ import Dictionary.Dictionary;
 import Login.AboutThis;
 import Login.ChangePassword;
 import Login.Login;
-import Util.AlertMaker;
-import Util.WordStyleSet;
 import com.jfoenix.controls.JFXCheckBox;
-import com.jfoenix.controls.JFXSlider;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.InputMethodEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -37,8 +29,6 @@ import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-import javax.security.auth.callback.Callback;
-import java.awt.*;
 import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,12 +50,19 @@ public class MainPage extends Application {
     private String AmericanPhoneticSymbol;
     private String replaceWord;
 
+    private double eventX;
+    private double eventY;
+
     @FXML
     private TextArea textArea;
     @FXML
     private JFXCheckBox ckTransSentence;
     @FXML
     private JFXCheckBox ckTransWord;
+    @FXML
+    private ProgressIndicator pi;
+    @FXML
+    private BorderPane borderPane;
 
     public static void main(String[] args) {
         launch(args);
@@ -81,7 +78,6 @@ public class MainPage extends Application {
         primaryStage.setScene(scene);
         primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
         primaryStage.show();
-
 
 
     }
@@ -180,55 +176,52 @@ public class MainPage extends Application {
 
             textArea.setWrapText(true);
             textArea.setEditable(false);
-            textArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(javafx.scene.input.MouseEvent event) {
+            textArea.setOnMouseClicked(event -> {
 
-                    /*
-                     * 选中划词，启用双击划词翻译
-                     */
-                    if (ckTransWord.isSelected() && event.getClickCount() == 2) {
+                /*
+                 * 选中划词，启用双击划词翻译
+                 */
+                if (ckTransWord.isSelected() && event.getClickCount() == 2) {
 
-                        srcWord = textArea.getSelectedText().trim();
+                    // 初始化进度条
+                    pi = new ProgressIndicator();
+                    //pi.setPrefSize(100, 100); //set size
+                    pi.setMinSize(60, 60);
+                    pi.setLayoutX(borderPane.getWidth() / 2 - 30);    //set location
+                    pi.setLayoutY(borderPane.getHeight() / 2 - 30);
+                    borderPane.getChildren().add(pi);
 
-                        System.out.println(srcWord);
-                        //翻译
-                        result = search(srcWord);
-                        System.out.println(result);
-                        //获取英式美式的两个音标、两个url
-                        EnglishAccentUrl = Dictionary.EnglishAccentUrl;
-                        AmericanAccentUrl = Dictionary.AmericanAccentUrl;
-                        EnglishPhoneticSymbol = Dictionary.EnglishPhoneticSymbol;
-                        AmericanPhoneticSymbol = Dictionary.AmericanPhoneticSymbol;
+                    srcWord = textArea.getSelectedText().trim();
+                    eventX = event.getScreenX();
+                    eventY = event.getScreenY();
 
-                        //启动翻译结果页面
-                        Platform.runLater(() -> {
-                            try {
-                                new TranslateResult().showWindow(account, isOnline, srcWord, EnglishPhoneticSymbol, EnglishAccentUrl, AmericanPhoneticSymbol, AmericanAccentUrl,
-                                        result, event.getScreenX()+10, event.getScreenY()+10, MainPage.this);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-
-                    /*
-                     * 选中划句，启用划句翻译
-                     * 调用百度翻译API
-                     */
-                    if (ckTransSentence.isSelected() && !textArea.getSelectedText().isEmpty()){
-                        String srcSentence = textArea.getSelectedText().trim();
-                        //启动直接翻译结果主页面
-                        Platform.runLater(() -> {
-                            try {
-                                new DirectTranslateResult().showWindow(srcSentence, event.getScreenX()+10 , event.getScreenY()+10);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        });
-                    }
-
+                    //启动翻译结果页面
+                    Platform.runLater(() -> {
+                        try {
+                            new TranslateResult().showWindow(account, isOnline, srcWord,
+                                    event.getScreenX() + 10, event.getScreenY() + 10, MainPage.this);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
+
+                /*
+                 * 选中划句，启用划句翻译
+                 * 调用百度翻译API
+                 */
+                if (ckTransSentence.isSelected() && !textArea.getSelectedText().isEmpty()) {
+                    String srcSentence = textArea.getSelectedText().trim();
+                    //启动直接翻译结果主页面
+                    Platform.runLater(() -> {
+                        try {
+                            new DirectTranslateResult().showWindow(srcSentence, event.getScreenX() + 10, event.getScreenY() + 10);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+
             });
 
         }
@@ -330,7 +323,6 @@ public class MainPage extends Application {
     }
 
 
-
     /**
      * 划词翻译
      * 用译文替换单词
@@ -374,6 +366,5 @@ public class MainPage extends Application {
         textArea.setText(replaceResult);
 
     }
-
 
 }

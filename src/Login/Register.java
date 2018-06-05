@@ -172,6 +172,9 @@ public class Register extends Application {
         stage.close();
     }
 
+    /**
+     * 注册模块
+     */
     private Service<String> mRegisterService = new Service<>() {
         @Override
         protected Task<String> createTask() {
@@ -204,69 +207,4 @@ public class Register extends Application {
             };
         }
     };
-
-    /**
-     * 注册模块
-     *
-     * @throws IOException
-     */
-    private void register() {
-
-        try {
-            String account = tfAccount.getText();
-            String password = pfPassword.getText();
-
-            URL url = new URL(Constant.URL_Register + "account=" + account + "&" + "password=" + password);
-            // 接收servlet返回值，是字节
-            InputStream is = url.openStream();
-
-            // 由于is是字节，所以我们要把它转换为String类型，否则遇到中文会出现乱码
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuffer sb = new StringBuffer();
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-            //判断结果
-            if (sb.toString().equals(Constant.FLAG_SUCCESS)) {
-
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("用户注册");
-                alert.setHeaderText(null);
-                alert.setContentText("注册成功！\n请点击\"确认\"进入主页。");
-
-                Optional<ButtonType> result = alert.showAndWait();
-                if (result.get() == ButtonType.OK) {
-
-                    //启动在线状态主页面
-                    Platform.runLater(() -> {
-                        try {
-                            new MainPage().showWindow(account);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    });
-                    //销毁当前窗口
-                    Stage stage = (Stage) btnSignUp.getScene().getWindow();
-                    stage.close();
-
-                }
-            } else if (sb.toString().equals(Constant.FLAG_ACCOUNT_EXIST)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "该账号已被注册！");
-                alert.setHeaderText(null);
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "注册失败！");
-                alert.setHeaderText(null);
-                alert.showAndWait();
-            }
-        } catch (Exception e) {
-            //网络不通的情况
-            Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常！");
-            alert.setHeaderText(null);
-            alert.showAndWait();
-
-            e.printStackTrace();
-        }
-    }
 }

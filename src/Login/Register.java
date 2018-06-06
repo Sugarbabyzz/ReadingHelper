@@ -148,7 +148,9 @@ public class Register extends Application {
                 //dismiss current window
                 pi.setDisable(true);
                 pi.setVisible(false);
-                AlertMaker.showErrorMessage("Error", "网络错误!请检查网络!");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "网络连接异常！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
             });
 
             // 真正做注册

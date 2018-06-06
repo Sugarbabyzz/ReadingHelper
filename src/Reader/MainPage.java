@@ -61,7 +61,7 @@ public class MainPage extends Application {
     @FXML
     private BorderPane borderPane;
 
-    private File CurFileName = null;//保存当前打开文件的文件目录
+    private File CurFileName = null;    //保存当前打开文件的文件目录
 
     public static void main(String[] args) {
         launch(args);
@@ -177,10 +177,11 @@ public class MainPage extends Application {
             textArea.setWrapText(true);
             textArea.setEditable(false);
 
+            //textArea注册点击事件监听
             textArea.setOnMouseClicked(event -> {
 
                 /*
-                 * 选中划词，启用双击划词翻译
+                 * 选中<划词>，启用双击划词翻译
                  */
                 if (ckTransWord.isSelected() && !ckTransSentence.isSelected() && event.getClickCount() == 2) {
 
@@ -206,8 +207,9 @@ public class MainPage extends Application {
                         }
                     });
                 }
+
                 /*
-                 * 选中划句，启用划句翻译
+                 * 选中<划句>，启用划句翻译
                  * 调用百度翻译API
                  */
                 if (ckTransSentence.isSelected() && !textArea.getSelectedText().isEmpty()) {
@@ -368,7 +370,7 @@ public class MainPage extends Application {
 
 
     /**
-     * 划词翻译
+     * 划词翻译-翻译结果
      * 获取单词释义
      *
      * @param srcWord 待翻译的单词
@@ -385,7 +387,7 @@ public class MainPage extends Application {
 
 
     /**
-     * 划词翻译
+     * 划词翻译-替换
      * 用译文替换单词
      *
      * @param replaceWord
@@ -411,7 +413,7 @@ public class MainPage extends Application {
     }
 
     /**
-     * 划词翻译
+     * 划词翻译-恢复
      * 恢复原词
      *
      * @param sourceWord
@@ -428,6 +430,11 @@ public class MainPage extends Application {
 
     }
 
+    /**
+     * 获取当前打开的文件名
+     * 应用于保存功能
+     * @return
+     */
     public File getCurFileName() {
         return CurFileName;
     }

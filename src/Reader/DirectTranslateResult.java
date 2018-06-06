@@ -22,7 +22,7 @@ public class DirectTranslateResult extends Application {
 
     Stage stage = new Stage();
 
-    // 在平台申请的APP_ID 详见 http://api.fanyi.baidu.com/api/trans/product/desktop?req=developer
+    // 百度翻译API - 在平台申请的APP_ID 详见 http://api.fanyi.baidu.com/api/trans/product/desktop?req=developer
     private static final String APP_ID = "20180429000151734";
     private static final String SECURITY_KEY = "pAi_1F_ReUEJSeQvA_QP";
 
@@ -88,6 +88,7 @@ public class DirectTranslateResult extends Application {
         taResult.setText(directResult);
         taResult.setEditable(false);
 
+        //鼠标移出窗口事件
         taResult.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
             moveout();
         });

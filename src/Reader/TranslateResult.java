@@ -152,16 +152,21 @@ public class TranslateResult extends Application {
                         setUpUIOnline();//执行顺利,初始化UI
                         pi.setDisable(true); // disable pi
                         pi.setVisible(false);
-                        //显示翻译结果
+
+
+                        /*
+                         * 翻译结果 TextArea
+                         */
                         taTransResult.setOnMouseClicked(event1 -> {
                             if (event1.getClickCount() == 2) {
 
-                                /**
-                                 * 替换
-                                 */
+
                                 replaceWord = taTransResult.getSelectedText().trim();
                                 //System.out.println(replaceWord);
                                 if (!replaceWord.isEmpty()) {
+                                    /**
+                                     * 替换
+                                     */
                                     controller.replaceWord(replaceWord);
 
                                     /**
@@ -169,6 +174,7 @@ public class TranslateResult extends Application {
                                      */
                                     transToWord.put(replaceWord, word);
                                     System.out.println(transToWord);
+
                                     /**
                                      * 提交最后一次选择的译文
                                      */
@@ -189,6 +195,10 @@ public class TranslateResult extends Application {
                                 }
                             }
                         });
+
+                        /*
+                         * 生词本图标（未加入）
+                         */
                         iconUnAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                 event1 -> new Thread(() -> Platform.runLater(() -> {
                                     try {
@@ -203,6 +213,9 @@ public class TranslateResult extends Application {
                                     }
                                 })).start());
 
+                        /*
+                         * 生词本图标（已加入）
+                         */
                         iconAddWord.addEventHandler(MouseEvent.MOUSE_CLICKED,
                                 event1 -> new Thread(() -> {
                                     Platform.runLater(() -> {
@@ -219,16 +232,20 @@ public class TranslateResult extends Application {
                                     });
                                 }).start());
 
+                        /*
+                         * 其他用户提交的翻译 TextArea
+                         */
                         taOtherTransResult.setOnMouseClicked(event1 -> {
                             if (event1.getClickCount() == 2) {
 
-                                /**
-                                 * 替换
-                                 */
+
                                 replaceWord = taOtherTransResult.getSelectedText().trim();
                                 //System.out.println(replaceWord);
 
                                 if (!replaceWord.isEmpty()) {
+                                    /**
+                                     * 替换
+                                     */
                                     controller.replaceWord(replaceWord);
 
                                     /**
@@ -236,6 +253,7 @@ public class TranslateResult extends Application {
                                      */
                                     transToWord.put(replaceWord, word);
                                     System.out.println(transToWord);
+
                                     /**
                                      * 提交最后一次选择的译文
                                      */
@@ -257,16 +275,20 @@ public class TranslateResult extends Application {
                             }
                         });
 
+                        /*
+                         * 自己提交的翻译 TextArea
+                         */
                         taSelfTrans.setOnMouseClicked(event1 -> {
                             if (event1.getClickCount() == 2) {
 
-                                /**
-                                 * 替换
-                                 */
+
                                 replaceWord = taSelfTrans.getSelectedText().trim();
                                 //System.out.println(replaceWord);
 
                                 if (!replaceWord.isEmpty()) {
+                                    /**
+                                     * 替换
+                                     */
                                     controller.replaceWord(replaceWord);
 
                                     /**
@@ -274,6 +296,7 @@ public class TranslateResult extends Application {
                                      */
                                     transToWord.put(replaceWord, word);
                                     System.out.println(transToWord);
+
                                     /**
                                      * 提交最后一次选择的译文
                                      */
@@ -295,16 +318,20 @@ public class TranslateResult extends Application {
                             }
                         });
 
+                        /*
+                         * 最后一次提交的译文 TextArea
+                         */
                         taLastChoice.setOnMouseClicked(event1 -> {
                             if (event1.getClickCount() == 2) {
 
-                                /**
-                                 * 替换
-                                 */
+
                                 replaceWord = taLastChoice.getSelectedText().trim();
                                 //System.out.println(replaceWord);
 
                                 if (!replaceWord.isEmpty()) {
+                                    /**
+                                     * 替换
+                                     */
                                     controller.replaceWord(replaceWord);
 
                                     /**
@@ -353,38 +380,38 @@ public class TranslateResult extends Application {
             }
 
         } else {
-            if (isChinese(word)){
-            /*
-             * 未登录状态，并且含有中文 - 加载 translate_result_chinese.fxml 布局
-             */
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getClassLoader().getResource("Resource/fxml/translate_result_chinese.fxml")
-            );
-            loader.setController(this);
-            Parent root = loader.load();
-            Scene scene = new Scene(root, 70, 25);
-            primaryStage.setTitle("翻译结果");
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
-            primaryStage.show();
-        }else {
-            /*
-             * 未登录状态 加载 translate_result_offline.fxml 布局
-             */
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getClassLoader().getResource("Resource/fxml/translate_result_offline.fxml")
-            );
-            loader.setController(this);
-            Parent root = loader.load();
+            if (isChinese(word)) {
+                /*
+                 * 未登录状态，并且含有中文 - 加载 translate_result_chinese.fxml 布局
+                 */
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getClassLoader().getResource("Resource/fxml/translate_result_chinese.fxml")
+                );
+                loader.setController(this);
+                Parent root = loader.load();
+                Scene scene = new Scene(root, 70, 25);
+                primaryStage.setTitle("翻译结果");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+                primaryStage.show();
+            } else {
+                /*
+                 * 未登录状态 加载 translate_result_offline.fxml 布局
+                 */
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getClassLoader().getResource("Resource/fxml/translate_result_offline.fxml")
+                );
+                loader.setController(this);
+                Parent root = loader.load();
 
-            Scene scene = new Scene(root, 300, 250);
-            primaryStage.setTitle("翻译结果");
-            primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
-            primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
-            primaryStage.show();
-        }
+                Scene scene = new Scene(root, 300, 250);
+                primaryStage.setTitle("翻译结果");
+                primaryStage.setScene(scene);
+                primaryStage.setResizable(false);
+                primaryStage.getIcons().add(new Image("/Resource/icon/mainicon.png"));
+                primaryStage.show();
+            }
 
             // create offline progress indicator
             pi = new ProgressIndicator(); // create progress indicator
@@ -401,16 +428,19 @@ public class TranslateResult extends Application {
                 pi.setDisable(true); // disable pi
                 pi.setVisible(false);
 
-                //显示翻译结果
+                /*
+                 * 翻译结果 TextArea
+                 */
                 taTransResult.setOnMouseClicked(event1 -> {
                     if (event1.getClickCount() == 2) {
 
-                        /**
-                         * 替换
-                         */
+
                         replaceWord = taTransResult.getSelectedText().trim();
                         //System.out.println(replaceWord);
                         if (!replaceWord.isEmpty()) {
+                            /**
+                             * 替换
+                             */
                             controller.replaceWord(replaceWord);
 
                             /**
@@ -787,6 +817,7 @@ public class TranslateResult extends Application {
 
     /**
      * 设置用户自己的译文
+     * 在 OfferTranslation中调用
      *
      * @param selfTrans
      */

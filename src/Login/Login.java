@@ -113,7 +113,9 @@ public class Login extends Application {
                         System.out.println("登录失败!账号或密码错误!");
                         pi.setDisable(true);
                         pi.setVisible(false);
-                        AlertMaker.showErrorMessage("登录失败", "账号或密码错误");
+                        Alert alert = new Alert(Alert.AlertType.ERROR, "账号密码错误！");
+                        alert.setHeaderText(null);
+                        alert.showAndWait();
                         break;
                     default:
                         System.out.println("UNKNOWN ERROR WHEN LOGGING IN!");

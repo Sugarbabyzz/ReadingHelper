@@ -374,7 +374,9 @@ public class TranslateResult extends Application {
                     Stage stage = (Stage) btnAddWord.getScene().getWindow();
                     stage.close();
                     //alert user
-                    AlertMaker.showErrorMessage("Error", "网络错误!请检查网络连接");
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "获取单词译文失败！\n网络连接异常！");
+                    alert.setHeaderText(null);
+                    alert.showAndWait();
                     System.out.println("Network error!");
                 });
             }
@@ -462,7 +464,9 @@ public class TranslateResult extends Application {
                 Stage stage = (Stage) taTransResult.getScene().getWindow();
                 stage.close();
                 //alert user
-                AlertMaker.showErrorMessage("Error", "网络错误!请检查网络连接");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "获取单词译文失败！\n网络连接异常！");
+                alert.setHeaderText(null);
+                alert.showAndWait();
                 System.out.println("Network error!");
             });
         }
